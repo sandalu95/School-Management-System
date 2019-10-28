@@ -1,0 +1,19 @@
+<div id="backgroundImg"></div>
+<mat-card id = "formCard">
+    <form [formGroup]="reForm" (ngSubmit)="login(reForm.value)">
+        <h1 id="heading">Login to your Account</h1>
+        <h5 id="subHeading">School Management System</h5>
+        <mat-form-field class="formField">
+            <input type="email" placeholder="Email" matInput formControlName="email">
+            <mat-error *ngIf="reForm.get('email').invalid">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="formField">
+            <input type="password" placeholder="Password" matInput formControlName="pass">
+            <mat-error *ngIf="reForm.get('pass').invalid">{{getPassErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <div id="forgotPassLabel">
+            <a routerLink=".">Forgot Password?</a>
+        </div>
+        <button type="submit" mat-raised-button color="primary" id="loginBtn">Login</button>
+    </form>
+</mat-card>
