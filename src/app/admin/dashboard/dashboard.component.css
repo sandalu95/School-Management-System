@@ -1,0 +1,30 @@
+.card {
+  max-width: 270px;
+  min-width: 270px;
+  height: 70%;
+}
+
+.secondcard {
+    width: 100%;
+    height: 100%;
+  }
+
+.card-icon {
+    font-size: 48px;
+}
+
+.students-card-icon {
+    color: green;
+}
+
+.teachers-card-icon {
+    color: lightseagreen;
+}
+
+.parents-card-icon {
+    color: orange;
+}
+
+.clerks-card-icon {
+    color: red;
+}

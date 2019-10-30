@@ -8,14 +8,20 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { NoticeComponent } from './admin/notice/notice.component';
+import { ClerksComponent } from './admin/clerks/clerks.component';
+import { TeachersComponent } from './admin/teachers/teachers.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    ToolbarComponent
+    NoticeComponent,
+    ClerksComponent,
+    TeachersComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
