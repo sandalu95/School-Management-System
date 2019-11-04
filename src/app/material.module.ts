@@ -12,7 +12,13 @@ import {
   MatMenuModule,
   MatSidenavModule,
   MatListModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDividerModule,
+  MatTabsModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -29,7 +35,13 @@ const modules = [
   MatMenuModule,
   MatSidenavModule,
   MatListModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDividerModule,
+  MatTabsModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

@@ -12,4 +12,8 @@ export class NoticeComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClickSubmit(data){
+
+  }
+
 }

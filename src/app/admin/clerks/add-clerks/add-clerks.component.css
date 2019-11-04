@@ -1,0 +1,69 @@
+.outer-container {
+    height: 90vh;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5%;
+}
+
+.mat-card {
+    box-sizing: border-box;
+    height: 100%;
+
+}
+
+.card-head {
+    height: 40px;
+}
+
+.card-head-heading {
+    margin: 0;
+}
+
+.card-body{
+    box-sizing: border-box;
+    height: 90%;
+    width: 100%;
+    padding-top: 10px;
+}
+
+form {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+.clerk-form-field {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 5px;
+}
+
+.upload-image-field {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 5px;
+    height: 100%;
+}
+
+#uploadimage {
+    margin-top: 10px;
+}
+
+#savebtn {
+    background:#ffd740;
+    color: white;
+    width: 20%;
+    margin: 10px;
+}
+
+#resetbtn {
+    background: navy;
+    color: white;
+    width: 20%;
+    margin: 10px;
+    margin-left: 60%;
+}
+
+#button-group {
+}

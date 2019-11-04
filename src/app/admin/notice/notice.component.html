@@ -1,1 +1,67 @@
-<p>notice works!</p>
+<div class="outer-container">
+    <div class="left-container">
+        <mat-card>
+            <div class="card-head">
+                <h3 class="card-head-heading">Create Notice</h3>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="card-body">
+                <form #noticeForm = "ngForm" (ngSubmit) = "onClickSubmit(noticeForm.value)">
+                    <mat-form-field appearance="outline" class="notice-form-field">
+                        <mat-label>Title</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="notice-form-field">
+                        <mat-label>Details</mat-label>
+                        <textarea matInput></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="notice-form-field">
+                        <mat-label>Posted By</mat-label>
+                        <input matInput>
+                        <mat-icon matSuffix>person</mat-icon>
+                    </mat-form-field>
+                    <button type="submit" mat-raised-button id="submitbtn">Submit</button>
+                </form>
+            </div>
+        </mat-card>
+    </div>
+    <div class="right-container">
+        <mat-card>
+            <div class="card-head">
+                <h3 class="card-head-heading">Notice Board</h3>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="scrollbar" id="style-3">
+                <div class="force-overflow">
+                    <mat-list>
+                        <mat-list-item>
+                            <h3 matLine class="notice-date"> 2016-08-19 </h3>
+                            <p matLine class="notice-name"> Sandalu Kalpanee </p>
+                            <p matLine class="notice-content"> Today due to weather no classes at 4 pm </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine class="notice-date"> 2016-08-19 </h3>
+                            <p matLine class="notice-name"> Sandalu Kalpanee </p>
+                            <p matLine class="notice-content"> Today due to weather no classes at 4 pm </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine class="notice-date"> 2016-08-19 </h3>
+                            <p matLine class="notice-name"> Sandalu Kalpanee </p>
+                            <p matLine class="notice-content"> Today due to weather no classes at 4 pm </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine class="notice-date"> 2016-08-19 </h3>
+                            <p matLine class="notice-name"> Sandalu Kalpanee </p>
+                            <p matLine class="notice-content"> Today due to weather no classes at 4 pm </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <h3 matLine class="notice-date"> 2016-08-19 </h3>
+                            <p matLine class="notice-name"> Sandalu Kalpanee </p>
+                            <p matLine class="notice-content"> Today due to weather no classes at 4 pm </p>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div> 
+        </mat-card>
+    </div>
+</div>

@@ -1,15 +1,91 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { trigger, state, transition, style, animate } from '@angular/animations';
+import { Router } from "@angular/router";
+
+export interface TeacherData {
+  id: string;
+  name: string;
+  fullname:string;
+  gender:string;
+  nic: string;
+  contact: string;
+  position:string;
+}
+
+/** Constants used to fill up our data base. */
+const NAMES: string[] = [
+  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
+  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
+];
 
 @Component({
   selector: 'app-teachers',
   templateUrl: './teachers.component.html',
-  styleUrls: ['./teachers.component.css']
+  styleUrls: ['./teachers.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ])
+  ]
 })
 export class TeachersComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['id', 'name', 'nic', 'contact'];
+  dataSource: MatTableDataSource<TeacherData>;
+  expandedTeacher: TeacherData | null;
 
-  ngOnInit() {
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  constructor(public router: Router) {
+    // Create 100 users
+    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(users);
   }
 
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  addTeacher(){
+    this.router.navigate(["./home/admin/teachers/add-teachers"], {});
+  }
+
+  editTeacher(){
+    this.router.navigate(["./home/admin/teachers/edit-teachers"], {});
+  }
+
+  viewTeacher(){
+    this.router.navigate(["./home/admin/teachers/view-teachers"], {});
+  }
+}
+
+/** Builds and returns a new User. */
+function createNewUser(id: number): TeacherData {
+  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+
+  return {
+    id: id.toString(),
+    name: name,
+    fullname:"Here comes the full name",
+    gender:"Female",
+    nic: Math.round(Math.random() * 100).toString(),
+    contact: Math.round(Math.random() * 100).toString(),
+    position:"Teacher"
+  };
 }

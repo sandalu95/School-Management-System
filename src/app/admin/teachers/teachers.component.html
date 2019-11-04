@@ -1,1 +1,79 @@
-<p>teachers works!</p>
+<div class="outer-container">
+    <div class="add-btn-container">
+        <button mat-raised-button class="add-btn" (click)="addTeacher()">
+            <mat-icon mat-card-avatar class="add-icon">add_circle</mat-icon>
+            Add Teacher
+        </button>
+        
+    </div>
+    <div class="card-container">
+        <mat-card class="card">
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                    </ng-container>
+                    
+                    <!-- Nic Column -->
+                    <ng-container matColumnDef="nic">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> NIC </th>
+                        <td mat-cell *matCellDef="let row"> {{row.nic}} </td>
+                    </ng-container>
+                    
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                    </ng-container>
+                    
+                    <!-- Contact Column -->
+                    <ng-container matColumnDef="contact">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact </th>
+                        <td mat-cell *matCellDef="let row"> {{row.contact}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+                            <div class="teacher-table-detail"
+                                [@detailExpand]="row == expandedTeacher ? 'expanded' : 'collapsed'">
+                                <mat-card class="teacher-detail-description">
+                                    <div>Full name: <span class="teacher-detail-description-attribution"> {{ row.fullname }} </span></div>
+                                    <div>Position: <span class="teacher-detail-description-attribution"> {{ row.position }} </span></div>
+                                    <div>Gender: <span class="teacher-detail-description-attribution"> {{ row.gender }} </span></div>
+                                    <div>NIC: <span class="teacher-detail-description-attribution"> {{ row.nic }} </span></div>
+                                    <div>Contact: <span class="teacher-detail-description-attribution"> {{ row.contact }} </span></div>                                 
+                                </mat-card>
+                                <div class="teacher-detail-button-group">
+                                    <div style= "margin-left: 20%;">
+                                        <button (click)="editTeacher()" mat-raised-button aria-label="Example icon-button with a edit icon" id="edit-btn" class="fab-button">
+                                            <mat-icon class="fac-icon">edit</mat-icon>
+                                        </button>
+                                        <button mat-raised-button aria-label="Example icon-button with a delete icon" id="delete-btn" class="fab-button">
+                                            <mat-icon class="fac-icon">delete</mat-icon>
+                                        </button>
+                                        <button (click)="viewTeacher()" mat-raised-button aria-label="Example icon-button with a info icon" id="info-btn" class="fab-button">
+                                            <mat-icon class="fac-icon">info</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="teacher-table-row"
+                    [class.teacher-expanded-row]="expandedTeacher === row"
+                    (click)="expandedTeacher = expandedTeacher === row ? null : row">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="teacher-detail-row"></tr>
+                </table>
+                <mat-paginator pageSize="8" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+        </mat-card>
+    </div>
+</div>
