@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from "@angular/router";
+import { Clerk } from 'src/app/models/clerk';
+import { ClerkService } from 'src/app/services/clerk.service';
 
 @Component({
   selector: 'app-add-clerks',
@@ -9,6 +11,7 @@ import { Router } from "@angular/router";
 })
 export class AddClerksComponent implements OnInit {
 
+  clerk:Clerk;
   clerkForm: FormGroup;
 
   fullnametxt:string='';
@@ -23,7 +26,7 @@ export class AddClerksComponent implements OnInit {
   firstadmissiontxt:string='';
   scladmissiontxt:string='';
 
-  constructor(private fb: FormBuilder, public router: Router) { 
+  constructor(private fb: FormBuilder, public router: Router, private dataservice:ClerkService) { 
     this.clerkForm = fb.group({
       'fullname' : [null,Validators.required],
       'nameinitials' : [null,Validators.required],
@@ -41,6 +44,21 @@ export class AddClerksComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataservice.currentClerk.subscribe(clerk=>this.clerk=clerk)
+    if(this.clerk){
+      this.clerkForm.get('fullname').setValue(this.clerk.fullname);
+      this.clerkForm.get('nameinitials').setValue(this.clerk.nameinitials);
+      this.clerkForm.get('position').setValue(this.clerk.position);
+      this.clerkForm.get('gender').setValue(this.clerk.gender);
+      this.clerkForm.get('dob').setValue(this.clerk.dob);
+      this.clerkForm.get('nic').setValue(this.clerk.nic);
+      this.clerkForm.get('address').setValue(this.clerk.address);
+      this.clerkForm.get('contact').setValue(this.clerk.contact);
+      this.clerkForm.get('email').setValue(this.clerk.email);
+      this.clerkForm.get('firstadmission').setValue(this.clerk.firstadmission);
+      this.clerkForm.get('scladmission').setValue(this.clerk.scladmission);
+      this.clerkForm.get('file').setValue(null);
+    }
   }
 
   Save(data){

@@ -2,16 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { Router } from '@angular/router';
-
-export interface ClerkData {
-  id: string;
-  name: string;
-  fullname:string;
-  gender:string;
-  nic: string;
-  contact: string;
-  position:string;
-}
+import { Clerk } from 'src/app/models/clerk';
+import { ClerkService } from 'src/app/services/clerk.service';
 
 /** Constants used to fill up our data base. */
 const NAMES: string[] = [
@@ -33,14 +25,14 @@ const NAMES: string[] = [
 })
 export class ClerksComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'nic', 'contact'];
-  dataSource: MatTableDataSource<ClerkData>;
-  expandedClerk: ClerkData | null;
+  displayedColumns: string[] = ['id', 'nameinitials', 'nic', 'contact'];
+  dataSource: MatTableDataSource<Clerk>;
+  expandedClerk: Clerk | null;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(public router: Router) { 
+  constructor(public router: Router, private dataservice:ClerkService) { 
     // Create 100 users
     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
@@ -66,6 +58,7 @@ export class ClerksComponent implements OnInit {
   }
 
   editClerk(){
+    this.dataservice.changeClerk(this.expandedClerk);
     this.router.navigate(["./home/admin/clerks/edit-clerks"], {});
   }
 
@@ -75,17 +68,23 @@ export class ClerksComponent implements OnInit {
 }
 
 /** Builds and returns a new User. */
-function createNewUser(id: number): ClerkData {
+function createNewUser(id: number): Clerk {
   const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
   return {
-    id: id.toString(),
-    name: name,
     fullname:"Here comes the full name",
+    nameinitials: name,
+    id: id.toString(),
+    position:"Clerk",
     gender:"Male",
+    dob: "2019-07-13",
     nic: Math.round(Math.random() * 100).toString(),
+    address: "Baththaramulla",
     contact: Math.round(Math.random() * 100).toString(),
-    position:"Clerk"
+    email: "sandalu@gmail.com",
+    firstadmission: "2019-07-13",
+    scladmission: "2019-07-13",
+    file:"file"
   };
 }
