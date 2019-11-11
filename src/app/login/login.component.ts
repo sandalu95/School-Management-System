@@ -6,9 +6,12 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import Swal from "sweetalert2";
 
 import { LoginService } from "./login.service";
 import { LoginRequest } from "../models/request/loginRequest";
+
+const CACHE_KEY = "httpCache";
 
 @Component({
   selector: "app-login",
@@ -39,6 +42,9 @@ export class LoginComponent implements OnInit {
 
   login(data) {
     if (!data.email && !data.pass) return;
+
+    Swal.showLoading();
+
     this.email = data.email;
     this.pass = data.pass;
 
@@ -49,10 +55,24 @@ export class LoginComponent implements OnInit {
 
     const loginObserver = {
       next: data => {
-        console.log(data.message);
-        this.router.navigate(["./home"], {});
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "success",
+          title: "Great!",
+          text: data.message
+        }).then(result => {
+          localStorage[CACHE_KEY] = JSON.stringify(data);
+          this.router.navigate(["./home"], {});
+        });
       },
-      error: error => console.log(error.error.message)
+      error: error => {
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.error.message
+        });
+      }
     };
 
     this.loginService.login(loginRequest).subscribe(loginObserver);
