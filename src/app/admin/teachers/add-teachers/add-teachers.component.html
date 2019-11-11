@@ -110,7 +110,7 @@
                     <mat-grid-tile colspan="1" rowspan="1">
                         <div class="upload-image-field">
                             <mat-label>Upload Teacher Photo</mat-label>
-                            <input id="uploadimage" type="file" formControlName="file">
+                            <input id="uploadimage" type="file" formControlName="file" (change)="onFileSelected($event)">
                         </div>
                     </mat-grid-tile>
                     <mat-grid-tile colspan="3" rowspan="1" id="button-group">
