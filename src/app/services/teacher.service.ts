@@ -24,7 +24,9 @@ export class TeacherService {
     teacher: Teacher
   ): Observable<RegisterTeacherResponse> {
     const fd = new FormData();
-    fd.append("profileImage", teacher.file, teacher.file.name);
+    if (teacher.file) {
+      fd.append("profileImage", teacher.file, teacher.file.name);
+    }
     fd.append("fullName", teacher.fullname);
     fd.append("nameWithInitial", teacher.nameinitials);
     fd.append("gender", teacher.gender);
@@ -37,6 +39,7 @@ export class TeacherService {
     fd.append("contactNumber", teacher.contact);
     fd.append("subject", teacher.subject);
     fd.append("email", teacher.email);
+
     return this.http.post<RegisterTeacherResponse>(this.apiURL, fd);
   }
 }
