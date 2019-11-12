@@ -65,6 +65,17 @@ export class ClerkService {
     if (clerk.file) {
       fd.append("profileImage", clerk.file, clerk.file.name);
     }
+    fd.append("fullName", clerk.fullname);
+    fd.append("nameWithInitial", clerk.nameinitials);
+    fd.append("gender", clerk.gender);
+    fd.append("dob", clerk.dob);
+    fd.append("firstAppoinmentDate", clerk.firstadmission);
+    fd.append("appoinmentToSchool", clerk.scladmission);
+    fd.append("position", clerk.position);
+    fd.append("nic", clerk.nic);
+    fd.append("address", clerk.address);
+    fd.append("email", clerk.email);
+    fd.append("contactNumber", clerk.contact);
 
     return this.http.patch<CommonResponse>(this.apiURL + `/${clerkId}`, fd, {
       headers: headers
