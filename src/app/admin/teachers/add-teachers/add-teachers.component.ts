@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 
 import { Teacher } from "src/app/models/teacher";
 import { TeacherService } from "src/app/services/teacher.service";
+import { error } from "@angular/compiler/src/util";
 
 @Component({
   selector: "app-add-teachers",
@@ -107,12 +108,12 @@ export class AddTeachersComponent implements OnInit {
           this.router.navigate(["./home/admin/teachers"], {});
         });
       },
-      err => {
+      error => {
         Swal.hideLoading();
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: err.error.message
+          text: error.error.error
         });
       }
     );
