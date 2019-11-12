@@ -17,6 +17,8 @@ import { AddClerksComponent } from "./admin/clerks/add-clerks/add-clerks.compone
 import { ViewTeachersComponent } from "./admin/teachers/view-teachers/view-teachers.component";
 import { ViewClerksComponent } from "./admin/clerks/view-clerks/view-clerks.component";
 import { HttpClientModule } from "@angular/common/http";
+import { EditClerksComponent } from "./admin/clerks/edit-clerks/edit-clerks.component";
+import { EditTeachersComponent } from "./admin/teachers/edit-teachers/edit-teachers.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { HttpClientModule } from "@angular/common/http";
     AddTeachersComponent,
     AddClerksComponent,
     ViewTeachersComponent,
-    ViewClerksComponent
+    ViewClerksComponent,
+    EditClerksComponent,
+    EditTeachersComponent
   ],
   imports: [
     BrowserModule,

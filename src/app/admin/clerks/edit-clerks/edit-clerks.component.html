@@ -1,0 +1,167 @@
+<div class="outer-container">
+  <mat-card>
+    <div class="card-head">
+      <h3 class="card-head-heading">Clerk Information</h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="card-body">
+      <mat-grid-list cols="4" rowHeight="90px">
+        <form [formGroup]="clerkForm" (ngSubmit)="editClerk(clerkForm.value)">
+          <mat-grid-tile colspan="3" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="fullname" required />
+              <mat-error *ngIf="clerkForm.get('fullname').invalid">{{
+                getError(clerkForm.get("fullname"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Position</mat-label>
+              <input matInput formControlName="position" required />
+              <mat-error *ngIf="clerkForm.get('position').invalid">{{
+                getError(clerkForm.get("position"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Name with initials</mat-label>
+              <input matInput formControlName="nameinitials" required />
+              <mat-error *ngIf="clerkForm.get('nameinitials').invalid">{{
+                getError(clerkForm.get("nameinitials"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" required>
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+              </mat-select>
+              <mat-error *ngIf="clerkForm.get('gender').invalid">{{
+                getError(clerkForm.get("gender"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Date of Birth</mat-label>
+              <input
+                matInput
+                [matDatepicker]="dobpicker"
+                placeholder="Choose a date"
+                formControlName="dob"
+                required
+              />
+              <mat-error *ngIf="clerkForm.get('dob').invalid">{{
+                getError(clerkForm.get("dob"))
+              }}</mat-error>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dobpicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #dobpicker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>NIC</mat-label>
+              <input matInput formControlName="nic" required />
+              <mat-error *ngIf="clerkForm.get('nic').invalid">{{
+                getError(clerkForm.get("nic"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="address" required />
+              <mat-error *ngIf="clerkForm.get('address').invalid">{{
+                getError(clerkForm.get("address"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Contact Number</mat-label>
+              <input type="tel" matInput formControlName="contact" required />
+              <mat-error *ngIf="clerkForm.get('contact').invalid">{{
+                getError(clerkForm.get("contact"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="email" required />
+              <mat-error *ngIf="clerkForm.get('email').invalid">{{
+                getError(clerkForm.get("email"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>First Appointment Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="firstadmissionpicker"
+                placeholder="Choose a date"
+                formControlName="firstadmission"
+                required
+              />
+              <mat-error *ngIf="clerkForm.get('firstadmission').invalid">{{
+                getError(clerkForm.get("firstadmission"))
+              }}</mat-error>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="firstadmissionpicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #firstadmissionpicker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Appointment to School</mat-label>
+              <input
+                matInput
+                [matDatepicker]="scladmissionpicker"
+                placeholder="Choose a date"
+                formControlName="scladmission"
+                required
+              />
+              <mat-error *ngIf="clerkForm.get('scladmission').invalid">{{
+                getError(clerkForm.get("scladmission"))
+              }}</mat-error>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="scladmissionpicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #scladmissionpicker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1"> </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <div class="upload-image-field">
+              <mat-label>Upload Clerk Photo</mat-label>
+              <input
+                id="uploadimage"
+                type="file"
+                formControlName="file"
+                (change)="onFileSelected($event)"
+              />
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="3" rowspan="1" id="button-group">
+            <button mat-raised-button id="resetbtn" (click)="clerkForm.reset()">
+              Reset
+            </button>
+            <button type="submit" mat-raised-button id="savebtn">Save</button>
+          </mat-grid-tile>
+        </form>
+      </mat-grid-list>
+    </div>
+  </mat-card>
+</div>
