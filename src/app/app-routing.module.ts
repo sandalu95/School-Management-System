@@ -11,6 +11,7 @@ import { AddClerksComponent } from "./admin/clerks/add-clerks/add-clerks.compone
 import { ViewClerksComponent } from "./admin/clerks/view-clerks/view-clerks.component";
 import { ViewTeachersComponent } from "./admin/teachers/view-teachers/view-teachers.component";
 import { EditClerksComponent } from "./admin/clerks/edit-clerks/edit-clerks.component";
+import { EditTeachersComponent } from "./admin/teachers/edit-teachers/edit-teachers.component";
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -22,7 +23,10 @@ const routes: Routes = [
       { path: "admin/dashboard", component: DashboardComponent },
       { path: "admin/teachers", component: TeachersComponent },
       { path: "admin/teachers/add-teachers", component: AddTeachersComponent },
-      { path: "admin/teachers/edit-teachers", component: AddTeachersComponent },
+      {
+        path: "admin/teachers/edit-teachers",
+        component: EditTeachersComponent
+      },
       {
         path: "admin/teachers/view-teachers",
         component: ViewTeachersComponent

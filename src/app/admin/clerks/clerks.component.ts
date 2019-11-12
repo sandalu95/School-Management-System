@@ -90,10 +90,8 @@ export class ClerksComponent implements OnInit {
       confirmButtonText: "Yes, delete it!"
     }).then(result => {
       if (result.value) {
-        Swal.showLoading();
         this.clerkService.deleteClerk(clerkId).subscribe(
           data => {
-            Swal.hideLoading();
             Swal.fire({
               icon: "success",
               title: "Deleted!",
@@ -102,7 +100,6 @@ export class ClerksComponent implements OnInit {
           },
           error => {
             console.log(error);
-            Swal.hideLoading();
             Swal.fire({
               icon: "error",
               title: "Oops...",

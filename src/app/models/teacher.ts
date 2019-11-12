@@ -13,4 +13,6 @@ export class Teacher {
   firstadmission: string;
   scladmission: string;
   file: any;
+  id: string;
+  user: string;
 }

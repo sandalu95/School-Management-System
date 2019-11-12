@@ -182,7 +182,9 @@ function createNewTeacher(id: number): Teacher {
     email: "sandalu@wso2.com",
     firstadmission: "2013-02-23",
     scladmission: "2013-02-23",
-    file: "file"
+    file: "file",
+    user: "123654",
+    id: "12233"
   };
 }
 
