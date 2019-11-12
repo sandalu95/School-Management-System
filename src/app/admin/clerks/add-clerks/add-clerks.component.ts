@@ -110,6 +110,8 @@ export class AddClerksComponent implements OnInit {
     );
   }
 
+  saveEdited(data) {}
+
   getError(texttype) {
     return texttype.hasError("required")
       ? "You must enter a value"

@@ -1,4 +1,5 @@
 export class Clerk {
+  clerkId: string;
   fullname: string;
   nameinitials: string;
   id: string;
@@ -11,5 +12,6 @@ export class Clerk {
   email: string;
   firstadmission: string;
   scladmission: string;
+  user: string;
   file: any;
 }

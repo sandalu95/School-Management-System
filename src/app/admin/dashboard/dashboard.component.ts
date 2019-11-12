@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { Student } from 'src/app/models/student';
-import { Teacher } from 'src/app/models/teacher';
-import { Parent } from 'src/app/models/parent';
-import { Clerk } from 'src/app/models/clerk';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { Student } from "src/app/models/student";
+import { Teacher } from "src/app/models/teacher";
+import { Parent } from "src/app/models/parent";
+import { Clerk } from "src/app/models/clerk";
 
 export interface UserData {
   id: string;
@@ -13,39 +13,60 @@ export interface UserData {
 }
 
 const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
+  "Maia",
+  "Asher",
+  "Olivia",
+  "Atticus",
+  "Amelia",
+  "Jack",
+  "Charlotte",
+  "Theodore",
+  "Isla",
+  "Oliver",
+  "Isabella",
+  "Jasper",
+  "Cora",
+  "Levi",
+  "Violet",
+  "Arthur",
+  "Mia",
+  "Thomas",
+  "Elizabeth"
 ];
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
-
   tabLoadTimes: Date[] = [];
 
-  studentdisplayedColumns: string[] = ['id', 'nameinitials', 'grade', 'dob'];
-  teacherdisplayedColumns: string[] = ['teacherid', 'nameinitials', 'nic', 'contact'];
-  parentdisplayedColumns: string[] = ['id', 'nameinitials', 'nic', 'contact'];
-  clerkdisplayedColumns: string[] = ['id', 'nameinitials', 'nic', 'contact'];
-  
+  studentdisplayedColumns: string[] = ["id", "nameinitials", "grade", "dob"];
+  teacherdisplayedColumns: string[] = [
+    "teacherid",
+    "nameinitials",
+    "nic",
+    "contact"
+  ];
+  parentdisplayedColumns: string[] = ["id", "nameinitials", "nic", "contact"];
+  clerkdisplayedColumns: string[] = ["id", "nameinitials", "nic", "contact"];
+
   studentdataSource: MatTableDataSource<Student>;
-  @ViewChild(MatPaginator, {static: true}) studentpaginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) studentsort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) studentpaginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) studentsort: MatSort;
 
   teacherdataSource: MatTableDataSource<Teacher>;
-  @ViewChild(MatPaginator, {static: true}) teacherpaginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) teachersort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) teacherpaginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) teachersort: MatSort;
 
   parentdataSource: MatTableDataSource<Parent>;
-  @ViewChild(MatPaginator, {static: true}) parentpaginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) parentsort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) parentpaginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) parentsort: MatSort;
 
   clerkdataSource: MatTableDataSource<Clerk>;
-  @ViewChild(MatPaginator, {static: true}) clerkpaginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) clerksort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) clerkpaginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) clerksort: MatSort;
 
   getTimeLoaded(index: number) {
     if (!this.tabLoadTimes[index]) {
@@ -56,12 +77,17 @@ export class DashboardComponent implements OnInit {
   }
 
   constructor() {
-
     // Create 100 users
-    const students = Array.from({length: 100}, (_, k) => createNewStudent(k + 1));
-    const teachers = Array.from({length: 100}, (_, k) => createNewTeacher(k + 1));
-    const parents = Array.from({length: 100}, (_, k) => createNewParent(k + 1));
-    const clerks = Array.from({length: 100}, (_, k) => createNewClerk(k + 1));
+    const students = Array.from({ length: 100 }, (_, k) =>
+      createNewStudent(k + 1)
+    );
+    const teachers = Array.from({ length: 100 }, (_, k) =>
+      createNewTeacher(k + 1)
+    );
+    const parents = Array.from({ length: 100 }, (_, k) =>
+      createNewParent(k + 1)
+    );
+    const clerks = Array.from({ length: 100 }, (_, k) => createNewClerk(k + 1));
 
     // Assign the data to the data source for the table to render
     this.studentdataSource = new MatTableDataSource(students);
@@ -116,14 +142,17 @@ export class DashboardComponent implements OnInit {
 
 /** Builds and returns a new Student */
 function createNewStudent(id: number): Student {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+  const name =
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+    " " +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+    ".";
 
   return {
-    fullname:"Here comes the full name",
+    fullname: "Here comes the full name",
     nameinitials: name,
     id: id.toString(),
-    gender:"Male",
+    gender: "Male",
     dob: "2019-07-13",
     grade: "10",
     admissionnumber: "546546",
@@ -133,16 +162,19 @@ function createNewStudent(id: number): Student {
 
 /** Builds and returns a new Teacher */
 function createNewTeacher(id: number): Teacher {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+  const name =
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+    " " +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+    ".";
 
   return {
-    fullname:"Here comes the full name",
+    fullname: "Here comes the full name",
     nameinitials: name,
     teacherid: id.toString(),
     position: "Teacher",
     subject: "Maths",
-    gender:"Male",
+    gender: "Male",
     dob: "2019-07-13",
     nic: "76997",
     address: "Baththaramulla",
@@ -156,11 +188,14 @@ function createNewTeacher(id: number): Teacher {
 
 /** Builds and returns a new Parent */
 function createNewParent(id: number): Parent {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+  const name =
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+    " " +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+    ".";
 
   return {
-    fullname:"Here comes the full name",
+    fullname: "Here comes the full name",
     nameinitials: name,
     id: id.toString(),
     relationship: "Mother",
@@ -173,15 +208,18 @@ function createNewParent(id: number): Parent {
 
 /** Builds and returns a new Clerk */
 function createNewClerk(id: number): Clerk {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+  const name =
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+    " " +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+    ".";
 
   return {
-    fullname:"Here comes the full name",
+    fullname: "Here comes the full name",
     nameinitials: name,
     id: id.toString(),
     position: "Clerk",
-    gender:"Male",
+    gender: "Male",
     dob: "2019-07-13",
     nic: "345",
     address: "Baththaramulla",
@@ -189,6 +227,8 @@ function createNewClerk(id: number): Clerk {
     email: "fdg@gamil.com",
     firstadmission: "2013-02-21",
     scladmission: "2013-02-21",
-    file: "file"
+    file: "file",
+    user: "123456",
+    clerkId: "1223"
   };
 }
