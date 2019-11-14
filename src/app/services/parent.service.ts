@@ -1,18 +1,29 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Parent } from '../models/parent';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { Parent } from "../models/parent";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { GetParentResponse } from "../models/response/getParentsResponse";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ParentService {
+  apiURL: string = "http://localhost:3000/api/user/parent";
+  user = JSON.parse(localStorage.getItem("httpCache"));
+  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   private parentSource = new BehaviorSubject<Parent>(null);
   currentParent = this.parentSource.asObservable();
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  changeParent(parent:Parent) {
+  changeParent(parent: Parent) {
     this.parentSource.next(parent);
+  }
+
+  public getAllParents(): Observable<GetParentResponse> {
+    return this.http.get<GetParentResponse>(this.apiURL, {
+      headers: this.headers
+    });
   }
 }

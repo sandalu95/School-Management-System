@@ -35,12 +35,7 @@ export class NoticeComponent implements OnInit {
         this.notices = data.notices;
       },
       error => {
-        Swal.hideLoading();
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.error.error
-        });
+        this.handleResponseError(error);
       }
     );
   }
@@ -60,17 +55,21 @@ export class NoticeComponent implements OnInit {
         });
       },
       error => {
-        Swal.hideLoading();
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.error.error
-        });
+        this.handleResponseError(error);
       }
     );
   }
 
   getError(texttype) {
     return texttype.hasError("required") ? "You must enter a value" : "";
+  }
+
+  handleResponseError(error) {
+    Swal.hideLoading();
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
   }
 }
