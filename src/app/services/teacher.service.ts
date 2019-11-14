@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Teacher } from "../models/teacher";
 import { RegisterTeacherResponse } from "src/app/models/response/registerTeacherResponse";
 import { GetTeacherResponse } from "../models/response/getTeacherResponse";
-import { GetClerkResponse } from "../models/response/getClerkResponse";
 import { CommonResponse } from "../models/response/commonResponse";
 
 @Injectable({

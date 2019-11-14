@@ -4,6 +4,13 @@ import { Student } from "src/app/models/student";
 import { Teacher } from "src/app/models/teacher";
 import { Parent } from "src/app/models/parent";
 import { Clerk } from "src/app/models/clerk";
+import { TeacherService } from "src/app/services/teacher.service";
+import { ClerkService } from "src/app/services/clerk.service";
+import { NoticeService } from "src/app/services/notice.service";
+import { StudentService } from "src/app/services/student.service";
+import Swal from "sweetalert2";
+import { Notice } from "src/app/models/notice";
+import { ParentService } from "src/app/services/parent.service";
 
 export interface UserData {
   id: string;
@@ -12,28 +19,6 @@ export interface UserData {
   color: string;
 }
 
-const NAMES: string[] = [
-  "Maia",
-  "Asher",
-  "Olivia",
-  "Atticus",
-  "Amelia",
-  "Jack",
-  "Charlotte",
-  "Theodore",
-  "Isla",
-  "Oliver",
-  "Isabella",
-  "Jasper",
-  "Cora",
-  "Levi",
-  "Violet",
-  "Arthur",
-  "Mia",
-  "Thomas",
-  "Elizabeth"
-];
-
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -41,6 +26,11 @@ const NAMES: string[] = [
 })
 export class DashboardComponent implements OnInit {
   tabLoadTimes: Date[] = [];
+  teacherCount: number;
+  clerkCount: number;
+  studentCount: number;
+  parentCount: number;
+  notices: Notice[];
 
   studentdisplayedColumns: string[] = ["id", "nameinitials", "grade", "dob"];
   teacherdisplayedColumns: string[] = [
@@ -76,35 +66,88 @@ export class DashboardComponent implements OnInit {
     return this.tabLoadTimes[index];
   }
 
-  constructor() {
-    // Create 100 users
-    const students = Array.from({ length: 100 }, (_, k) =>
-      createNewStudent(k + 1)
-    );
-    const teachers = Array.from({ length: 100 }, (_, k) =>
-      createNewTeacher(k + 1)
-    );
-    const parents = Array.from({ length: 100 }, (_, k) =>
-      createNewParent(k + 1)
-    );
-    const clerks = Array.from({ length: 100 }, (_, k) => createNewClerk(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.studentdataSource = new MatTableDataSource(students);
-    this.parentdataSource = new MatTableDataSource(parents);
-    this.teacherdataSource = new MatTableDataSource(teachers);
-    this.clerkdataSource = new MatTableDataSource(clerks);
-  }
+  constructor(
+    private teacherService: TeacherService,
+    private clerkService: ClerkService,
+    private noticeService: NoticeService,
+    private studentService: StudentService,
+    private parentService: ParentService
+  ) {}
 
   ngOnInit() {
-    this.studentdataSource.paginator = this.studentpaginator;
-    this.teacherdataSource.paginator = this.teacherpaginator;
-    this.parentdataSource.paginator = this.parentpaginator;
-    this.clerkdataSource.paginator = this.clerkpaginator;
-    this.studentdataSource.sort = this.studentsort;
-    this.teacherdataSource.sort = this.teachersort;
-    this.parentdataSource.sort = this.parentsort;
-    this.clerkdataSource.sort = this.clerksort;
+    /**
+     * call getAllTeachers webservice
+     */
+    this.teacherService.getAllTeachers().subscribe(
+      data => {
+        // Assign the data to the data source for the table to render
+        this.teacherdataSource = new MatTableDataSource(data.teachers);
+        this.teacherdataSource.paginator = this.teacherpaginator;
+        this.teacherdataSource.sort = this.teachersort;
+        this.teacherCount = data.count;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
+
+    /**
+     * call getAllClerks webservice
+     */
+    this.clerkService.getAllClerks().subscribe(
+      data => {
+        // Assign the data to the data source for the table to render
+        this.clerkdataSource = new MatTableDataSource(data.clerks);
+        this.clerkdataSource.paginator = this.clerkpaginator;
+        this.clerkdataSource.sort = this.clerksort;
+        this.clerkCount = data.count;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
+
+    /**
+     * call getAllNotices web service
+     */
+    this.noticeService.getAllNotices().subscribe(
+      data => {
+        this.notices = data.notices;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
+
+    /**
+     * call getAllStudents web service
+     */
+    this.studentService.getAllStudents().subscribe(
+      data => {
+        this.studentdataSource = new MatTableDataSource(data.students);
+        this.studentdataSource.paginator = this.studentpaginator;
+        this.studentdataSource.sort = this.studentsort;
+        this.studentCount = data.count;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
+
+    /**
+     * call getAllParents web service
+     */
+    this.parentService.getAllParents().subscribe(
+      data => {
+        this.parentdataSource = new MatTableDataSource(data.parents);
+        this.parentdataSource.paginator = this.parentpaginator;
+        this.parentdataSource.sort = this.parentsort;
+        this.parentCount = data.count;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
   }
 
   applyFilterStudent(filterValue: string) {
@@ -140,97 +183,11 @@ export class DashboardComponent implements OnInit {
   }
 }
 
-/** Builds and returns a new Student */
-function createNewStudent(id: number): Student {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    " " +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    ".";
-
-  return {
-    fullname: "Here comes the full name",
-    nameinitials: name,
-    id: id.toString(),
-    gender: "Male",
-    dob: "2019-07-13",
-    grade: "10",
-    admissionnumber: "546546",
-    admissiondate: "45634"
-  };
-}
-
-/** Builds and returns a new Teacher */
-function createNewTeacher(id: number): Teacher {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    " " +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    ".";
-
-  return {
-    fullname: "Here comes the full name",
-    nameinitials: name,
-    teacherid: id.toString(),
-    position: "Teacher",
-    subject: "Maths",
-    gender: "Male",
-    dob: "2019-07-13",
-    nic: "76997",
-    address: "Baththaramulla",
-    contact: "564",
-    email: "sandalu@wso2.com",
-    firstadmission: "2013-02-23",
-    scladmission: "2013-02-23",
-    file: "file",
-    user: "123654",
-    id: "12233"
-  };
-}
-
-/** Builds and returns a new Parent */
-function createNewParent(id: number): Parent {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    " " +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    ".";
-
-  return {
-    fullname: "Here comes the full name",
-    nameinitials: name,
-    id: id.toString(),
-    relationship: "Mother",
-    nic: "667",
-    address: "Baththaramulla",
-    contact: "767",
-    email: "sandalu@wso2.com"
-  };
-}
-
-/** Builds and returns a new Clerk */
-function createNewClerk(id: number): Clerk {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    " " +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    ".";
-
-  return {
-    fullname: "Here comes the full name",
-    nameinitials: name,
-    id: id.toString(),
-    position: "Clerk",
-    gender: "Male",
-    dob: "2019-07-13",
-    nic: "345",
-    address: "Baththaramulla",
-    contact: "5464",
-    email: "fdg@gamil.com",
-    firstadmission: "2013-02-21",
-    scladmission: "2013-02-21",
-    file: "file",
-    user: "123456",
-    clerkId: "1223"
-  };
+function handleResponseError(error) {
+  console.log(error);
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: error.error.error
+  });
 }

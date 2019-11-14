@@ -1,6 +1,6 @@
 import { Clerk } from "../clerk";
 
 export class GetClerkResponse {
-  count: Number;
+  count: number;
   clerks: Clerk[];
 }
