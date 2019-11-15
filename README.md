@@ -1,3 +1,12 @@
+#Project setup on your computer
+01. install node.js - https://nodejs.org/en/
+02. install angularCLI - npm install -g @angular/cli - run this command on command promt
+03. clone this project using - git clone 
+04. open code in visual studio code text editor.
+05. npm install - run on text editor console
+06. ng serve - run on text editor consoe
+07. you can see the project here - http://localhost:4200/ 
+
 # NewSMS
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
