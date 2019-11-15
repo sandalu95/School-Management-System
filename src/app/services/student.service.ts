@@ -8,7 +8,7 @@ import { GetStudentResponse } from "../models/response/getStudentResponse";
   providedIn: "root"
 })
 export class StudentService {
-  apiURL: string = "http://localhost:3000/api/user/student";
+  apiURL: string = "https://sms-web-service.herokuapp.com/api/user/student";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 

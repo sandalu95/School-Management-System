@@ -11,7 +11,7 @@ import { CommonResponse } from "../models/response/commonResponse";
   providedIn: "root"
 })
 export class TeacherService {
-  apiURL: string = "http://localhost:3000/api/user/teacher";
+  apiURL: string = "https://sms-web-service.herokuapp.com/api/user/teacher";
 
   private teacherSource = new BehaviorSubject<Teacher>(null);
   currentTeacher = this.teacherSource.asObservable();

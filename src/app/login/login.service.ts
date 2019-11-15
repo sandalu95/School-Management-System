@@ -9,7 +9,7 @@ import { LoginRequest } from "../models/request/loginRequest";
   providedIn: "root"
 })
 export class LoginService {
-  apiURL: string = "http://localhost:3000/api/user/login";
+  apiURL: string = "https://sms-web-service.herokuapp.com/api/user/login";
 
   constructor(private http: HttpClient) {}
 
