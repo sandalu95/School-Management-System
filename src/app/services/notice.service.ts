@@ -9,7 +9,7 @@ import { GetNoticesResponse } from "../models/response/getNoticesResponce";
   providedIn: "root"
 })
 export class NoticeService {
-  apiUrl: string = "http://localhost:3000/api/notice";
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/notice";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 

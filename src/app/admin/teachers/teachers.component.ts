@@ -46,12 +46,7 @@ export class TeachersComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error => {
-        console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.error.error
-        });
+        this.handleRespnseError(error);
       }
     );
   }
@@ -102,15 +97,19 @@ export class TeachersComponent implements OnInit {
             });
           },
           error => {
-            console.log(error);
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: error.error.error
-            });
+            this.handleRespnseError(error);
           }
         );
       }
+    });
+  }
+
+  handleRespnseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
     });
   }
 }
