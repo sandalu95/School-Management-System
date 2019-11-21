@@ -89,4 +89,14 @@ export class TeacherService {
       headers: headers
     });
   }
+
+  public getTeacherById(): Observable<GetTeacherResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+    const userId = user.userId;
+
+    return this.http.get<GetTeacherResponse>(`${this.apiURL}/${userId}`, {
+      headers: headers
+    });
+  }
 }
