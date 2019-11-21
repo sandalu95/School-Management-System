@@ -5,8 +5,9 @@ export class Student {
   gender: string;
   dob: string;
   grade: string;
+  class: string;
   admissionnumber: string;
   admissiondate: string;
   profileImage: string;
-  parentId: string;
+  parent: string;
 }

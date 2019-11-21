@@ -62,7 +62,18 @@ export class LoginComponent implements OnInit {
           text: data.message
         }).then(result => {
           localStorage[CACHE_KEY] = JSON.stringify(data);
-          this.router.navigate(["./home"], {});
+          const user = JSON.parse(localStorage.getItem("httpCache"));
+          if(user.userType=='Admin'){
+            this.router.navigate(["./home/admin"], {});
+          } else if(user.userType=='Teacher'){
+            this.router.navigate(["./home/teacher"], {});
+          } else if(user.userType=='Clerk'){
+            this.router.navigate(["./home/clerk"], {});
+          } else if(user.userType=='Student'){
+            this.router.navigate(["./home/student"], {});
+          } else if(user.userType=='Parent'){
+            this.router.navigate(["./home/parent"], {});
+          }
         });
       },
       error: error => {
