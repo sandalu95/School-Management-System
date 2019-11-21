@@ -22,10 +22,12 @@ export class HomeComponent implements OnInit {
       ];
     } else if(this.userType=='Teacher'){
       this.links=[
-        {label:'Dashboard',route:'/home/admin/dashboard'},
-        {label:'Teachers',route:'/home/admin/teachers'}, 
-        {label:'Clerks',route:'/home/admin/clerks'}, 
-        {label:'Notice',route:'/home/admin/notice'}
+        {label:'Dashboard',route:'/home/teacher/dashboard'},
+        {label:'Students',route:'/home/teacher/students'}, 
+        {label:'Parents',route:'/home/teacher/parents'}, 
+        {label:'Salary',route:'/home/teacher/salary'},
+        {label:'Leaves',route:'/home/teacher/leaves'}, 
+        {label:'Notice',route:'/home/teacher/notice'}
       ];
     } else if(this.userType=='Clerk'){
       this.links=[

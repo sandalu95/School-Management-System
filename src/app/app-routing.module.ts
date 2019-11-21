@@ -12,6 +12,15 @@ import { ViewClerksComponent } from "./admin/clerks/view-clerks/view-clerks.comp
 import { ViewTeachersComponent } from "./admin/teachers/view-teachers/view-teachers.component";
 import { EditClerksComponent } from "./admin/clerks/edit-clerks/edit-clerks.component";
 import { EditTeachersComponent } from "./admin/teachers/edit-teachers/edit-teachers.component";
+import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
+import { TeacherLeavesComponent } from './teacher/teacher-leaves/teacher-leaves.component';
+import { TeacherNoticeComponent } from './teacher/teacher-notice/teacher-notice.component';
+import { TeacherParentsComponent } from './teacher/teacher-parents/teacher-parents.component';
+import { TeacherSalaryComponent } from './teacher/teacher-salary/teacher-salary.component';
+import { TeacherStudentsComponent } from './teacher/teacher-students/teacher-students.component';
+import { TeacherAddStudentsComponent } from './teacher/teacher-students/teacher-add-students/teacher-add-students.component';
+import { TeacherEditStudentsComponent } from './teacher/teacher-students/teacher-edit-students/teacher-edit-students.component';
+import { TeacherViewStudentsComponent } from './teacher/teacher-students/teacher-view-students/teacher-view-students.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -19,7 +28,7 @@ const routes: Routes = [
     path: "home",
     component: HomeComponent,
     children: [
-      { path: "", redirectTo: "admin/dashboard", pathMatch: "full" },
+      { path: "admin", redirectTo: "admin/dashboard", pathMatch: "full" },
       { path: "admin/dashboard", component: DashboardComponent },
       { path: "admin/teachers", component: TeachersComponent },
       { path: "admin/teachers/add-teachers", component: AddTeachersComponent },
@@ -35,7 +44,23 @@ const routes: Routes = [
       { path: "admin/clerks/add-clerks", component: AddClerksComponent },
       { path: "admin/clerks/edit-clerks", component: EditClerksComponent },
       { path: "admin/clerks/view-clerks", component: ViewClerksComponent },
-      { path: "admin/notice", component: NoticeComponent }
+      { path: "admin/notice", component: NoticeComponent },
+      { path: "teacher", redirectTo: "teacher/dashboard", pathMatch: "full" },
+      { path: "teacher/dashboard", component: TeacherDashboardComponent },
+      { path: "teacher/leaves", component: TeacherLeavesComponent },
+      { path: "teacher/notice", component: TeacherNoticeComponent },
+      { path: "teacher/parents", component: TeacherParentsComponent },
+      { path: "teacher/salary", component: TeacherSalaryComponent },
+      { path: "teacher/students", component: TeacherStudentsComponent },
+      { path: "teacher/students/add-students", component: TeacherAddStudentsComponent },
+      {
+        path: "teacher/students/edit-students",
+        component: TeacherEditStudentsComponent
+      },
+      {
+        path: "teacher/students/view-students",
+        component: TeacherViewStudentsComponent
+      },
     ]
   }
 ];

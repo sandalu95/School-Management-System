@@ -1,0 +1,152 @@
+<div class="outer-container">
+  <div class="add-btn-container">
+    <button mat-raised-button class="add-btn" (click)="addStudent()">
+      <mat-icon mat-card-avatar class="add-icon">add_circle</mat-icon>
+      Add Student
+    </button>
+  </div>
+  <div class="card-container">
+    <mat-card class="card">
+      <mat-form-field>
+        <input
+          matInput
+          (keyup)="applyFilter($event.target.value)"
+          placeholder="Filter"
+        />
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          multiTemplateDataRows
+        >
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nameinitials">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Name with initials
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.nameinitials }}</td>
+          </ng-container>
+
+          <!-- Grade Column -->
+          <ng-container matColumnDef="grade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Grade</th>
+            <td mat-cell *matCellDef="let row">{{ row.grade }}</td>
+          </ng-container>
+
+          <!-- Admission Number Column -->
+          <ng-container matColumnDef="admissionnumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Admission Number</th>
+            <td mat-cell *matCellDef="let row">{{ row.admissionnumber }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="expandedDetail">
+            <td
+              mat-cell
+              *matCellDef="let row"
+              [attr.colspan]="displayedColumns.length"
+            >
+              <div
+                class="student-table-detail"
+                [@detailExpand]="
+                  row == expandedStudent ? 'expanded' : 'collapsed'
+                "
+              >
+                <mat-card class="student-detail-description">
+                  <div>
+                    Full name:
+                    <span class="student-detail-description-attribution">
+                      {{ row.fullname }}
+                    </span>
+                  </div>
+                  <div>
+                    Gender:
+                    <span class="student-detail-description-attribution">
+                      {{ row.gender }}
+                    </span>
+                  </div>
+                  <div>
+                    Grade:
+                    <span class="student-detail-description-attribution">
+                      {{ row.grade }}
+                    </span>
+                  </div>
+                  <div>
+                    Admission Number:
+                    <span class="student-detail-description-attribution">
+                      {{ row.admissionnumber }}
+                    </span>
+                  </div>
+                  <div>
+                    Admission Date:
+                    <span class="student-detail-description-attribution">
+                      {{ row.admissiondate | date }}
+                    </span>
+                  </div>
+                </mat-card>
+                <div class="student-detail-button-group">
+                  <div style="margin-left: 20%;">
+                    <button
+                      (click)="editStudent()"
+                      mat-raised-button
+                      aria-label="Example icon-button with a edit icon"
+                      id="edit-btn"
+                      class="fab-button"
+                    >
+                      <mat-icon class="fac-icon">edit</mat-icon>
+                    </button>
+                    <button
+                      mat-raised-button
+                      aria-label="Example icon-button with a delete icon"
+                      id="delete-btn"
+                      class="fab-button"
+                    >
+                      <mat-icon class="fac-icon" (click)="deleteStudent(row.id)"
+                        >delete</mat-icon
+                      >
+                    </button>
+                    <button
+                      (click)="viewStudent()"
+                      mat-raised-button
+                      aria-label="Example icon-button with a info icon"
+                      id="info-btn"
+                      class="fab-button"
+                    >
+                      <mat-icon class="fac-icon">info</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="student-table-row"
+            [class.student-expanded-row]="expandedStudent === row"
+            (click)="expandedStudent = expandedStudent === row ? null : row"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['expandedDetail']"
+            class="student-detail-row"
+          ></tr>
+        </table>
+
+        <mat-paginator
+          pageSize="8"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+      </div>
+    </mat-card>
+  </div>
+</div>
