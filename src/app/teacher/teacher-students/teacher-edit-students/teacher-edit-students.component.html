@@ -87,9 +87,13 @@
                     </mat-grid-tile>
                     <mat-grid-tile colspan="1" rowspan="1">
                         <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Parent</mat-label>
-                            <input matInput formControlName="parent" required>
-                            <mat-error *ngIf="studentForm.get('parent').invalid">{{getError(studentForm.get('parent'))}}</mat-error>
+                            <input matInput placeholder="Parent" aria-label="Parent" [matAutocomplete]="auto" formControlName="parent" required>
+                            <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let parent of filteredParents | async" [value]="parent.nameinitials">
+                                <span>{{parent.nameinitials}}</span> |
+                                <small>ParentID: {{parent.parentId}}</small>
+                            </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </mat-grid-tile>
                     <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>

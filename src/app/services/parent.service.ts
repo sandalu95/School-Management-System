@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { Parent } from "../models/parent";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { GetParentResponse } from "../models/response/getParentsResponse";
+import { CommonResponse } from '../models/response/commonResponse';
 
 @Injectable({
   providedIn: "root"
@@ -25,5 +26,9 @@ export class ParentService {
     return this.http.get<GetParentResponse>(this.apiURL, {
       headers: this.headers
     });
+  }
+
+  public editParent(id: string, parent: Parent): Observable<CommonResponse> {
+    return
   }
 }

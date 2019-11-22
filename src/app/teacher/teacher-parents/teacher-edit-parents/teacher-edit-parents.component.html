@@ -1,0 +1,77 @@
+<div class="outer-container">
+    <mat-card>
+        <div class="card-head">
+            <h3 class="card-head-heading">Parent Information</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+            <span>Edit view</span>
+            <mat-grid-list cols="4" rowHeight="90px">
+                <form [formGroup]="parentForm" (ngSubmit) = "editParent(parentForm.value)">
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput formControlName="fullname" required>
+                            <mat-error *ngIf="parentForm.get('fullname').invalid">{{getError(parentForm.get('fullname'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>Name with initials</mat-label>
+                            <input matInput formControlName="nameinitials" required>
+                            <mat-error *ngIf="parentForm.get('nameinitials').invalid">{{getError(parentForm.get('nameinitials'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>Relationship</mat-label>
+                            <mat-select formControlName="relationship" required>
+                                <mat-option value="Mother">Mother</mat-option>
+                                <mat-option value="Father">Father</mat-option>
+                                <mat-option value="Guardian">Guardian</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="parentForm.get('relationship').invalid">{{getError(parentForm.get('relationship'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>NIC</mat-label>
+                            <input matInput formControlName="nic" required>
+                            <mat-error *ngIf="parentForm.get('nic').invalid">{{getError(parentForm.get('nic'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="address" required>
+                            <mat-error *ngIf="parentForm.get('address').invalid">{{getError(parentForm.get('address'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>Contact</mat-label>
+                            <input matInput formControlName="contact" required>
+                            <mat-error *ngIf="parentForm.get('contact').invalid">{{getError(parentForm.get('contact'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="parent-form-field">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" required>
+                            <mat-error *ngIf="parentForm.get('email').invalid">{{getError(parentForm.get('email'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1"></mat-grid-tile>
+                    <mat-grid-tile colspan="4" rowspan="1"></mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1" id="button-group">
+                        <button mat-raised-button id="resetbtn" (click)="parentForm.reset()">Reset</button>
+                        <button type="submit" mat-raised-button id="savebtn">Save</button>
+                    </mat-grid-tile>
+                </form>
+            </mat-grid-list>
+        </div>
+    </mat-card>
+</div>
+
+
