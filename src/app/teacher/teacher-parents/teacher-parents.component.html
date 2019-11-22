@@ -1,1 +1,153 @@
-<p>teacher-parents works!</p>
+<div class="outer-container">
+  <div class="add-btn-container">
+    <button mat-raised-button class="add-btn" (click)="addParent()">
+      <mat-icon mat-card-avatar class="add-icon">add_circle</mat-icon>
+      Add Parent
+    </button>
+  </div>
+  <div class="card-container">
+    <mat-card class="card">
+      <mat-form-field>
+        <input
+          matInput
+          (keyup)="applyFilter($event.target.value)"
+          placeholder="Filter"
+        />
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          multiTemplateDataRows
+        >
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="nameinitials">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Name with initials
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.nameinitials }}</td>
+          </ng-container>
+
+          <!-- NIC Column -->
+          <ng-container matColumnDef="nic">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>NIC</th>
+            <td mat-cell *matCellDef="let row">{{ row.nic }}</td>
+          </ng-container>
+
+          <!-- Contact Number Column -->
+          <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact Number</th>
+            <td mat-cell *matCellDef="let row">{{ row.contact }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="expandedDetail">
+            <td
+              mat-cell
+              *matCellDef="let row"
+              [attr.colspan]="displayedColumns.length"
+            >
+              <div
+                class="parent-table-detail"
+                [@detailExpand]="
+                  row == expandedParent ? 'expanded' : 'collapsed'
+                "
+              >
+                <mat-card class="parent-detail-description">
+                  <div>
+                    Full name:
+                    <span class="parent-detail-description-attribution">
+                      {{ row.fullname }}
+                    </span>
+                  </div>
+                  <div>
+                    Relationship:
+                    <span class="parent-detail-description-attribution">
+                      {{ row.relationship }}
+                    </span>
+                  </div>
+                  <div>
+                    NIC:
+                    <span class="parent-detail-description-attribution">
+                      {{ row.nic }}
+                    </span>
+                  </div>
+                  <div>
+                    Contact Number:
+                    <span class="parent-detail-description-attribution">
+                      {{ row.contact }}
+                    </span>
+                  </div>
+                  <div>
+                    Address:
+                    <span class="parent-detail-description-attribution">
+                      {{ row.address }}
+                    </span>
+                  </div>
+                </mat-card>
+                <div class="parent-detail-button-group">
+                  <div style="margin-left: 20%;">
+                    <button
+                      (click)="editParent()"
+                      mat-raised-button
+                      aria-label="Example icon-button with a edit icon"
+                      id="edit-btn"
+                      class="fab-button"
+                    >
+                      <mat-icon class="fac-icon">edit</mat-icon>
+                    </button>
+                    <button
+                      mat-raised-button
+                      aria-label="Example icon-button with a delete icon"
+                      id="delete-btn"
+                      class="fab-button"
+                    >
+                      <mat-icon class="fac-icon" (click)="deleteParent(row.id)"
+                        >delete</mat-icon
+                      >
+                    </button>
+                    <button
+                      (click)="viewParent()"
+                      mat-raised-button
+                      aria-label="Example icon-button with a info icon"
+                      id="info-btn"
+                      class="fab-button"
+                    >
+                      <mat-icon class="fac-icon">info</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="parent-table-row"
+            [class.parent-expanded-row]="expandedParent === row"
+            (click)="expandedParent = expandedParent === row ? null : row"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['expandedDetail']"
+            class="parent-detail-row"
+          ></tr>
+        </table>
+
+        <mat-paginator
+          pageSize="8"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+        ></mat-paginator>
+      </div>
+    </mat-card>
+  </div>
+</div>
+

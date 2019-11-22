@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Parent } from 'src/app/models/parent';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-teacher-add-students',
@@ -13,6 +16,7 @@ import Swal from 'sweetalert2';
 export class TeacherAddStudentsComponent implements OnInit {
   student: Student;
   studentForm: FormGroup;
+
   selectedFile = null;
   fullnametxt: string = "";
   nameinitialstxt: string = "";
@@ -23,6 +27,43 @@ export class TeacherAddStudentsComponent implements OnInit {
   admissionnumbertxt: string = "";
   admissiondatetxt: string = "";
   parenttxt: string = "";
+
+  filteredParents: Observable<Parent[]>;
+  parentlist: Parent[] = [
+    {
+      fullname: 'Manel',
+      nameinitials: 'H.M.Manel',
+      id: 'fbdfrg',
+      relationship: 'Mother',
+      nic: '95029384v',
+      address: 'Colombo',
+      contact: '0773456789',
+      email: 'manel@gmail.com',
+      parentId: '345',
+    },
+    {
+      fullname: 'Sarath',
+      nameinitials: 'K.A.Sarath',
+      id: 'sefde',
+      relationship: 'Father',
+      nic: '93029384v',
+      address: 'Colombo',
+      contact: '0773456759',
+      email: 'sarath@gmail.com',
+      parentId: '245',
+    },
+    {
+      fullname: 'Kamal',
+      nameinitials: 'S.A.Kamal',
+      id: 'iukuy',
+      relationship: 'Mother',
+      nic: '92029384v',
+      address: 'Colombo',
+      contact: '0773656789',
+      email: 'kamal@gmail.com',
+      parentId: '325',
+    }
+  ];
 
   constructor(private fb: FormBuilder,
     public router: Router,
@@ -39,6 +80,11 @@ export class TeacherAddStudentsComponent implements OnInit {
         parent: [null, Validators.required],
         file: [null, null]
       });
+      this.filteredParents = this.studentForm.get('parent').valueChanges
+      .pipe(
+        startWith(''),
+        map(parent => parent ? this._filteredParents(parent) : this.parentlist.slice())
+      );
   }
 
   ngOnInit() {
@@ -46,6 +92,12 @@ export class TeacherAddStudentsComponent implements OnInit {
 
   onFileSelected(event) {
     this.selectedFile = event.target.files[0];
+  }
+
+  private _filteredParents(value: string): Parent[] {
+    const filterValue = value.toLowerCase();
+
+    return this.parentlist.filter(parent => parent.nameinitials.toLowerCase().indexOf(filterValue) === 0);
   }
 
   Save(data) {

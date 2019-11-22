@@ -9,6 +9,7 @@ import { Parent } from "src/app/models/parent";
   styleUrls: ["./teacher-view-students.component.css"]
 })
 export class TeacherViewStudentsComponent implements OnInit {
+
   public student: Student;
   fullname: string;
   nameWithInitial: string;

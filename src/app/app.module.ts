@@ -28,6 +28,9 @@ import { TeacherLeavesComponent } from './teacher/teacher-leaves/teacher-leaves.
 import { TeacherAddStudentsComponent } from './teacher/teacher-students/teacher-add-students/teacher-add-students.component';
 import { TeacherEditStudentsComponent } from './teacher/teacher-students/teacher-edit-students/teacher-edit-students.component';
 import { TeacherViewStudentsComponent } from './teacher/teacher-students/teacher-view-students/teacher-view-students.component';
+import { TeacherAddParentsComponent } from './teacher/teacher-parents/teacher-add-parents/teacher-add-parents.component';
+import { TeacherEditParentsComponent } from './teacher/teacher-parents/teacher-edit-parents/teacher-edit-parents.component';
+import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { TeacherViewStudentsComponent } from './teacher/teacher-students/teacher
     TeacherLeavesComponent,
     TeacherAddStudentsComponent,
     TeacherEditStudentsComponent,
-    TeacherViewStudentsComponent
+    TeacherViewStudentsComponent,
+    TeacherAddParentsComponent,
+    TeacherEditParentsComponent,
+    TeacherViewParentsComponent
   ],
   imports: [
     BrowserModule,
