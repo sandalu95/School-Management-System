@@ -28,11 +28,26 @@ export class ParentService {
     });
   }
 
-  public editParent(id: string, parent: Parent): Observable<CommonResponse> {
-    return;
+  public editParent(
+    parentId: string,
+    parent: Parent
+  ): Observable<CommonResponse> {
+    return this.http.patch<CommonResponse>(
+      this.apiURL + `/${parentId}`,
+      parent,
+      {
+        headers: this.headers
+      }
+    );
   }
 
   public registerParent(parent: Parent): Observable<CommonResponse> {
     return this.http.post<CommonResponse>(this.apiURL, parent);
+  }
+
+  public deleteParent(parentId: string): Observable<CommonResponse> {
+    return this.http.delete<CommonResponse>(this.apiURL + `/${parentId}`, {
+      headers: this.headers
+    });
   }
 }

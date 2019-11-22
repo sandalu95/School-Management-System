@@ -1,15 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Parent } from 'src/app/models/parent';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { Router } from '@angular/router';
-import { ParentService } from 'src/app/services/parent.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
+import { Parent } from "src/app/models/parent";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { Router } from "@angular/router";
+import { ParentService } from "src/app/services/parent.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-teacher-parents',
-  templateUrl: './teacher-parents.component.html',
-  styleUrls: ['./teacher-parents.component.css'],
+  selector: "app-teacher-parents",
+  templateUrl: "./teacher-parents.component.html",
+  styleUrls: ["./teacher-parents.component.css"],
   animations: [
     trigger("detailExpand", [
       state("collapsed", style({ height: "0px", minHeight: "0" })),
@@ -29,7 +35,7 @@ export class TeacherParentsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public router: Router, private parentService: ParentService) { }
+  constructor(public router: Router, private parentService: ParentService) {}
 
   ngOnInit() {
     this.parentService.getAllParents().subscribe(
@@ -40,12 +46,7 @@ export class TeacherParentsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error => {
-        console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.error.error
-        });
+        this.handleRespnseError(error);
       }
     );
   }
@@ -72,7 +73,7 @@ export class TeacherParentsComponent implements OnInit {
     this.router.navigate(["./home/teacher/parents/view-parents"], {});
   }
 
-  deleteParent(id: string) {
+  deleteParent(parentId: string) {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -84,9 +85,30 @@ export class TeacherParentsComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         Swal.close();
-        //Edit the service and fill this part
+        this.parentService.deleteParent(parentId).subscribe(
+          data => {
+            Swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: data.message
+            }).then(res => {
+              this.router.navigate(["./home/admin/parents"], {});
+            });
+          },
+          error => {
+            this.handleRespnseError(error);
+          }
+        );
       }
     });
   }
 
+  handleRespnseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
+  }
 }
