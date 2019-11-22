@@ -31,6 +31,8 @@ import { TeacherViewStudentsComponent } from './teacher/teacher-students/teacher
 import { TeacherAddParentsComponent } from './teacher/teacher-parents/teacher-add-parents/teacher-add-parents.component';
 import { TeacherEditParentsComponent } from './teacher/teacher-parents/teacher-edit-parents/teacher-edit-parents.component';
 import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component';
+import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.component';
+import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-v
     TeacherViewStudentsComponent,
     TeacherAddParentsComponent,
     TeacherEditParentsComponent,
-    TeacherViewParentsComponent
+    TeacherViewParentsComponent,
+    TeacherNotesComponent,
+    TeacherMarksComponent
   ],
   imports: [
     BrowserModule,
