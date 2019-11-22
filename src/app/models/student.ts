@@ -1,6 +1,7 @@
 import { Parent } from "./parent";
 
 export class Student {
+  studentId: string;
   fullname: string;
   nameinitials: string;
   id: string;
@@ -8,8 +9,9 @@ export class Student {
   dob: string;
   grade: string;
   class: string;
+  address: string;
   admissionnumber: string;
   admissiondate: string;
-  profileImage: string;
+  profileImage: any;
   parent: Parent;
 }

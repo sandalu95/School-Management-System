@@ -1,15 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Student } from 'src/app/models/student';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { Router } from '@angular/router';
-import { StudentService } from 'src/app/services/student.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
+import { Student } from "src/app/models/student";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { Router } from "@angular/router";
+import { StudentService } from "src/app/services/student.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-teacher-students',
-  templateUrl: './teacher-students.component.html',
-  styleUrls: ['./teacher-students.component.css'],
+  selector: "app-teacher-students",
+  templateUrl: "./teacher-students.component.html",
+  styleUrls: ["./teacher-students.component.css"],
   animations: [
     trigger("detailExpand", [
       state("collapsed", style({ height: "0px", minHeight: "0" })),
@@ -22,14 +28,19 @@ import Swal from 'sweetalert2';
   ]
 })
 export class TeacherStudentsComponent implements OnInit {
-  displayedColumns: string[] = ["id", "nameinitials", "grade", "admissionnumber"];
+  displayedColumns: string[] = [
+    "id",
+    "nameinitials",
+    "grade",
+    "admissionnumber"
+  ];
   dataSource: MatTableDataSource<Student>;
   expandedStudent: Student | null;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(public router: Router, private studentService: StudentService) { }
+  constructor(public router: Router, private studentService: StudentService) {}
 
   ngOnInit() {
     this.studentService.getAllStudents().subscribe(
@@ -40,12 +51,7 @@ export class TeacherStudentsComponent implements OnInit {
         this.dataSource.sort = this.sort;
       },
       error => {
-        console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.error.error
-        });
+        this.handleRespnseError(error);
       }
     );
   }
@@ -72,7 +78,7 @@ export class TeacherStudentsComponent implements OnInit {
     this.router.navigate(["./home/teacher/students/view-students"], {});
   }
 
-  deleteStudent(id: string) {
+  deleteStudent(studentId: string) {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -84,8 +90,30 @@ export class TeacherStudentsComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         Swal.close();
-        //Edit the service and fill this part
+        this.studentService.deleteStudent(studentId).subscribe(
+          data => {
+            Swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: data.message
+            }).then(res => {
+              this.router.navigate(["./home/admin/students"], {});
+            });
+          },
+          error => {
+            this.handleRespnseError(error);
+          }
+        );
       }
+    });
+  }
+
+  handleRespnseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
     });
   }
 }

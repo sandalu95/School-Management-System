@@ -1,34 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { Parent } from 'src/app/models/parent';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ParentService } from 'src/app/services/parent.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { Parent } from "src/app/models/parent";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ParentService } from "src/app/services/parent.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-teacher-edit-parents',
-  templateUrl: './teacher-edit-parents.component.html',
-  styleUrls: ['./teacher-edit-parents.component.css']
+  selector: "app-teacher-edit-parents",
+  templateUrl: "./teacher-edit-parents.component.html",
+  styleUrls: ["./teacher-edit-parents.component.css"]
 })
 export class TeacherEditParentsComponent implements OnInit {
   parent: Parent;
   parentForm: FormGroup;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     public router: Router,
-    private parentService: ParentService) { 
-      this.parentForm = fb.group({
-        fullname: [null, Validators.required],
-        nameinitials: [null, Validators.required],
-        relationship: [null, Validators.required],
-        nic: [null, Validators.required],
-        address: [null, Validators.required],
-        contact: [null, Validators.required],
-        email: [
-          null,
-          Validators.compose([Validators.required, Validators.email])
-        ]
-      });
+    private parentService: ParentService
+  ) {
+    this.parentForm = fb.group({
+      fullname: [null, Validators.required],
+      nameinitials: [null, Validators.required],
+      relationship: [null, Validators.required],
+      nic: [null, Validators.required],
+      address: [null, Validators.required],
+      contact: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])]
+    });
   }
 
   ngOnInit() {
@@ -46,12 +45,12 @@ export class TeacherEditParentsComponent implements OnInit {
     }
   }
 
-  editParent(data) {
+  editParent(data: Parent) {
     if (this.parentForm.invalid) return;
 
     Swal.showLoading();
 
-    this.parentService.editParent(this.parent.id, data).subscribe(
+    this.parentService.editParent(this.parent.parentId, data).subscribe(
       data => {
         Swal.hideLoading();
         Swal.fire({
@@ -81,5 +80,4 @@ export class TeacherEditParentsComponent implements OnInit {
       ? "Not a valid email"
       : "";
   }
-
 }

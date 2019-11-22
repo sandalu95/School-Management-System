@@ -1,116 +1,174 @@
 <div class="outer-container">
-    <mat-card>
-        <div class="card-head">
-            <h3 class="card-head-heading">Student Information</h3>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="card-body">
-            <span>Edit view</span>
-            <mat-grid-list cols="4" rowHeight="90px">
-                <form [formGroup]="studentForm" (ngSubmit) = "editStudent(studentForm.value)">
-                    <mat-grid-tile colspan="3" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Full Name</mat-label>
-                            <input matInput formControlName="fullname" required>
-                            <mat-error *ngIf="studentForm.get('fullname').invalid">{{getError(studentForm.get('fullname'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Name with initials</mat-label>
-                            <input matInput formControlName="nameinitials" required>
-                            <mat-error *ngIf="studentForm.get('nameinitials').invalid">{{getError(studentForm.get('nameinitials'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Gender</mat-label>
-                            <mat-select formControlName="gender" required>
-                                <mat-option value="Male">Male</mat-option>
-                                <mat-option value="Female">Female</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="studentForm.get('gender').invalid">{{getError(studentForm.get('gender'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Grade</mat-label>
-                            <mat-select formControlName="grade" required>
-                                <mat-option value="1">1</mat-option>
-                                <mat-option value="2">2</mat-option>
-                                <mat-option value="3">3</mat-option>
-                                <mat-option value="4">4</mat-option>
-                                <mat-option value="5">5</mat-option>
-                                <mat-option value="6">6</mat-option>
-                                <mat-option value="7">7</mat-option>
-                                <mat-option value="8">8</mat-option>
-                                <mat-option value="9">9</mat-option>
-                                <mat-option value="10">10</mat-option>
-                                <mat-option value="11">11</mat-option>
-                                <mat-option value="12">12</mat-option>
-                                <mat-option value="13">13</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="studentForm.get('grade').invalid">{{getError(studentForm.get('grade'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Class</mat-label>
-                            <input matInput formControlName="class" required>
-                            <mat-error *ngIf="studentForm.get('class').invalid">{{getError(studentForm.get('class'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Date of Birth</mat-label>
-                            <input matInput [matDatepicker]="dobpicker" placeholder="Choose a date" formControlName="dob" required>
-                            <mat-error *ngIf="studentForm.get('dob').invalid">{{getError(studentForm.get('dob'))}}</mat-error>
-                            <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
-                            <mat-datepicker touchUi #dobpicker></mat-datepicker>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Admission Number</mat-label>
-                            <input matInput formControlName="admissionnumber" required>
-                            <mat-error *ngIf="studentForm.get('admissionnumber').invalid">{{getError(studentForm.get('admissionnumber'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <mat-label>Admission Date</mat-label>
-                            <input matInput [matDatepicker]="admissiondatepicker" placeholder="Choose a date" formControlName="admissiondate" required>
-                            <mat-error *ngIf="studentForm.get('admissiondate').invalid">{{getError(studentForm.get('admissiondate'))}}</mat-error>
-                            <mat-datepicker-toggle matSuffix [for]="admissiondatepicker"></mat-datepicker-toggle>
-                            <mat-datepicker touchUi #admissiondatepicker></mat-datepicker>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="student-form-field">
-                            <input matInput placeholder="Parent" aria-label="Parent" [matAutocomplete]="auto" formControlName="parent" required>
-                            <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let parent of filteredParents | async" [value]="parent.nameinitials">
-                                <span>{{parent.nameinitials}}</span> |
-                                <small>ParentID: {{parent.parentId}}</small>
-                            </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <div class="upload-image-field">
-                            <mat-label>Upload Student Photo</mat-label>
-                            <input id="uploadimage" type="file" formControlName="file" (change)="onFileSelected($event)">
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="3" rowspan="1"></mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
-                    <mat-grid-tile colspan="3" rowspan="1" id="button-group">
-                        <button mat-raised-button id="resetbtn" (click)="studentForm.reset()">Reset</button>
-                        <button type="submit" mat-raised-button id="savebtn">Save</button>
-                    </mat-grid-tile>
-                </form>
-            </mat-grid-list>
-        </div>
-    </mat-card>
+  <mat-card>
+    <div class="card-head">
+      <h3 class="card-head-heading">Student Information</h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="card-body">
+      <span>Edit view</span>
+      <mat-grid-list cols="4" rowHeight="90px">
+        <form
+          [formGroup]="studentForm"
+          (ngSubmit)="editStudent(studentForm.value)"
+        >
+          <mat-grid-tile colspan="3" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="fullname" required />
+              <mat-error *ngIf="studentForm.get('fullname').invalid">{{
+                getError(studentForm.get("fullname"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Name with initials</mat-label>
+              <input matInput formControlName="nameinitials" required />
+              <mat-error *ngIf="studentForm.get('nameinitials').invalid">{{
+                getError(studentForm.get("nameinitials"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" required>
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+              </mat-select>
+              <mat-error *ngIf="studentForm.get('gender').invalid">{{
+                getError(studentForm.get("gender"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Grade</mat-label>
+              <mat-select formControlName="grade" required>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+                <mat-option value="5">5</mat-option>
+                <mat-option value="6">6</mat-option>
+                <mat-option value="7">7</mat-option>
+                <mat-option value="8">8</mat-option>
+                <mat-option value="9">9</mat-option>
+                <mat-option value="10">10</mat-option>
+                <mat-option value="11">11</mat-option>
+                <mat-option value="12">12</mat-option>
+                <mat-option value="13">13</mat-option>
+              </mat-select>
+              <mat-error *ngIf="studentForm.get('grade').invalid">{{
+                getError(studentForm.get("grade"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Class</mat-label>
+              <input matInput formControlName="class" required />
+              <mat-error *ngIf="studentForm.get('class').invalid">{{
+                getError(studentForm.get("class"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Date of Birth</mat-label>
+              <input
+                matInput
+                [matDatepicker]="dobpicker"
+                placeholder="Choose a date"
+                formControlName="dob"
+                required
+              />
+              <mat-error *ngIf="studentForm.get('dob').invalid">{{
+                getError(studentForm.get("dob"))
+              }}</mat-error>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dobpicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #dobpicker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Admission Number</mat-label>
+              <input matInput formControlName="admissionnumber" required />
+              <mat-error *ngIf="studentForm.get('admissionnumber').invalid">{{
+                getError(studentForm.get("admissionnumber"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <mat-label>Admission Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="admissiondatepicker"
+                placeholder="Choose a date"
+                formControlName="admissiondate"
+                required
+              />
+              <mat-error *ngIf="studentForm.get('admissiondate').invalid">{{
+                getError(studentForm.get("admissiondate"))
+              }}</mat-error>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="admissiondatepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker touchUi #admissiondatepicker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="student-form-field">
+              <input
+                matInput
+                placeholder="Parent"
+                aria-label="Parent"
+                [matAutocomplete]="auto"
+                formControlName="parent"
+                required
+              />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let parent of filteredParents | async"
+                  [value]="parent.parentId"
+                >
+                  <span>{{ parent.nameinitials }}</span> |
+                  <small>ParentID: {{ parent.parentId }}</small>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <div class="upload-image-field">
+              <mat-label>Upload Student Photo</mat-label>
+              <input
+                id="uploadimage"
+                type="file"
+                formControlName="file"
+                (change)="onFileSelected($event)"
+              />
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="3" rowspan="1"></mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+          <mat-grid-tile colspan="3" rowspan="1" id="button-group">
+            <button
+              mat-raised-button
+              id="resetbtn"
+              (click)="studentForm.reset()"
+            >
+              Reset
+            </button>
+            <button type="submit" mat-raised-button id="savebtn">Save</button>
+          </mat-grid-tile>
+        </form>
+      </mat-grid-list>
+    </div>
+  </mat-card>
 </div>

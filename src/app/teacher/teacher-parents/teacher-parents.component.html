@@ -43,7 +43,9 @@
 
           <!-- Contact Number Column -->
           <ng-container matColumnDef="contact">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact Number</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Contact Number
+            </th>
             <td mat-cell *matCellDef="let row">{{ row.contact }}</td>
           </ng-container>
 
@@ -108,7 +110,9 @@
                       id="delete-btn"
                       class="fab-button"
                     >
-                      <mat-icon class="fac-icon" (click)="deleteParent(row.id)"
+                      <mat-icon
+                        class="fac-icon"
+                        (click)="deleteParent(row.parentId)"
                         >delete</mat-icon
                       >
                     </button>
@@ -150,4 +154,3 @@
     </mat-card>
   </div>
 </div>
-

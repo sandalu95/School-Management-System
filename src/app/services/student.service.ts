@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { Student } from "../models/student";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { GetStudentResponse } from "../models/response/getStudentResponse";
-import { CommonResponse } from '../models/response/commonResponse';
+import { CommonResponse } from "../models/response/commonResponse";
 
 @Injectable({
   providedIn: "root"
@@ -28,30 +28,52 @@ export class StudentService {
     });
   }
 
-  public editStudent(id: string, student: Student): Observable<CommonResponse> {
-    // const user = JSON.parse(localStorage.getItem("httpCache"));
-    // const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+  public registerStudent(student: any): Observable<CommonResponse> {
+    const fd = new FormData();
+    if (student.file) {
+      fd.append("profileImage", student.file, student.file.name);
+    }
+    fd.append("fullName", student.fullname);
+    fd.append("nameWithInitial", student.nameinitials);
+    fd.append("gender", student.gender);
+    fd.append("dob", student.dob);
+    fd.append("address", student.address);
+    fd.append("admissionDate", student.admissiondate);
+    fd.append("admissionNumber", student.admissionnumber);
+    fd.append("grade", student.grade);
+    fd.append("class", student.class);
+    fd.append("parentId", student.parent);
 
-    // const fd = new FormData();
-    // if (teacher.file) {
-    //   fd.append("profileImage", teacher.file, teacher.file.name);
-    // }
-    // fd.append("fullName", teacher.fullname);
-    // fd.append("nameWithInitial", teacher.nameinitials);
-    // fd.append("gender", teacher.gender);
-    // fd.append("dob", teacher.dob);
-    // fd.append("firstAppoinmentDate", teacher.firstadmission);
-    // fd.append("appoinmentToSchool", teacher.scladmission);
-    // fd.append("position", teacher.position);
-    // fd.append("nic", teacher.nic);
-    // fd.append("address", teacher.address);
-    // fd.append("contactNumber", teacher.contact);
-    // fd.append("subject", teacher.subject);
-    // fd.append("email", teacher.email);
+    return this.http.post<CommonResponse>(this.apiURL, fd);
+  }
 
-    // return this.http.patch<CommonResponse>(this.apiURL + `/${teacherId}`, fd, {
-    //   headers: headers
-    // });
-    return
+  public editStudent(
+    studentId: string,
+    student: any
+  ): Observable<CommonResponse> {
+    const fd = new FormData();
+    if (student.file) {
+      fd.append("profileImage", student.file, student.file.name);
+    }
+    fd.append("fullName", student.fullname);
+    fd.append("nameWithInitial", student.nameinitials);
+    fd.append("gender", student.gender);
+    fd.append("dob", student.dob);
+    fd.append("address", student.address);
+    fd.append("admissionDate", student.admissiondate);
+    fd.append("admissionNumber", student.admissionnumber);
+    fd.append("grade", student.grade);
+    fd.append("class", student.class);
+    fd.append("parentId", student.parent);
+
+    return this.http.patch<CommonResponse>(this.apiURL + `/${studentId}`, fd, {
+      headers: this.headers
+    });
+  }
+
+  public deleteStudent(studentId: string): Observable<CommonResponse> {
+    return this.http.delete<CommonResponse>(this.apiURL + `/${studentId}`, {
+      headers: this.headers
+    });
   }
 }

@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from 'src/app/models/student';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { StudentService } from 'src/app/services/student.service';
-import Swal from 'sweetalert2';
-import { Observable } from 'rxjs';
-import { Parent } from 'src/app/models/parent';
-import { startWith, map } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { Student } from "src/app/models/student";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { StudentService } from "src/app/services/student.service";
+import Swal from "sweetalert2";
+import { Observable } from "rxjs";
+import { Parent } from "src/app/models/parent";
+import { startWith, map } from "rxjs/operators";
+import { ParentService } from "src/app/services/parent.service";
 
 @Component({
-  selector: 'app-teacher-edit-students',
-  templateUrl: './teacher-edit-students.component.html',
-  styleUrls: ['./teacher-edit-students.component.css']
+  selector: "app-teacher-edit-students",
+  templateUrl: "./teacher-edit-students.component.html",
+  styleUrls: ["./teacher-edit-students.component.css"]
 })
 export class TeacherEditStudentsComponent implements OnInit {
   student: Student;
@@ -19,62 +20,26 @@ export class TeacherEditStudentsComponent implements OnInit {
   selectedFile = null;
 
   filteredParents: Observable<Parent[]>;
-  parentlist: Parent[] = [
-    {
-      fullname: 'Manel',
-      nameinitials: 'H.M.Manel',
-      id: 'fbdfrg',
-      relationship: 'Mother',
-      nic: '95029384v',
-      address: 'Colombo',
-      contact: '0773456789',
-      email: 'manel@gmail.com',
-      parentId: '345',
-    },
-    {
-      fullname: 'Sarath',
-      nameinitials: 'K.A.Sarath',
-      id: 'sefde',
-      relationship: 'Father',
-      nic: '93029384v',
-      address: 'Colombo',
-      contact: '0773456759',
-      email: 'sarath@gmail.com',
-      parentId: '245',
-    },
-    {
-      fullname: 'Kamal',
-      nameinitials: 'S.A.Kamal',
-      id: 'iukuy',
-      relationship: 'Mother',
-      nic: '92029384v',
-      address: 'Colombo',
-      contact: '0773656789',
-      email: 'kamal@gmail.com',
-      parentId: '325',
-    }
-  ];
+  parentlist: Parent[] = null;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     public router: Router,
-    private studentService: StudentService) {
-      this.studentForm = fb.group({
-        fullname: [null, Validators.required],
-        nameinitials: [null, Validators.required],
-        gender: [null, Validators.required],
-        grade: [null, Validators.required],
-        class: [null, Validators.required],
-        dob: [null, Validators.required],
-        admissionnumber: [null, Validators.required],
-        admissiondate: [null, Validators.required],
-        parent: [null, Validators.required],
-        file: [null, null]
-      });
-      this.filteredParents = this.studentForm.get('parent').valueChanges
-      .pipe(
-        startWith(''),
-        map(parent => parent ? this._filteredParents(parent) : this.parentlist.slice())
-      );
+    private studentService: StudentService,
+    private parentService: ParentService
+  ) {
+    this.studentForm = fb.group({
+      fullname: [null, Validators.required],
+      nameinitials: [null, Validators.required],
+      gender: [null, Validators.required],
+      grade: [null, Validators.required],
+      class: [null, Validators.required],
+      dob: [null, Validators.required],
+      admissionnumber: [null, Validators.required],
+      admissiondate: [null, Validators.required],
+      parent: [null, Validators.required],
+      file: [null, null]
+    });
   }
 
   ngOnInit() {
@@ -88,11 +53,31 @@ export class TeacherEditStudentsComponent implements OnInit {
       this.studentForm.get("grade").setValue(this.student.grade);
       this.studentForm.get("class").setValue(this.student.class);
       this.studentForm.get("dob").setValue(this.student.dob);
-      this.studentForm.get("admissionnumber").setValue(this.student.admissionnumber);
-      this.studentForm.get("admissiondate").setValue(this.student.admissiondate);
-      this.studentForm.get("parent").setValue(this.student.parent);
+      this.studentForm
+        .get("admissionnumber")
+        .setValue(this.student.admissionnumber);
+      this.studentForm
+        .get("admissiondate")
+        .setValue(this.student.admissiondate);
+      this.studentForm.get("parent").setValue(this.student.parent.parentId);
       this.studentForm.get("file").setValue(null);
     }
+
+    this.parentService.getAllParents().subscribe(
+      data => {
+        this.parentlist = data.parents;
+        console.log(this.parentlist);
+        this.filteredParents = this.studentForm.get("parent").valueChanges.pipe(
+          startWith(""),
+          map(parent =>
+            parent ? this._filteredParents(parent) : this.parentlist.slice()
+          )
+        );
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
   }
 
   onFileSelected(event) {
@@ -102,7 +87,9 @@ export class TeacherEditStudentsComponent implements OnInit {
   private _filteredParents(value: string): Parent[] {
     const filterValue = value.toLowerCase();
 
-    return this.parentlist.filter(parent => parent.nameinitials.toLowerCase().indexOf(filterValue) === 0);
+    return this.parentlist.filter(
+      parent => parent.nameinitials.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
   editStudent(data) {
@@ -112,7 +99,7 @@ export class TeacherEditStudentsComponent implements OnInit {
 
     data.file = this.selectedFile;
 
-    this.studentService.editStudent(this.student.id, data).subscribe(
+    this.studentService.editStudent(this.student.studentId, data).subscribe(
       data => {
         Swal.hideLoading();
         Swal.fire({
@@ -143,4 +130,12 @@ export class TeacherEditStudentsComponent implements OnInit {
       : "";
   }
 
+  handleResponseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
+  }
 }

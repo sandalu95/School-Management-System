@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from 'src/app/models/student';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StudentService } from 'src/app/services/student.service';
-import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { Parent } from 'src/app/models/parent';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { Student } from "src/app/models/student";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { StudentService } from "src/app/services/student.service";
+import { Router } from "@angular/router";
+import Swal from "sweetalert2";
+import { Parent } from "src/app/models/parent";
+import { Observable } from "rxjs";
+import { map, startWith } from "rxjs/operators";
+import { ParentService } from "src/app/services/parent.service";
 
 @Component({
-  selector: 'app-teacher-add-students',
-  templateUrl: './teacher-add-students.component.html',
-  styleUrls: ['./teacher-add-students.component.css']
+  selector: "app-teacher-add-students",
+  templateUrl: "./teacher-add-students.component.html",
+  styleUrls: ["./teacher-add-students.component.css"]
 })
 export class TeacherAddStudentsComponent implements OnInit {
   student: Student;
@@ -29,66 +30,45 @@ export class TeacherAddStudentsComponent implements OnInit {
   parenttxt: string = "";
 
   filteredParents: Observable<Parent[]>;
-  parentlist: Parent[] = [
-    {
-      fullname: 'Manel',
-      nameinitials: 'H.M.Manel',
-      id: 'fbdfrg',
-      relationship: 'Mother',
-      nic: '95029384v',
-      address: 'Colombo',
-      contact: '0773456789',
-      email: 'manel@gmail.com',
-      parentId: '345',
-    },
-    {
-      fullname: 'Sarath',
-      nameinitials: 'K.A.Sarath',
-      id: 'sefde',
-      relationship: 'Father',
-      nic: '93029384v',
-      address: 'Colombo',
-      contact: '0773456759',
-      email: 'sarath@gmail.com',
-      parentId: '245',
-    },
-    {
-      fullname: 'Kamal',
-      nameinitials: 'S.A.Kamal',
-      id: 'iukuy',
-      relationship: 'Mother',
-      nic: '92029384v',
-      address: 'Colombo',
-      contact: '0773656789',
-      email: 'kamal@gmail.com',
-      parentId: '325',
-    }
-  ];
+  parentlist: Parent[] = null;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     public router: Router,
-    private studentService: StudentService) {
-      this.studentForm = fb.group({
-        fullname: [null, Validators.required],
-        nameinitials: [null, Validators.required],
-        gender: [null, Validators.required],
-        grade: [null, Validators.required],
-        class: [null, Validators.required],
-        dob: [null, Validators.required],
-        admissionnumber: [null, Validators.required],
-        admissiondate: [null, Validators.required],
-        parent: [null, Validators.required],
-        file: [null, null]
-      });
-      this.filteredParents = this.studentForm.get('parent').valueChanges
-      .pipe(
-        startWith(''),
-        map(parent => parent ? this._filteredParents(parent) : this.parentlist.slice())
-      );
+    private studentService: StudentService,
+    private parentService: ParentService
+  ) {
+    this.studentForm = fb.group({
+      fullname: [null, Validators.required],
+      nameinitials: [null, Validators.required],
+      gender: [null, Validators.required],
+      grade: [null, Validators.required],
+      class: [null, Validators.required],
+      dob: [null, Validators.required],
+      admissionnumber: [null, Validators.required],
+      admissiondate: [null, Validators.required],
+      parent: [null, Validators.required],
+      file: [null, null]
+    });
+
+    this.parentService.getAllParents().subscribe(
+      data => {
+        this.parentlist = data.parents;
+        console.log(this.parentlist);
+        this.filteredParents = this.studentForm.get("parent").valueChanges.pipe(
+          startWith(""),
+          map(parent =>
+            parent ? this._filteredParents(parent) : this.parentlist.slice()
+          )
+        );
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onFileSelected(event) {
     this.selectedFile = event.target.files[0];
@@ -97,36 +77,38 @@ export class TeacherAddStudentsComponent implements OnInit {
   private _filteredParents(value: string): Parent[] {
     const filterValue = value.toLowerCase();
 
-    return this.parentlist.filter(parent => parent.nameinitials.toLowerCase().indexOf(filterValue) === 0);
+    return this.parentlist.filter(
+      parent => parent.nameinitials.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
-  Save(data) {
+  save(data) {
     if (this.studentForm.invalid) return;
 
     Swal.showLoading();
 
     data.file = this.selectedFile;
 
-    // this.studentService.registerStudent(data).subscribe(
-    //   data => {
-    //     Swal.hideLoading();
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Great!",
-    //       text: data.message
-    //     }).then(result => {
-    //       this.router.navigate(["./home/teacher/students"], {});
-    //     });
-    //   },
-    //   error => {
-    //     Swal.hideLoading();
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Oops...",
-    //       text: error.error.error
-    //     });
-    //   }
-    // );
+    this.studentService.registerStudent(data).subscribe(
+      data => {
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "success",
+          title: "Great!",
+          text: data.message
+        }).then(result => {
+          this.router.navigate(["./home/teacher/students"], {});
+        });
+      },
+      error => {
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.error.error
+        });
+      }
+    );
   }
 
   getError(texttype) {
@@ -135,5 +117,14 @@ export class TeacherAddStudentsComponent implements OnInit {
       : texttype.hasError("email")
       ? "Not a valid email"
       : "";
+  }
+
+  handleResponseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
   }
 }
