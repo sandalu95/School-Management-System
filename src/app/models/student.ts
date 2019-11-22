@@ -1,3 +1,5 @@
+import { Parent } from "./parent";
+
 export class Student {
   fullname: string;
   nameinitials: string;
@@ -9,5 +11,5 @@ export class Student {
   admissionnumber: string;
   admissiondate: string;
   profileImage: string;
-  parent: string;
+  parent: Parent;
 }

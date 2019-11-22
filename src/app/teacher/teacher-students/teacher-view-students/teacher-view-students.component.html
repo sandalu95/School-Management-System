@@ -16,11 +16,11 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="text-inside-grid-left">Name with Initial</div>
-            <div class="text-inside-grid-right">{{ nameinitials }}</div>
+            <div class="text-inside-grid-right">{{ nameWithInitial }}</div>
           </mat-grid-tile>
           <mat-grid-tile>
-            <div class="text-inside-grid-left">ID</div>
-            <div class="text-inside-grid-right">{{ id }}</div>
+            <div class="text-inside-grid-left">Grade</div>
+            <div class="text-inside-grid-right">{{ grade }}</div>
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="text-inside-grid-left">Gender</div>
@@ -31,14 +31,6 @@
             <div class="text-inside-grid-right">{{ dob | date }}</div>
           </mat-grid-tile>
           <mat-grid-tile>
-            <div class="text-inside-grid-left">Grade</div>
-            <div class="text-inside-grid-right">{{ grade }}</div>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <div class="text-inside-grid-left">Class</div>
-            <div class="text-inside-grid-right">{{ class }}</div>
-          </mat-grid-tile>
-          <mat-grid-tile>
             <div class="text-inside-grid-left">Admission Number</div>
             <div class="text-inside-grid-right">{{ admissionnumber }}</div>
           </mat-grid-tile>
@@ -47,12 +39,31 @@
             <div class="text-inside-grid-right">{{ admissiondate | date }}</div>
           </mat-grid-tile>
           <mat-grid-tile>
-            <div class="text-inside-grid-left">Parent</div>
-            <div class="text-inside-grid-right">{{ parent }}</div>
+            <div class="text-inside-grid-left">
+              <strong>Parent's Details :</strong>
+            </div>
+            <div class="text-inside-grid-right"></div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside-grid-left-second">Name</div>
+            <div class="text-inside-grid-right">{{ parentName }}</div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside-grid-left-second">Email</div>
+            <div class="text-inside-grid-right">{{ parentEmail }}</div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside-grid-left-second">Contact Number</div>
+            <div class="text-inside-grid-right">{{ parentContactNumber }}</div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside-grid-left-second">
+              Relationship to Student
+            </div>
+            <div class="text-inside-grid-right">{{ relationship }}</div>
           </mat-grid-tile>
         </mat-grid-list>
       </div>
     </div>
   </mat-card>
 </div>
-

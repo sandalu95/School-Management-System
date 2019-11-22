@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from 'src/app/models/student';
-import { StudentService } from 'src/app/services/student.service';
+import { Component, OnInit } from "@angular/core";
+import { Student } from "src/app/models/student";
+import { StudentService } from "src/app/services/student.service";
+import { Parent } from "src/app/models/parent";
 
 @Component({
-  selector: 'app-teacher-view-students',
-  templateUrl: './teacher-view-students.component.html',
-  styleUrls: ['./teacher-view-students.component.css']
+  selector: "app-teacher-view-students",
+  templateUrl: "./teacher-view-students.component.html",
+  styleUrls: ["./teacher-view-students.component.css"]
 })
 export class TeacherViewStudentsComponent implements OnInit {
-  student: Student;
+
+  public student: Student;
   fullname: string;
-  nameinitials: string;
+  nameWithInitial: string;
   id: string;
   gender: string;
   dob: string;
@@ -19,19 +21,21 @@ export class TeacherViewStudentsComponent implements OnInit {
   admissionnumber: string;
   admissiondate: string;
   profileImage: string;
-  parent: string;
+  parentName: string;
+  parentEmail: string;
+  parentContactNumber: string;
+  relationship: string;
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService) {}
 
   ngOnInit() {
     this.studentService.currentStudent.subscribe(student => {
-      console.log(student);
       this.student = student;
+      console.log(student.parent);
     });
     if (this.student) {
       this.fullname = this.student.fullname;
-      this.nameinitials = this.student.nameinitials;
-      this.id = this.student.id;
+      this.nameWithInitial = this.student.nameinitials;
       this.gender = this.student.gender;
       this.dob = this.student.dob;
       this.grade = this.student.grade;
@@ -39,8 +43,10 @@ export class TeacherViewStudentsComponent implements OnInit {
       this.admissionnumber = this.student.admissionnumber;
       this.admissiondate = this.student.admissiondate;
       this.profileImage = this.student.profileImage;
-      this.parent = this.student.parent;
+      this.parentName = this.student.parent.nameinitials;
+      this.parentEmail = this.student.parent.email;
+      this.parentContactNumber = this.student.parent.contact;
+      this.relationship = this.student.parent.relationship;
     }
   }
-
 }
