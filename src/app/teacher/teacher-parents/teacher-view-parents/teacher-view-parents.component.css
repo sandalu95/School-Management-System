@@ -1,42 +1,48 @@
 .outer-container {
-    height: 90vh;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 5%;
+  height: 90vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5%;
 }
 
 .mat-card {
-    box-sizing: border-box;
-    height: 100%;
-    width: 49%;
-    float: left;
-    margin:5px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 49%;
+  float: left;
+  margin: 5px;
 }
 
 .card-head {
-    height: 40px;
+  height: 40px;
 }
 
 .card-head-heading {
-    margin: 0;
+  margin: 0;
 }
 
-.card-body{
-    box-sizing: border-box;
-    height: 90%;
-    width: 100%;
-    padding-top: 20px;
+.card-body {
+  box-sizing: border-box;
+  height: 90%;
+  width: 100%;
+  padding-top: 20px;
 }
 
 .text-inside-grid-left {
-    width: 30%;
-    margin: 10%;
+  width: 30%;
+  margin: 10%;
 }
 
 .text-inside-grid-right {
-    width: 70%;
+  width: 70%;
 }
 
 .child-name {
-    color: blueviolet;
+  color: blueviolet;
+}
+
+.profile-image {
+  object-fit: cover;
+  height: 100px;
+  width: 100px;
 }
