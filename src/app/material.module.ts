@@ -18,7 +18,8 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -41,7 +42,8 @@ const modules = [
   MatTableModule,
   MatPaginatorModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({
