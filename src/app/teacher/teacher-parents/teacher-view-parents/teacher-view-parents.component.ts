@@ -31,7 +31,7 @@ export class TeacherViewParentsComponent implements OnInit {
       admissionnumber: '43656',
       admissiondate: '2013-05-23',
       profileImage: '',
-      parent: '',
+      parent: null,
     },
     {
       fullname: 'Child2',
@@ -44,7 +44,7 @@ export class TeacherViewParentsComponent implements OnInit {
       admissionnumber: '43656',
       admissiondate: '2013-05-23',
       profileImage: '',
-      parent: '',
+      parent: null,
     }
   ];
 

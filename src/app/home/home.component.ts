@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
         { label: "Parents", route: "/home/teacher/parents" },
         { label: "Salary", route: "/home/teacher/salary" },
         { label: "Leaves", route: "/home/teacher/leaves" },
+        { label: "Notes", route: "/home/teacher/notes" },
+        { label: "Marks", route: "/home/teacher/marks" },
         { label: "Notice", route: "/home/teacher/notice" }
       ];
     } else if (this.userType == "Clerk") {
