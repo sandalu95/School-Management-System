@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Student } from "../models/student";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { GetStudentResponse } from "../models/response/getStudentResponse";
 import { CommonResponse } from "../models/response/commonResponse";
 
@@ -75,5 +75,19 @@ export class StudentService {
     return this.http.delete<CommonResponse>(this.apiURL + `/${studentId}`, {
       headers: this.headers
     });
+  }
+
+  public getStudentsByParentId(
+    parentId: string
+  ): Observable<GetStudentResponse> {
+    const options = {
+      params: new HttpParams().set("parentId", parentId),
+      headers: this.headers
+    };
+
+    return this.http.get<GetStudentResponse>(
+      this.apiURL + `/byparentId/children`,
+      options
+    );
   }
 }

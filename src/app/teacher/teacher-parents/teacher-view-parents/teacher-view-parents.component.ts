@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Parent } from 'src/app/models/parent';
-import { ParentService } from 'src/app/services/parent.service';
-import { Student } from 'src/app/models/student';
+import { Component, OnInit } from "@angular/core";
+import { Parent } from "src/app/models/parent";
+import { ParentService } from "src/app/services/parent.service";
+import { Student } from "src/app/models/student";
+import { StudentService } from "src/app/services/student.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-teacher-view-parents',
-  templateUrl: './teacher-view-parents.component.html',
-  styleUrls: ['./teacher-view-parents.component.css']
+  selector: "app-teacher-view-parents",
+  templateUrl: "./teacher-view-parents.component.html",
+  styleUrls: ["./teacher-view-parents.component.css"]
 })
 export class TeacherViewParentsComponent implements OnInit {
   parent: Parent;
@@ -19,40 +21,15 @@ export class TeacherViewParentsComponent implements OnInit {
   contact: string;
   email: string;
 
-  childlist: Student[] = [
-    {
-      fullname: 'Child1',
-      nameinitials: 'H.M.child',
-      id: 'fbdfrg',
-      gender: 'Male',
-      dob: '2019-08-13',
-      grade: '10',
-      class: 'C',
-      admissionnumber: '43656',
-      admissiondate: '2013-05-23',
-      profileImage: '',
-      parent: null,
-    },
-    {
-      fullname: 'Child2',
-      nameinitials: 'H.M.child2',
-      id: 'gfhtyh',
-      gender: 'Male',
-      dob: '2019-08-13',
-      grade: '10',
-      class: 'C',
-      admissionnumber: '43656',
-      admissiondate: '2013-05-23',
-      profileImage: '',
-      parent: null,
-    }
-  ];
+  childlist: Student[] = null;
 
-  constructor(private parentService: ParentService) { }
+  constructor(
+    private parentService: ParentService,
+    private studentService: StudentService
+  ) {}
 
   ngOnInit() {
     this.parentService.currentParent.subscribe(parent => {
-      console.log(parent);
       this.parent = parent;
     });
     if (this.parent) {
@@ -65,6 +42,26 @@ export class TeacherViewParentsComponent implements OnInit {
       this.contact = this.parent.contact;
       this.email = this.parent.email;
     }
+    this.getStudentsByParentsId(this.parent.parentId);
   }
 
+  getStudentsByParentsId(parentId: string) {
+    this.studentService.getStudentsByParentId(parentId).subscribe(
+      data => {
+        this.childlist = data.students;
+      },
+      error => {
+        this.handleRespnseError(error);
+      }
+    );
+  }
+
+  handleRespnseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
+  }
 }
