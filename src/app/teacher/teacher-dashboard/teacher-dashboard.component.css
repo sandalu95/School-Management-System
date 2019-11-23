@@ -19,6 +19,7 @@
 .top-right-wrapper {
   height: 30%;
   width: 100%;
+  display: flex;
 }
 
 .bottom-right-wrapper {
@@ -28,19 +29,21 @@
 
 .card {
   max-width: 270px;
-  min-width: 270px;
   height: 70%;
+  float: left;
+  width: 30%;
+  margin-right: 10px;
 }
 
 .card-left-content {
   height: 100%;
-  width: 50%;
+  width: 60%;
   float: left;
 }
 
 .card-right-content {
   height: 100%;
-  width: 50%;
+  width: 40%;
   float: left;
   display: flex;
   flex-wrap: wrap;
