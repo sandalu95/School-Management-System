@@ -1,0 +1,17 @@
+.outer-container {
+    margin: 3%;
+    width: 90%;
+}
+
+.salary-form-field {
+    margin: 10px;
+}
+
+.text-inside-grid-left {
+  width: 30%;
+  text-align: left;
+}
+
+.text-inside-grid-right {
+  width: 70%;
+}
