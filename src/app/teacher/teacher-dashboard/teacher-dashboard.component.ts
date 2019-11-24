@@ -10,7 +10,9 @@ import Swal from "sweetalert2";
   styleUrls: ["./teacher-dashboard.component.css"]
 })
 export class TeacherDashboardComponent implements OnInit {
-  leaveCount = 2;
+  casualLeaves = 2;
+  sickLeaves = 12;
+  dutyLeaves = 9;
   notices: Notice[];
 
   fullname: string;
