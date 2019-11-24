@@ -1,1 +1,127 @@
-<p>student-dashboard works!</p>
+<h3>Home - Student</h3>
+<div class="wrapper">
+  <div class="left-wrapper">
+    <mat-card class="secondcard">
+      <div class="card-head">
+        <h3 class="card-head-heading">Personal Information</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="card-body">
+        <div class="body-left-container">
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <img [src]="profileImage" class="profile-image" alt="profile-image" />
+        </div>
+        <div class="body-right-container">
+          <mat-grid-list cols="1" rowHeight="15:1">
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Full Name</div>
+              <div class="text-inside-grid-right">{{ fullname }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Name with Initial</div>
+              <div class="text-inside-grid-right">{{ nameWithInitial }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Gender</div>
+              <div class="text-inside-grid-right">{{ gender }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Date of Birth</div>
+              <div class="text-inside-grid-right">{{ dob | date }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Grade</div>
+              <div class="text-inside-grid-right">{{ grade }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Class</div>
+              <div class="text-inside-grid-right">{{ class }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Address</div>
+              <div class="text-inside-grid-right">{{ address }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Admission Number</div>
+              <div class="text-inside-grid-right">{{ admissionNumber }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <div class="text-inside-grid-left">Admission Date</div>
+              <div class="text-inside-grid-right">{{ admissionDate | date }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="text-inside-grid-left">
+                <strong>Parent's Details :</strong>
+                </div>
+                <div class="text-inside-grid-right"></div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="text-inside-grid-left-second">Name</div>
+                <div class="text-inside-grid-right">{{ parentName }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="text-inside-grid-left-second">Email</div>
+                <div class="text-inside-grid-right">{{ parentEmail }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="text-inside-grid-left-second">Contact</div>
+                <div class="text-inside-grid-right">{{ parentContactNumber }}</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="text-inside-grid-left-second">
+                Relationship
+                </div>
+                <div class="text-inside-grid-right">{{ relationship }}</div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  <div class="right-wrapper">
+    <div class="top-right-wrapper">
+      <mat-card class="card">
+        <div class="card-left-content">
+          <div class="card-left-top">
+            <mat-icon mat-card-avatar class="card-icon achievements-card-icon"
+              >emoji_events</mat-icon
+            >
+          </div>
+          <div class="card-left-bottom">
+            <h4 class="card-heading">Recent Achievement</h4>
+          </div>
+        </div>
+        <div class="card-right-content">
+          <mat-divider vertical style="height:50%; width: 0%"></mat-divider>
+          <div class="card-data">
+                <h2 class="card-inner-data" id="achievement-name">{{achievementName}}</h2>
+                <h3 class="card-inner-data" id="achievement-date">{{achievementDate}}</h3>
+                <h4 class="card-inner-data" id="achievement-desc">{{achievementDescription}}</h4>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="bottom-right-wrapper">
+      <mat-card class="secondcard">
+        <div class="card-head">
+          <h3 class="card-head-heading">Notice Board</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="scrollbar" id="style-3">
+          <div class="force-overflow">
+            <mat-list>
+              <mat-list-item *ngFor="let notice of notices">
+                <h3 matLine class="notice-date">
+                  {{ notice.dateofpost | date }}
+                </h3>
+                <p matLine class="notice-name">{{ notice.postedby }}</p>
+                <p matLine class="notice-content">{{ notice.details }}</p>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
