@@ -33,6 +33,11 @@ import { TeacherEditParentsComponent } from './teacher/teacher-parents/teacher-e
 import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component';
 import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.component';
 import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
+import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
+import { StudentNotesComponent } from './student/student-notes/student-notes.component';
+import { StudentMarksComponent } from './student/student-marks/student-marks.component';
+import { StudentAchievementsComponent } from './student/student-achievements/student-achievements.component';
+import { StudentExamsComponent } from './student/student-exams/student-exams.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +67,12 @@ import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.com
     TeacherEditParentsComponent,
     TeacherViewParentsComponent,
     TeacherNotesComponent,
-    TeacherMarksComponent
+    TeacherMarksComponent,
+    StudentDashboardComponent,
+    StudentNotesComponent,
+    StudentMarksComponent,
+    StudentAchievementsComponent,
+    StudentExamsComponent
   ],
   imports: [
     BrowserModule,
