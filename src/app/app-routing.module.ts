@@ -26,6 +26,11 @@ import { TeacherEditParentsComponent } from './teacher/teacher-parents/teacher-e
 import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component';
 import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.component';
 import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
+import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
+import { StudentAchievementsComponent } from './student/student-achievements/student-achievements.component';
+import { StudentExamsComponent } from './student/student-exams/student-exams.component';
+import { StudentMarksComponent } from './student/student-marks/student-marks.component';
+import { StudentNotesComponent } from './student/student-notes/student-notes.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -77,6 +82,12 @@ const routes: Routes = [
         path: "teacher/students/view-students",
         component: TeacherViewStudentsComponent
       },
+      { path: "student", redirectTo: "student/dashboard", pathMatch: "full" },
+      { path: "student/dashboard", component: StudentDashboardComponent },
+      { path: "student/achievements", component: StudentAchievementsComponent },
+      { path: "student/exams", component: StudentExamsComponent },
+      { path: "student/marks", component: StudentMarksComponent },
+      { path: "student/notes", component: StudentNotesComponent },
     ]
   }
 ];
