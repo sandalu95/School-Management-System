@@ -10,8 +10,24 @@
 .pdf-icon {
     height:50px;
     width: 50px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .single-note {
     margin: 10px;
+}
+
+.note-details{
+    margin:0;
+}
+
+.note-details-wrapper{
+    display: block;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+
+.note-details-desc{
+    color: gray;
 }
