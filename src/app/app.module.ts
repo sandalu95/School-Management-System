@@ -19,20 +19,20 @@ import { ViewClerksComponent } from "./admin/clerks/view-clerks/view-clerks.comp
 import { HttpClientModule } from "@angular/common/http";
 import { EditClerksComponent } from "./admin/clerks/edit-clerks/edit-clerks.component";
 import { EditTeachersComponent } from "./admin/teachers/edit-teachers/edit-teachers.component";
-import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
-import { TeacherStudentsComponent } from './teacher/teacher-students/teacher-students.component';
-import { TeacherParentsComponent } from './teacher/teacher-parents/teacher-parents.component';
-import { TeacherNoticeComponent } from './teacher/teacher-notice/teacher-notice.component';
-import { TeacherSalaryComponent } from './teacher/teacher-salary/teacher-salary.component';
-import { TeacherLeavesComponent } from './teacher/teacher-leaves/teacher-leaves.component';
-import { TeacherAddStudentsComponent } from './teacher/teacher-students/teacher-add-students/teacher-add-students.component';
-import { TeacherEditStudentsComponent } from './teacher/teacher-students/teacher-edit-students/teacher-edit-students.component';
-import { TeacherViewStudentsComponent } from './teacher/teacher-students/teacher-view-students/teacher-view-students.component';
-import { TeacherAddParentsComponent } from './teacher/teacher-parents/teacher-add-parents/teacher-add-parents.component';
-import { TeacherEditParentsComponent } from './teacher/teacher-parents/teacher-edit-parents/teacher-edit-parents.component';
-import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component';
-import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.component';
-import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
+import { TeacherDashboardComponent } from "./teacher/teacher-dashboard/teacher-dashboard.component";
+import { TeacherStudentsComponent } from "./teacher/teacher-students/teacher-students.component";
+import { TeacherParentsComponent } from "./teacher/teacher-parents/teacher-parents.component";
+import { TeacherNoticeComponent } from "./teacher/teacher-notice/teacher-notice.component";
+import { TeacherSalaryComponent } from "./teacher/teacher-salary/teacher-salary.component";
+import { TeacherLeavesComponent } from "./teacher/teacher-leaves/teacher-leaves.component";
+import { TeacherAddStudentsComponent } from "./teacher/teacher-students/teacher-add-students/teacher-add-students.component";
+import { TeacherEditStudentsComponent } from "./teacher/teacher-students/teacher-edit-students/teacher-edit-students.component";
+import { TeacherViewStudentsComponent } from "./teacher/teacher-students/teacher-view-students/teacher-view-students.component";
+import { TeacherAddParentsComponent } from "./teacher/teacher-parents/teacher-add-parents/teacher-add-parents.component";
+import { TeacherEditParentsComponent } from "./teacher/teacher-parents/teacher-edit-parents/teacher-edit-parents.component";
+import { TeacherViewParentsComponent } from "./teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component";
+import { TeacherNotesComponent } from "./teacher/teacher-notes/teacher-notes.component";
+import { TeacherMarksComponent } from "./teacher/teacher-marks/teacher-marks.component";
 
 @NgModule({
   declarations: [
