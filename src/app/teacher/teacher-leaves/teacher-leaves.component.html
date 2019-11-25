@@ -1,1 +1,122 @@
-<p>teacher-leaves works!</p>
+<div class="outer-container">
+  <div class="left-container">
+    <mat-card>
+      <div class="card-head">
+        <h3 class="card-head-heading">Create Leave</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="card-body">
+        <mat-grid-list cols="2" rowHeight="3:1">
+            <form
+                [formGroup]="leaveForm"
+                (ngSubmit)="saveLeave(leaveForm.value)"
+            >
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>User ID</mat-label>
+                        <input matInput formControlName="userId" required />
+                        <mat-error *ngIf="leaveForm.get('userId').invalid">{{
+                            getError(leaveForm.get("userId"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>Leave Type</mat-label>
+                        <mat-select formControlName="leaveType" required>
+                            <mat-option value="casual">Casual Leave</mat-option>
+                            <mat-option value="sick">Sick Leave</mat-option>
+                            <mat-option value="duty">Duty Leave</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="leaveForm.get('leaveType').invalid">{{
+                            getError(leaveForm.get("leaveType"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>Date of commencing leave</mat-label>
+                        <input matInput [matDatepicker]="commencedDatePicker" placeholder="Choose a date" formControlName="commencedDate" required>
+                        <mat-error *ngIf="leaveForm.get('commencedDate').invalid">{{getError(leaveForm.get('commencedDate'))}}</mat-error>
+                        <mat-datepicker-toggle matSuffix [for]="commencedDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #commencedDatePicker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>Date of assuming leave</mat-label>
+                        <input matInput [matDatepicker]="assumedDatePicker" placeholder="Choose a date" formControlName="assumedDate" required>
+                        <mat-error *ngIf="leaveForm.get('assumedDate').invalid">{{getError(leaveForm.get('assumedDate'))}}</mat-error>
+                        <mat-datepicker-toggle matSuffix [for]="assumedDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #assumedDatePicker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>No.of days</mat-label>
+                        <input matInput formControlName="noOfDays" required/>
+                        <mat-error *ngIf="leaveForm.get('noOfDays').invalid">{{
+                            getError(leaveForm.get("noOfDays"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>Apply Date</mat-label>
+                        <input matInput [matDatepicker]="appliedDatePicker" placeholder="Choose a date" formControlName="appliedDate" required>
+                        <mat-error *ngIf="leaveForm.get('appliedDate').invalid">{{getError(leaveForm.get('appliedDate'))}}</mat-error>
+                        <mat-datepicker-toggle matSuffix [for]="appliedDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #appliedDatePicker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field reason-field">
+                        <mat-label>Reason for leave</mat-label>
+                        <textarea matInput formControlName="reason" required></textarea>
+                        <mat-error *ngIf="leaveForm.get('reason').invalid">{{
+                            getError(leaveForm.get("reason"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline" class="leave-form-field">
+                        <mat-label>Work assigned</mat-label>
+                        <input matInput formControlName="assignedWorkId" required />
+                        <mat-error *ngIf="leaveForm.get('assignedWorkId').invalid">{{
+                            getError(leaveForm.get("assignedWorkId"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <button type="submit" mat-raised-button id="submitbtn">Submit</button>
+                </mat-grid-tile>
+            </form>
+        </mat-grid-list>
+      </div>
+    </mat-card>
+  </div>
+  <div class="right-container">
+    <mat-card>
+      <div class="card-head">
+        <h3 class="card-head-heading">Leaves</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="scrollbar" id="style-3">
+        <div class="force-overflow">
+          <mat-list>
+            <mat-list-item *ngFor="let leave of leaves">
+              <h3 matLine class="leave-date">
+                {{ leave.appliedDate | date }}
+              </h3>
+              <p matLine class="leave-name">{{ leave.leaveType }}</p>
+              <p matLine class="leave-content">
+                {{ leave.reason }}
+              </p>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+

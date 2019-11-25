@@ -1,0 +1,42 @@
+<mat-card class="outer-container">
+    <div class="form-container">
+        <h3>Notes</h3>
+        <mat-divider></mat-divider>
+        <form [formGroup]="searchForm" (ngSubmit)="searchNotes(searchForm.value)">
+            <mat-form-field appearance="outline" class="note-form-field">
+                <input matInput placeholder="Grade" formControlName="grade" required/>
+                <mat-error *ngIf="searchForm.get('grade').invalid">{{
+                    getError(searchForm.get("grade"))
+                }}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="note-form-field">
+                <input matInput placeholder="Class" formControlName="class" required/>
+                <mat-error *ngIf="searchForm.get('class').invalid">{{
+                    getError(searchForm.get("class"))
+                }}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="note-form-field">
+                <input matInput placeholder="Subject" formControlName="subject" required/>
+                <mat-error *ngIf="searchForm.get('subject').invalid">{{
+                    getError(searchForm.get("subject"))
+                }}</mat-error>
+            </mat-form-field>
+            <button mat-raised-button class="add-btn" type="submit">Search</button>
+        </form>
+        
+    </div>
+    <div class="data-container">
+        <mat-list>
+            <h3 mat-subheader>Notes</h3>
+            <mat-list-item *ngFor="let note of notes" class="single-note">
+                <img class="pdf-icon" src="../../../assets/pdf_icon.png"/>
+                <div class="note-details-wrapper">
+                    <h5 class="note-details">Created By : {{note.userId}}</h5>
+                    <p class="note-details note-details-desc" >{{note.description}}</p>
+                </div>
+                <button mat-button (click)="download(note)" style="margin-left: 20px;">Download</button>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</mat-card>
+

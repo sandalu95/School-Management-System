@@ -30,14 +30,22 @@ export class HomeComponent implements OnInit {
         { label: "Marks", route: "/home/teacher/marks" },
         { label: "Notice", route: "/home/teacher/notice" }
       ];
-    } else if (this.userType == "Clerk") {
+    } else if (this.userType == "Student") {
+      this.links = [
+        { label: "Dashboard", route: "/home/student/dashboard" },
+        { label: "Notes", route: "/home/student/notes" },
+        { label: "Exams", route: "/home/student/exams" },
+        { label: "Marks", route: "/home/student/marks" },
+        { label: "Achievements", route: "/home/student/achievements" }
+      ];
+    } else if (this.userType == "Parent") {
       this.links = [
         { label: "Dashboard", route: "/home/admin/dashboard" },
         { label: "Teachers", route: "/home/admin/teachers" },
         { label: "Clerks", route: "/home/admin/clerks" },
         { label: "Notice", route: "/home/admin/notice" }
       ];
-    } else if (this.userType == "Parent") {
+    } else if (this.userType == "Clerk") {
       this.links = [
         { label: "Dashboard", route: "/home/admin/dashboard" },
         { label: "Teachers", route: "/home/admin/teachers" },

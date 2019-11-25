@@ -12,20 +12,25 @@ import { ViewClerksComponent } from "./admin/clerks/view-clerks/view-clerks.comp
 import { ViewTeachersComponent } from "./admin/teachers/view-teachers/view-teachers.component";
 import { EditClerksComponent } from "./admin/clerks/edit-clerks/edit-clerks.component";
 import { EditTeachersComponent } from "./admin/teachers/edit-teachers/edit-teachers.component";
-import { TeacherDashboardComponent } from "./teacher/teacher-dashboard/teacher-dashboard.component";
-import { TeacherLeavesComponent } from "./teacher/teacher-leaves/teacher-leaves.component";
-import { TeacherNoticeComponent } from "./teacher/teacher-notice/teacher-notice.component";
-import { TeacherParentsComponent } from "./teacher/teacher-parents/teacher-parents.component";
-import { TeacherSalaryComponent } from "./teacher/teacher-salary/teacher-salary.component";
-import { TeacherStudentsComponent } from "./teacher/teacher-students/teacher-students.component";
-import { TeacherAddStudentsComponent } from "./teacher/teacher-students/teacher-add-students/teacher-add-students.component";
-import { TeacherEditStudentsComponent } from "./teacher/teacher-students/teacher-edit-students/teacher-edit-students.component";
-import { TeacherViewStudentsComponent } from "./teacher/teacher-students/teacher-view-students/teacher-view-students.component";
-import { TeacherAddParentsComponent } from "./teacher/teacher-parents/teacher-add-parents/teacher-add-parents.component";
-import { TeacherEditParentsComponent } from "./teacher/teacher-parents/teacher-edit-parents/teacher-edit-parents.component";
-import { TeacherViewParentsComponent } from "./teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component";
-import { TeacherNotesComponent } from "./teacher/teacher-notes/teacher-notes.component";
-import { TeacherMarksComponent } from "./teacher/teacher-marks/teacher-marks.component";
+import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
+import { TeacherLeavesComponent } from './teacher/teacher-leaves/teacher-leaves.component';
+import { TeacherNoticeComponent } from './teacher/teacher-notice/teacher-notice.component';
+import { TeacherParentsComponent } from './teacher/teacher-parents/teacher-parents.component';
+import { TeacherSalaryComponent } from './teacher/teacher-salary/teacher-salary.component';
+import { TeacherStudentsComponent } from './teacher/teacher-students/teacher-students.component';
+import { TeacherAddStudentsComponent } from './teacher/teacher-students/teacher-add-students/teacher-add-students.component';
+import { TeacherEditStudentsComponent } from './teacher/teacher-students/teacher-edit-students/teacher-edit-students.component';
+import { TeacherViewStudentsComponent } from './teacher/teacher-students/teacher-view-students/teacher-view-students.component';
+import { TeacherAddParentsComponent } from './teacher/teacher-parents/teacher-add-parents/teacher-add-parents.component';
+import { TeacherEditParentsComponent } from './teacher/teacher-parents/teacher-edit-parents/teacher-edit-parents.component';
+import { TeacherViewParentsComponent } from './teacher/teacher-parents/teacher-view-parents/teacher-view-parents.component';
+import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.component';
+import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
+import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
+import { StudentAchievementsComponent } from './student/student-achievements/student-achievements.component';
+import { StudentExamsComponent } from './student/student-exams/student-exams.component';
+import { StudentMarksComponent } from './student/student-marks/student-marks.component';
+import { StudentNotesComponent } from './student/student-notes/student-notes.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -82,7 +87,13 @@ const routes: Routes = [
       {
         path: "teacher/students/view-students",
         component: TeacherViewStudentsComponent
-      }
+      },
+      { path: "student", redirectTo: "student/dashboard", pathMatch: "full" },
+      { path: "student/dashboard", component: StudentDashboardComponent },
+      { path: "student/achievements", component: StudentAchievementsComponent },
+      { path: "student/exams", component: StudentExamsComponent },
+      { path: "student/marks", component: StudentMarksComponent },
+      { path: "student/notes", component: StudentNotesComponent },
     ]
   }
 ];

@@ -28,22 +28,21 @@
 }
 
 .card {
-  max-width: 270px;
   height: 70%;
+  width: 100%;
   float: left;
-  width: 30%;
   margin-right: 10px;
 }
 
 .card-left-content {
   height: 100%;
-  width: 60%;
+  width: 40%;
   float: left;
 }
 
 .card-right-content {
   height: 100%;
-  width: 40%;
+  width: 60%;
   float: left;
   display: flex;
   flex-wrap: wrap;
@@ -70,8 +69,20 @@
 
 .card-data {
   margin: 0 auto;
+}
+
+.card-inner-data {
+  margin: 0 auto;
   font-family: "Helvetica Neue", sans-serif;
   text-align: center;
+}
+
+#achievement-date {
+    color: indigo;
+}
+
+#achievement-desc {
+    color: lightgrey;
 }
 
 .card-icon {
@@ -79,8 +90,8 @@
   margin: auto;
 }
 
-.leaves-card-icon {
-  color: green;
+.achievements-card-icon {
+  color: gold;
 }
 
 .secondcard {
@@ -163,4 +174,9 @@
 
 .text-inside-grid-right {
   width: 60%;
+}
+
+.text-inside-grid-left-second {
+  width: 30%;
+  margin: 15%;
 }
