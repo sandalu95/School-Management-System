@@ -1,0 +1,17 @@
+.outer-container {
+    margin: 3%;
+    width: 90%;
+}
+
+.note-form-field {
+    margin: 10px;
+}
+
+.pdf-icon {
+    height:50px;
+    width: 50px;
+}
+
+.single-note {
+    margin: 10px;
+}

@@ -2,6 +2,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "./material.module";
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { FileSaverModule } from 'ngx-filesaver';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -81,7 +83,9 @@ import { StudentExamsComponent } from './student/student-exams/student-exams.com
     ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    PdfViewerModule,
+    FileSaverModule
   ],
   providers: [],
   bootstrap: [AppComponent]
