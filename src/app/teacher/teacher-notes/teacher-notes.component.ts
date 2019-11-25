@@ -4,7 +4,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { Note } from "src/app/models/note";
 import { NotesService } from "src/app/services/notes.service";
-import { Teacher } from "src/app/models/teacher";
+import { HttpClient } from "@angular/common/http";
+import { FileSaverService } from "ngx-filesaver";
 
 @Component({
   selector: "app-teacher-notes",
@@ -19,7 +20,9 @@ export class TeacherNotesComponent implements OnInit {
   constructor(
     public router: Router,
     private fb: FormBuilder,
-    private notesService: NotesService
+    private notesService: NotesService,
+    private http: HttpClient,
+    private _FileSaverService: FileSaverService
   ) {}
 
   ngOnInit() {
@@ -33,7 +36,6 @@ export class TeacherNotesComponent implements OnInit {
 
     this.notesService.getNotesByTeacherId().subscribe(
       data => {
-        console.log(data);
         this.notes = data.notes;
       },
       error => {
@@ -69,6 +71,48 @@ export class TeacherNotesComponent implements OnInit {
         this.handleRespnseError(error);
       }
     );
+  }
+
+  download(note) {
+    const fileName = `${Date.now()}${note.subject}-${note.grade}-${note.class}`;
+    this.http
+      .get(note.notes, {
+        observe: "response",
+        responseType: "blob"
+      })
+      .subscribe(res => {
+        this._FileSaverService.save(res.body, fileName);
+      });
+    return;
+  }
+
+  delete(note: Note) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        Swal.close();
+        this.notesService.deleteNotes(note.id).subscribe(
+          data => {
+            console.log(data);
+            Swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: data.message
+            });
+          },
+          error => {
+            this.handleRespnseError(error);
+          }
+        );
+      }
+    });
   }
 
   getError(texttype) {

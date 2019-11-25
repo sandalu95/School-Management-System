@@ -43,4 +43,13 @@ export class NotesService {
       options
     );
   }
+
+  public deleteNotes(noteId: string): Observable<CommonResponse> {
+    const options = {
+      params: new HttpParams().set("noteId", noteId),
+      headers: this.headers
+    };
+
+    return this.http.delete<CommonResponse>(this.apiUrl, options);
+  }
 }

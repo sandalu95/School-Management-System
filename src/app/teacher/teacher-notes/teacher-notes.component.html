@@ -82,14 +82,18 @@
   <div class="right-container">
     <mat-card>
       <div class="card-head">
-        <h3 class="card-head-heading">Notes</h3>
+        <h3 class="card-head-heading">My Notes</h3>
       </div>
       <mat-divider></mat-divider>
       <div class="scrollbar" id="style-3">
         <div class="data-container">
           <div class="single-item" *ngFor="let note of notes">
             <div style="display: flex;">
-              <img class="pdf-icon" src="../../../assets/pdf_icon.png" />
+              <img
+                class="pdf-icon"
+                src="../../../assets/pdf_icon.png"
+                alt="pdf icon"
+              />
               <div class="note-details-wrapper">
                 <h5 class="note-details">Subject : {{ note.subject }}</h5>
                 <p class="note-details note-details-desc">
@@ -97,13 +101,14 @@
                 </p>
               </div>
             </div>
-            <button
-              mat-button
-              (click)="download(note)"
-              style="margin-left: 20px;"
-            >
-              Download
-            </button>
+            <div>
+              <button mat-icon-button (click)="download(note)">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button (click)="delete(note)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
           </div>
         </div>
       </div>
