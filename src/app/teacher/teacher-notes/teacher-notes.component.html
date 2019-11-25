@@ -1,1 +1,112 @@
-<p>teacher-notes works!</p>
+<div class="outer-container">
+  <div class="left-container">
+    <mat-card>
+      <div class="card-head">
+        <h3 class="card-head-heading">Add Notes</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="card-body">
+        <form [formGroup]="notesForm" (ngSubmit)="addNotes(notesForm.value)">
+          <mat-grid-list cols="2" [gutterSize]="'2px'" rowHeight="20px">
+            <mat-grid-tile colspan="2" rowspan="4">
+              <mat-form-field appearance="outline" class="notes-form-field">
+                <mat-label>Subject</mat-label>
+                <input matInput formControlName="subject" />
+                <mat-error *ngIf="notesForm.get('subject').invalid">{{
+                  getError(notesForm.get("subject"))
+                }}</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="5">
+              <mat-form-field appearance="outline" class="notes-form-field">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+                <mat-error *ngIf="notesForm.get('description').invalid">{{
+                  getError(notesForm.get("description"))
+                }}</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="4">
+              <mat-form-field appearance="outline" class="notes-form-field">
+                <mat-label>Grade</mat-label>
+                <mat-select formControlName="grade" required>
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="3">3</mat-option>
+                  <mat-option value="4">4</mat-option>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="6">6</mat-option>
+                  <mat-option value="7">7</mat-option>
+                  <mat-option value="8">8</mat-option>
+                  <mat-option value="9">9</mat-option>
+                  <mat-option value="10">10</mat-option>
+                  <mat-option value="11">11</mat-option>
+                  <mat-option value="12">12</mat-option>
+                  <mat-option value="13">13</mat-option>
+                </mat-select>
+                <mat-error *ngIf="notesForm.get('grade').invalid">{{
+                  getError(notesForm.get("grade"))
+                }}</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="4">
+              <mat-form-field appearance="outline" class="notes-form-field">
+                <mat-label>Class</mat-label>
+                <input matInput formControlName="class" />
+                <mat-error *ngIf="notesForm.get('class').invalid">{{
+                  getError(notesForm.get("class"))
+                }}</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="2">
+              <div class="upload-image-field">
+                <mat-label>Upload Notes</mat-label>
+                <input
+                  id="uploadnotess"
+                  type="file"
+                  formControlName="file"
+                  (change)="onFileSelected($event)"
+                />
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="6">
+              <button type="submit" mat-raised-button id="submitbtn">
+                Submit
+              </button>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+  <div class="right-container">
+    <mat-card>
+      <div class="card-head">
+        <h3 class="card-head-heading">Notes</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="scrollbar" id="style-3">
+        <div class="data-container">
+          <div class="single-item" *ngFor="let note of notes">
+            <div style="display: flex;">
+              <img class="pdf-icon" src="../../../assets/pdf_icon.png" />
+              <div class="note-details-wrapper">
+                <h5 class="note-details">Subject : {{ note.subject }}</h5>
+                <p class="note-details note-details-desc">
+                  {{ note.description }}
+                </p>
+              </div>
+            </div>
+            <button
+              mat-button
+              (click)="download(note)"
+              style="margin-left: 20px;"
+            >
+              Download
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

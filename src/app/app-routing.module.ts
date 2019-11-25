@@ -62,7 +62,10 @@ const routes: Routes = [
       { path: "teacher/notes", component: TeacherNotesComponent },
       { path: "teacher/marks", component: TeacherMarksComponent },
       { path: "teacher/parents", component: TeacherParentsComponent },
-      { path: "teacher/parents/add-parents", component: TeacherAddParentsComponent },
+      {
+        path: "teacher/parents/add-parents",
+        component: TeacherAddParentsComponent
+      },
       {
         path: "teacher/parents/edit-parents",
         component: TeacherEditParentsComponent
@@ -73,7 +76,10 @@ const routes: Routes = [
       },
       { path: "teacher/salary", component: TeacherSalaryComponent },
       { path: "teacher/students", component: TeacherStudentsComponent },
-      { path: "teacher/students/add-students", component: TeacherAddStudentsComponent },
+      {
+        path: "teacher/students/add-students",
+        component: TeacherAddStudentsComponent
+      },
       {
         path: "teacher/students/edit-students",
         component: TeacherEditStudentsComponent

@@ -21,7 +21,7 @@
             <mat-label>Details</mat-label>
             <textarea matInput formControlName="details"></textarea>
             <mat-error *ngIf="noticeForm.get('details').invalid">{{
-              getError(noticeForm.get("title"))
+              getError(noticeForm.get("details"))
             }}</mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="notice-form-field">
@@ -29,7 +29,7 @@
             <input matInput formControlName="postedby" />
             <mat-icon matSuffix>person</mat-icon>
             <mat-error *ngIf="noticeForm.get('postedby').invalid">{{
-              getError(noticeForm.get("title"))
+              getError(noticeForm.get("postedby"))
             }}</mat-error>
           </mat-form-field>
           <button type="submit" mat-raised-button id="submitbtn">Submit</button>

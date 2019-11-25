@@ -21,6 +21,7 @@ import { ViewClerksComponent } from "./admin/clerks/view-clerks/view-clerks.comp
 import { HttpClientModule } from "@angular/common/http";
 import { EditClerksComponent } from "./admin/clerks/edit-clerks/edit-clerks.component";
 import { EditTeachersComponent } from "./admin/teachers/edit-teachers/edit-teachers.component";
+
 import { TeacherDashboardComponent } from './teacher/teacher-dashboard/teacher-dashboard.component';
 import { TeacherStudentsComponent } from './teacher/teacher-students/teacher-students.component';
 import { TeacherParentsComponent } from './teacher/teacher-parents/teacher-parents.component';

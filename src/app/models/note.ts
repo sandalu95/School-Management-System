@@ -1,9 +1,12 @@
+import { Teacher } from "./teacher";
+
 export class Note {
-    id: string;
-    userId: string;
-    subject: string;
-    description: string;
-    grade: string;
-    class: string;
-    notes:any;
+  id: string;
+  subject: string;
+  grade: string;
+  class: string;
+  description: string;
+  notes: any;
+  userId: string;
+  teacher: Teacher;
 }
