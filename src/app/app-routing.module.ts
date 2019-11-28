@@ -31,6 +31,9 @@ import { StudentAchievementsComponent } from './student/student-achievements/stu
 import { StudentExamsComponent } from './student/student-exams/student-exams.component';
 import { StudentMarksComponent } from './student/student-marks/student-marks.component';
 import { StudentNotesComponent } from './student/student-notes/student-notes.component';
+import { ClerkDashboardComponent } from './clerk/clerk-dashboard/clerk-dashboard.component';
+import { ClerkAchievementsComponent } from './clerk/clerk-achievements/clerk-achievements.component';
+import { ClerkSalaryComponent } from './clerk/clerk-salary/clerk-salary.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -88,6 +91,10 @@ const routes: Routes = [
       { path: "student/exams", component: StudentExamsComponent },
       { path: "student/marks", component: StudentMarksComponent },
       { path: "student/notes", component: StudentNotesComponent },
+      { path: "clerk", redirectTo: "clerk/dashboard", pathMatch: "full" },
+      { path: "clerk/dashboard", component: ClerkDashboardComponent },
+      { path: "clerk/achievements", component: ClerkAchievementsComponent },
+      { path: "clerk/salary", component: ClerkSalaryComponent },
     ]
   }
 ];
