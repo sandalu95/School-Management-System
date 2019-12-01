@@ -39,6 +39,16 @@ export class TeacherAddStudentsComponent implements OnInit {
     private parentService: ParentService
   ) {
     this.studentForm = fb.group({
+      fullname: [null, Validators.required],
+      nameinitials: [null, Validators.required],
+      gender: [null, Validators.required],
+      grade: [null, Validators.required],
+      class: [null, Validators.required],
+      dob: [null, Validators.required],
+      admissionnumber: [null, Validators.required],
+      admissiondate: [null, Validators.required],
+      parent: [null, Validators.required],
+      file: [null, null],
       year: [null, Validators.required],
       month: [null, Validators.required],
     });
