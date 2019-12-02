@@ -5,7 +5,21 @@
         <form [formGroup]="salaryForm" (ngSubmit)="addSalary(salaryForm.value)">
             <div class="form-upper-div">
                 <mat-form-field appearance="outline" class="salary-form-field">
-                    <input matInput placeholder="User ID" formControlName="userId" required/>
+                    <input
+                            matInput
+                            placeholder="User ID"
+                            aria-label="User ID"
+                            [matAutocomplete]="auto"
+                            formControlName="userId"
+                            required
+                        />
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option
+                            *ngFor="let user of filteredUsers | async"
+                            [value]="user.username"
+                            ><span>{{ user.username }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
                     <mat-error *ngIf="salaryForm.get('userId').invalid">{{
                         getError(salaryForm.get("userId"))
                     }}</mat-error>
@@ -80,7 +94,7 @@
                         </mat-grid-tile>
                         <mat-grid-tile colspan="1" rowspan="1">
                         </mat-grid-tile>
-                        <mat-grid-tile colspan="2" rowspan="1" style="background: darkslategrey; color:white;">
+                        <mat-grid-tile colspan="2" rowspan="1" style="background: rgba(0,0,0,.12);">
                             <mat-label>Gross Pay : {{grossPay}}</mat-label>
                         </mat-grid-tile>
                     </mat-grid-list>
@@ -158,7 +172,7 @@
                                 <input matInput type="number" placeholder="FID. Dstrs. Lo" formControlName="fidDstrsLo"/>
                             </mat-form-field>
                         </mat-grid-tile>
-                        <mat-grid-tile colspan="2" rowspan="1" style="background: darkslategrey; color:white;">
+                        <mat-grid-tile colspan="2" rowspan="1" style="background: rgba(0,0,0,.12);">
                             <mat-label>Total Deductions : {{totalDeductions}}</mat-label>
                         </mat-grid-tile>
                     </mat-grid-list>
@@ -167,13 +181,12 @@
             
             <div class="form-lowest-div">
                 <div id="net-pay">
-                    <h4>  Net Pay : {{netPay}}</h4>
+                    <h4 style="text-align: center; color:white;">  Net Pay : {{netPay}}</h4>
                 </div>
                 <div style="margin: auto 0; width: 20%;">
                     <button mat-raised-button class="add-btn" style="float: right; width: 60%; background:#ffd740; color: white;" type="submit">Save</button>
                 </div>
             </div>
-            
         </form>
         
     </div>

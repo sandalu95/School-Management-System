@@ -34,6 +34,9 @@ import { StudentNotesComponent } from './student/student-notes/student-notes.com
 import { ClerkDashboardComponent } from './clerk/clerk-dashboard/clerk-dashboard.component';
 import { ClerkAchievementsComponent } from './clerk/clerk-achievements/clerk-achievements.component';
 import { ClerkSalaryComponent } from './clerk/clerk-salary/clerk-salary.component';
+import { ParentDashboardComponent } from './parent/parent-dashboard/parent-dashboard.component';
+import { ParentMarksComponent } from './parent/parent-marks/parent-marks.component';
+import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -101,6 +104,10 @@ const routes: Routes = [
       { path: "clerk/dashboard", component: ClerkDashboardComponent },
       { path: "clerk/achievements", component: ClerkAchievementsComponent },
       { path: "clerk/salary", component: ClerkSalaryComponent },
+      { path: "clerk/leaves", component: ClerkLeavesComponent },
+      { path: "parent", redirectTo: "parent/dashboard", pathMatch: "full" },
+      { path: "parent/dashboard", component: ParentDashboardComponent },
+      { path: "parent/marks", component: ParentMarksComponent }
     ]
   }
 ];

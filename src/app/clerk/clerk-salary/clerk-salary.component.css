@@ -36,7 +36,9 @@
 }
 
 #net-pay{
-    width:80%;
+    width:20%;
+    background: lightslategray;
+    margin-right: 60%;
 }
 
 .form-lowest-div {
