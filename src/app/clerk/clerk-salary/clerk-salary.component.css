@@ -1,0 +1,44 @@
+.outer-container {
+    margin: 3%;
+    width: 90%;
+}
+
+.salary-form-field {
+    margin: 10px;
+}
+
+.form-upper-div {
+}
+
+.form-lower-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-lower-title{
+    margin-left: 20px;
+}
+
+.form-lower-left-div{
+    width: 45%;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.12);
+    padding: 10px;
+    margin: 5px;
+}
+
+.form-lower-right-div{
+    width: 45%;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.12);
+    padding: 10px;
+    margin: 5px;
+}
+
+#net-pay{
+    width:80%;
+}
+
+.form-lowest-div {
+    display: flex;
+}
