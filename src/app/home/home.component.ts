@@ -40,15 +40,14 @@ export class HomeComponent implements OnInit {
       ];
     } else if (this.userType == "Parent") {
       this.links = [
-        { label: "Dashboard", route: "/home/admin/dashboard" },
-        { label: "Teachers", route: "/home/admin/teachers" },
-        { label: "Clerks", route: "/home/admin/clerks" },
-        { label: "Notice", route: "/home/admin/notice" }
+        { label: "Dashboard", route: "/home/parent/dashboard" },
+        { label: "Marks", route: "/home/parent/marks" },
       ];
     } else if (this.userType == "Clerk") {
       this.links = [
         { label: "Dashboard", route: "/home/clerk/dashboard" },
         { label: "Salary", route: "/home/clerk/salary" },
+        { label: "Leaves", route: "/home/clerk/leaves" },
         { label: "Achievements", route: "/home/clerk/achievements" }
       ];
     }

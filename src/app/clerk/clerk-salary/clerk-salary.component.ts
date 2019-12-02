@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from 'src/app/models/user';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clerk-salary',
@@ -13,9 +16,13 @@ export class ClerkSalaryComponent implements OnInit {
   userId: string;
   year: string;
   month: string;
+
   grossPay: number = 0;
   totalDeductions: number = 0;
   netPay: number = 0;
+
+  filteredUsers: Observable<User[]>;
+  userlist: User[] = null;
 
   constructor(private fb: FormBuilder) {
     this.salaryForm = fb.group({
@@ -47,10 +54,45 @@ export class ClerkSalaryComponent implements OnInit {
       distIntArr: [null],
       fidDstrsLo: [null],
     });
+    this.userlist = [
+      {
+      _id: '32e3',
+      username: 'dsdscdsc',
+      password: null,
+      user_type: 'Teacher'
+      },
+      {
+        _id: '5464',
+        username: 'cftgdg',
+        password: null,
+        user_type: 'Teacher'
+      },
+      {
+        _id: '76534',
+        username: 'xhgt6y',
+        password: null,
+        user_type: 'Clerk'
+      }
+    ];
+    this.filteredUsers = this.salaryForm.get("userId").valueChanges.pipe(
+      startWith(""),
+      map(user =>
+        user ? this._filteredUsers(user) : this.userlist.slice()
+      )
+    );
+
   }
 
   ngOnInit() {
     this.onChanges();
+  }
+
+  private _filteredUsers(value: string): User[] {
+    const filterValue = value.toLowerCase();
+
+    return this.userlist.filter(
+      user => user.username.toLowerCase().indexOf(filterValue) === 0
+    );
   }
 
   addSalary(data){

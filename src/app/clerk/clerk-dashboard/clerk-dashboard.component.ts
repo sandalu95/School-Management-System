@@ -42,20 +42,20 @@ export class ClerkDashboardComponent implements OnInit {
   getClerkDetails() {
     // this.clerkService.getClerkById().subscribe(
     //   data => {
-    //     console.log(data.teachers[0]);
-    //     this.fullname = data.teachers[0].fullname;
-    //     this.nameWithInitial = data.teachers[0].nameinitials;
-    //     this.position = data.teachers[0].position;
-    //     this.gender = data.teachers[0].gender;
-    //     this.dob = data.teachers[0].dob;
-    //     this.firstAppoinment = data.teachers[0].firstadmission;
-    //     this.appoinmentToSchool = data.teachers[0].scladmission;
-    //     this.nic = data.teachers[0].nic;
-    //     this.address = data.teachers[0].address;
-    //     this.profileImage = data.teachers[0].file;
-    //     this.contactNumber = data.teachers[0].contact;
-    //     this.email = data.teachers[0].email;
-    //     this.clerkId = data.teachers[0].id;
+    //     console.log(data.clerks[0]);
+    //     this.fullname = data.clerks[0].fullname;
+    //     this.nameWithInitial = data.clerks[0].nameinitials;
+    //     this.position = data.clerks[0].position;
+    //     this.gender = data.clerks[0].gender;
+    //     this.dob = data.clerks[0].dob;
+    //     this.firstAppoinment = data.clerks[0].firstadmission;
+    //     this.appoinmentToSchool = data.clerks[0].scladmission;
+    //     this.nic = data.clerks[0].nic;
+    //     this.address = data.clerks[0].address;
+    //     this.profileImage = data.clerks[0].file;
+    //     this.contactNumber = data.clerks[0].contact;
+    //     this.email = data.clerks[0].email;
+    //     this.clerkId = data.clerks[0].id;
     //   },
     //   error => {
     //     handleResponseError(error);
