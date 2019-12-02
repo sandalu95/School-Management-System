@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Leave } from "src/app/models/leave";
 import Swal from "sweetalert2";
+import { LeaveService } from "src/app/services/leave.service";
 
 @Component({
   selector: "app-teacher-leaves",
@@ -12,86 +13,96 @@ export class TeacherLeavesComponent implements OnInit {
   selectedFile = null;
 
   leaveForm: FormGroup;
-  userId: string = "";
   commencedDate: string = "";
   assumedDate: string = "";
   noOfDays: string = "";
   leaveType: string = "";
   reason: string = "";
   appliedDate: string = "";
-  assignedWorkId: string = "";
+  assignedWork: string = "";
   leaves: Leave[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private leaveService: LeaveService) {
     this.leaveForm = fb.group({
-      userId: [null, Validators.required],
       commencedDate: [null, Validators.required],
       assumedDate: [null, Validators.required],
       noOfDays: [null, Validators.required],
       leaveType: [null, Validators.required],
       reason: [null, Validators.required],
       appliedDate: [null, Validators.required],
-      assignedWorkId: [null, Validators.required],
-      file: [null, Validators.required]
+      assignedWork: [null, Validators.required]
     });
   }
 
   ngOnInit() {
-    // this.leaveService.getAllLeaves().subscribe(
-    //   data => {
-    //     this.leaves = data.leaves;
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
-    this.leaves = [
-      {
-        id: "drfe",
-        userId: "231",
-        commencedDate: new Date(),
-        assumedDate: new Date(),
-        noOfDays: 2,
-        leaveType: "sick leave",
-        reason: "i am sick",
-        appliedDate: new Date(),
-        assignedWork: null,
-        status: "Pending"
+    this.leaveService.getLeavesByUserId().subscribe(
+      data => {
+        this.leaves = data.leaves;
       },
-      {
-        id: "gtr",
-        userId: "432",
-        commencedDate: new Date(),
-        assumedDate: new Date(),
-        noOfDays: 4,
-        leaveType: "casual leave",
-        reason: "a wedding",
-        appliedDate: new Date(),
-        assignedWork: null,
-        status: "Pending"
+      error => {
+        this.handleResponseError(error);
       }
-    ];
+    );
   }
 
-  saveLeave(data) {
+  saveLeave(data: Leave) {
+    console.log(data);
     if (this.leaveForm.invalid) return;
-    console.log("success");
-    // Swal.showLoading();
-    // this.leaveService.createLeave(data).subscribe(
-    //   data => {
-    //     Swal.hideLoading();
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Great!",
-    //       text: data.message
-    //     }).then(res => {
-    //       this.leaveForm.reset();
-    //     });
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
+
+    data.assignedWork = this.selectedFile;
+
+    Swal.showLoading();
+    this.leaveService.requestLeaves(data).subscribe(
+      data => {
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "success",
+          title: "Great!",
+          text: data.message
+        }).then(res => {
+          this.leaveForm.reset();
+        });
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
+  }
+
+  deleteLeave(leave: Leave) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        Swal.close();
+        this.leaveService.deleteLeave(leave.id).subscribe(
+          data => {
+            if (data.status == 401) {
+              Swal.fire({
+                icon: "warning",
+                title: "Unauthorized!",
+                text: data.message
+              });
+            } else {
+              Swal.fire({
+                icon: "success",
+                title: "Deleted!",
+                text: data.message
+              });
+            }
+          },
+          error => {
+            this.handleResponseError(error);
+          }
+        );
+      }
+    });
   }
 
   onFileSelected(event) {

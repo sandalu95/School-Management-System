@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Leave } from "../models/leave";
 import { CommonResponse } from "../models/response/commonResponse";
 import { Observable } from "rxjs";
+import { GetLeavesResponse } from "../models/response/getLeaveResponse";
 
 @Injectable({
   providedIn: "root"
@@ -24,11 +25,28 @@ export class LeaveService {
     fd.append("appliedDate", leave.appliedDate.toString());
     fd.append("noOfDays", leave.noOfDays.toString());
     fd.append("leaveType", leave.leaveType);
-    fd.append("reason", leave.assignedWork);
-    fd.append("reason", leave.assignedWork);
+    fd.append("reason", leave.reason);
 
     return this.http.post<CommonResponse>(this.apiUrl, fd, {
       headers: this.headers
     });
+  }
+
+  public getLeavesByUserId(): Observable<GetLeavesResponse> {
+    const options = {
+      params: new HttpParams().set("userId", this.user.userId),
+      headers: this.headers
+    };
+
+    return this.http.get<GetLeavesResponse>(`${this.apiUrl}/byuserid`, options);
+  }
+
+  public deleteLeave(leaveId: string): Observable<CommonResponse> {
+    const options = {
+      params: new HttpParams().set("leaveId", leaveId),
+      headers: this.headers
+    };
+
+    return this.http.delete<CommonResponse>(this.apiUrl, options);
   }
 }
