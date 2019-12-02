@@ -47,10 +47,9 @@ export class HomeComponent implements OnInit {
       ];
     } else if (this.userType == "Clerk") {
       this.links = [
-        { label: "Dashboard", route: "/home/admin/dashboard" },
-        { label: "Teachers", route: "/home/admin/teachers" },
-        { label: "Clerks", route: "/home/admin/clerks" },
-        { label: "Notice", route: "/home/admin/notice" }
+        { label: "Dashboard", route: "/home/clerk/dashboard" },
+        { label: "Salary", route: "/home/clerk/salary" },
+        { label: "Achievements", route: "/home/clerk/achievements" }
       ];
     }
   }

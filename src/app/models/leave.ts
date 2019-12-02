@@ -1,12 +1,11 @@
 export class Leave {
   id: string;
   userId: string;
-  commencedDate: Date;
-  assumedDate: Date;
-  appliedDate: Date;
-  noOfDays: number;
+  commencedDate: string;
+  assumedDate: string;
+  appliedDate: string;
+  noOfDays: string;
   leaveType: string;
   reason: string;
   assignedWork: any;
-  status: string;
 }

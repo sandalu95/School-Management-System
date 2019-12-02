@@ -10,9 +10,9 @@ import { LeaveService } from "src/app/services/leave.service";
   styleUrls: ["./teacher-leaves.component.css"]
 })
 export class TeacherLeavesComponent implements OnInit {
+  leaveForm: FormGroup;
   selectedFile = null;
 
-  leaveForm: FormGroup;
   commencedDate: string = "";
   assumedDate: string = "";
   noOfDays: string = "";
@@ -103,10 +103,6 @@ export class TeacherLeavesComponent implements OnInit {
         );
       }
     });
-  }
-
-  onFileSelected(event) {
-    this.selectedFile = event.target.files[0];
   }
 
   getError(texttype) {

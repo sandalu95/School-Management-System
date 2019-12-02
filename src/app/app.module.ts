@@ -41,6 +41,9 @@ import { StudentNotesComponent } from './student/student-notes/student-notes.com
 import { StudentMarksComponent } from './student/student-marks/student-marks.component';
 import { StudentAchievementsComponent } from './student/student-achievements/student-achievements.component';
 import { StudentExamsComponent } from './student/student-exams/student-exams.component';
+import { ClerkDashboardComponent } from './clerk/clerk-dashboard/clerk-dashboard.component';
+import { ClerkSalaryComponent } from './clerk/clerk-salary/clerk-salary.component';
+import { ClerkAchievementsComponent } from './clerk/clerk-achievements/clerk-achievements.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,10 @@ import { StudentExamsComponent } from './student/student-exams/student-exams.com
     StudentNotesComponent,
     StudentMarksComponent,
     StudentAchievementsComponent,
-    StudentExamsComponent
+    StudentExamsComponent,
+    ClerkDashboardComponent,
+    ClerkSalaryComponent,
+    ClerkAchievementsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,64 @@
+.outer-container {
+    width: 100%;
+}
+
+.mat-card {
+    height: 100%;
+}
+
+.side-container {
+    box-sizing: border-box;
+    width: 50%;
+    height: 100%;
+    float: left;
+    padding: 4%;
+}
+
+.card-head {
+    height: 40px;
+}
+
+.card-head-heading {
+    margin: 0;
+}
+
+.card-body{
+    box-sizing: border-box;
+    height: 90%;
+    width: 100%;
+    padding: 5%;
+}
+
+.text-inside-grid-left {
+  width: 40%;
+  margin: 10%;
+}
+
+.text-inside-grid-right {
+  width: 60%;
+}
+
+.text-inside-grid-left-second {
+  width: 30%;
+  margin: 15%;
+}
+
+.text-inside-grid-left-second {
+    width: 30%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.achievements-icon{
+    color: gold;
+    font-size: 50px;
+}
+
+.competition-txt{
+    color: indigo;
+}
+
+.competition-details-txt{
+    color: gray;
+    font-size: 12px;
+}
