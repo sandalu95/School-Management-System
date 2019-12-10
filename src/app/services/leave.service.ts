@@ -4,6 +4,7 @@ import { Leave } from "../models/leave";
 import { CommonResponse } from "../models/response/commonResponse";
 import { Observable } from "rxjs";
 import { GetLeavesResponse } from "../models/response/getLeaveResponse";
+import { GetLeaveCountResponse } from "../models/response/getLeavesCountResponse";
 
 @Injectable({
   providedIn: "root"
@@ -48,5 +49,16 @@ export class LeaveService {
     };
 
     return this.http.delete<CommonResponse>(this.apiUrl, options);
+  }
+
+  public getLeavesCount(): Observable<GetLeaveCountResponse> {
+    const options = {
+      params: new HttpParams().set("userId", this.user.userId),
+      headers: this.headers
+    };
+    return this.http.get<GetLeaveCountResponse>(
+      `${this.apiUrl}/count`,
+      options
+    );
   }
 }
