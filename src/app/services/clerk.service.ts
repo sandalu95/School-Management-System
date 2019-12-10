@@ -11,6 +11,8 @@ import { CommonResponse } from "../models/response/commonResponse";
 })
 export class ClerkService {
   apiURL: string = "https://sms-web-service.herokuapp.com/api/user/clerk";
+  user = JSON.parse(localStorage.getItem("httpCache"));
+  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   private clerkSource = new BehaviorSubject<Clerk>(null);
   currentClerk = this.clerkSource.asObservable();
@@ -80,5 +82,14 @@ export class ClerkService {
     return this.http.patch<CommonResponse>(this.apiURL + `/${clerkId}`, fd, {
       headers: headers
     });
+  }
+
+  public getClerkByUserId(): Observable<GetClerkResponse> {
+    return this.http.get<GetClerkResponse>(
+      `${this.apiURL}/${this.user.userId}`,
+      {
+        headers: this.headers
+      }
+    );
   }
 }
