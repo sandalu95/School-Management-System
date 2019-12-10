@@ -1,1 +1,194 @@
-<p>clerk-salary works!</p>
+<mat-card class="outer-container">
+    <div class="form-container">
+        <h3>Salary Information</h3>
+        <mat-divider></mat-divider>
+        <form [formGroup]="salaryForm" (ngSubmit)="addSalary(salaryForm.value)">
+            <div class="form-upper-div">
+                <mat-form-field appearance="outline" class="salary-form-field">
+                    <input
+                            matInput
+                            placeholder="User ID"
+                            aria-label="User ID"
+                            [matAutocomplete]="auto"
+                            formControlName="userId"
+                            required
+                        />
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option
+                            *ngFor="let user of filteredUsers | async"
+                            [value]="user.username"
+                            ><span>{{ user.username }}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    <mat-error *ngIf="salaryForm.get('userId').invalid">{{
+                        getError(salaryForm.get("userId"))
+                    }}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="salary-form-field">
+                    <input matInput placeholder="Name with initials" formControlName="nameinitials" required/>
+                    <mat-error *ngIf="salaryForm.get('nameinitials').invalid">{{
+                        getError(salaryForm.get("nameinitials"))
+                    }}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="salary-form-field">
+                    <input matInput placeholder="Year" formControlName="year" required/>
+                    <mat-error *ngIf="salaryForm.get('year').invalid">{{
+                        getError(salaryForm.get("year"))
+                    }}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="salary-form-field">
+                    <input matInput placeholder="Month" formControlName="month" required/>
+                    <mat-error *ngIf="salaryForm.get('month').invalid">{{
+                        getError(salaryForm.get("month"))
+                    }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-lower-div">
+                <div class="form-lower-left-div">
+                    <h4 class="form-lower-title">Earnings</h4>
+                    <mat-grid-list cols="2" rowHeight="90px">
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Pricipal Allowance" formControlName="pricipalAllowance"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Basic Salary" formControlName="basicSalary"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="SPE Interim" formControlName="speInterim"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Increments" formControlName="increments"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Arrears" formControlName="arrears"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Festival Advance" formControlName="festivalAdvance"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Adjust All" formControlName="adjustAll"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Allowance" formControlName="allowance"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="C.O.L. Allowance" formControlName="colAllowance"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2" rowspan="1" style="background: rgba(0,0,0,.12);">
+                            <mat-label>Gross Pay : {{grossPay}}</mat-label>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+                <div class="form-lower-right-div">
+                    <h4 class="form-lower-title">Deductions</h4>
+                    <mat-grid-list cols="2" rowHeight="90px">
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Stamp" formControlName="stamp"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="No Pay" formControlName="noPay"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Surcharge" formControlName="surcharge"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="W.O.P." formControlName="wop"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="W.O.P. Arrears" formControlName="wopArrears"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="EDCS" formControlName="edcs"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="N. Union" formControlName="nUnion"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Life Insurance" formControlName="lifeInsurance"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="School Deduction" formControlName="schoolDeduction"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="House Rent" formControlName="houseRent"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="House Loan" formControlName="houseLoan"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Dist. Loan" formControlName="distLoan"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="Dist. Int. Arr" formControlName="distIntArr"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="1" rowspan="1">
+                            <mat-form-field appearance="outline" class="salary-form-field">
+                                <input matInput type="number" placeholder="FID. Dstrs. Lo" formControlName="fidDstrsLo"/>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2" rowspan="1" style="background: rgba(0,0,0,.12);">
+                            <mat-label>Total Deductions : {{totalDeductions}}</mat-label>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </div>
+            
+            <div class="form-lowest-div">
+                <div id="net-pay">
+                    <h4 style="text-align: center; color:white;">  Net Pay : {{netPay}}</h4>
+                </div>
+                <div style="margin: auto 0; width: 20%;">
+                    <button mat-raised-button class="add-btn" style="float: right; width: 60%; background:#ffd740; color: white;" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</mat-card>
+
