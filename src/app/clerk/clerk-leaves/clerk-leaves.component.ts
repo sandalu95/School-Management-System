@@ -11,7 +11,6 @@ import { LeaveService } from "src/app/services/leave.service";
 })
 export class ClerkLeavesComponent implements OnInit {
   leaveForm: FormGroup;
-  selectedFile = null;
 
   commencedDate: string = "";
   assumedDate: string = "";
@@ -29,8 +28,7 @@ export class ClerkLeavesComponent implements OnInit {
       noOfDays: [null, Validators.required],
       leaveType: [null, Validators.required],
       reason: [null, Validators.required],
-      appliedDate: [null, Validators.required],
-      assignedWork: [null, Validators.required]
+      appliedDate: [null, Validators.required]
     });
   }
 
@@ -48,8 +46,6 @@ export class ClerkLeavesComponent implements OnInit {
 
   saveLeave(data) {
     if (this.leaveForm.invalid) return;
-
-    data.assignedWork = this.selectedFile;
 
     Swal.showLoading();
     this.leaveService.requestLeaves(data).subscribe(
@@ -103,10 +99,6 @@ export class ClerkLeavesComponent implements OnInit {
         );
       }
     });
-  }
-
-  onFileSelected(event) {
-    this.selectedFile = event.target.files[0];
   }
 
   getError(texttype) {
