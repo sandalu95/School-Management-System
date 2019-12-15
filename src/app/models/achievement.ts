@@ -1,7 +1,10 @@
+import { Exam } from "./exam";
+import { Competition } from "./competition";
+
 export class Achievement {
-  year: string;
-  competition: string;
-  event: string;
-  place: string;
-  description:string;
+  studentId: string;
+  oLevel: Exam[];
+  aLevel: Exam[];
+  extraCuricular: Competition[];
+  other: Competition[];
 }

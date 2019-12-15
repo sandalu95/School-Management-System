@@ -1,243 +1,350 @@
 <div class="outer-container">
-    <mat-card>
-        <div class="card-head">
-            <h3 class="card-head-heading">Add Student Achievement</h3>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="card-body">
-            <mat-grid-list cols="4" rowHeight="90px">
-                <form [formGroup]="achievementForm" (ngSubmit) = "Save(achievementForm.value)">
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="achievement-form-field">
-                        <input
-                            matInput
-                            placeholder="Student"
-                            aria-label="Student"
-                            [matAutocomplete]="auto"
-                            formControlName="student"
-                            required
-                        />
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option
-                            *ngFor="let student of filteredStudents | async"
-                            [value]="student.studentId"
-                            ><span>{{ student.nameinitials }}</span> |
-                            <small>{{ student.grade}}-{{ student.class}}</small>
-                            </mat-option>
-                        </mat-autocomplete>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1">
-                        <mat-form-field appearance="outline" class="achievement-form-field">
-                            <mat-label>Type</mat-label>
-                            <mat-select formControlName="type" required>
-                                <mat-option value="academic">Academic</mat-option>
-                                <mat-option value="extraCurricular">Extra-Curricular</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="achievementForm.get('type').invalid">{{getError(achievementForm.get('type'))}}</mat-error>
-                        </mat-form-field>
-                    </mat-grid-tile>
-                    <ng-container *ngIf="achievementForm.get('type').value=== 'academic'">
-                        <mat-grid-tile colspan="1" rowspan="1">
-                            <mat-form-field appearance="outline" class="achievement-form-field">
-                                <mat-label>Sub-Type</mat-label>
-                                <mat-select formControlName="subType" required>
-                                    <mat-option value="oLevel">O/L Exam</mat-option>
-                                    <mat-option value="aLevel">A/L Exam</mat-option>
-                                    <mat-option value="other">Other</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="achievementForm.get('subType').invalid">{{getError(achievementForm.get('subType'))}}</mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
-                            <mat-form-field appearance="outline" class="achievement-form-field">
-                                <mat-label>Year</mat-label>
-                                <mat-select formControlName="year" required>
-                                    <mat-option *ngFor="let year of yearArray" [value]="year">{{year}}</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="achievementForm.get('year').invalid">{{getError(achievementForm.get('year'))}}</mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <ng-container *ngIf="achievementForm.get('subType').value=== 'oLevel'">
-                                <mat-grid-tile 
-                                colspan="1" 
-                                rowspan="3"
-                            >
-                                <div class="add-result">
-                                    <form [formGroup]="addSubjectForm">
-                                        <mat-form-field appearance="outline" class="add-subject-form-field">
-                                            <mat-label>Subject</mat-label>
-                                            <input matInput formControlName="subject" required>
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline" class="add-subject-form-field">
-                                            <mat-label>grade</mat-label>
-                                            <mat-select formControlName="grade">
-                                                <mat-option *ngFor="let grade of gradeList" [value]="grade">{{grade}}</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                        <button 
-                                            mat-raised-button 
-                                            id="addresultbtn"
-                                            (click)="addResult(addSubjectForm.get('subject').value,addSubjectForm.get('grade').value)"
-                                        >
-                                            Add Result
-                                        </button>
-                                    </form>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile 
-                                colspan="2" 
-                                rowspan="3"
-                            >
-                                <div class="add-result result-list">
-                                    Results
-                                    <div class="scrollbar" id="style-3">
-                                        <div class="force-overflow">
-                                            <div style="display: flex; justify-content: space-between;" *ngFor="let result of results">
-                                                <h4 style="margin-bottom: 0;">{{result.subject}}</h4>
-                                                <h4 style="margin-right: 10%; margin-bottom: 0;">{{result.grade}}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-grid-tile>
-                        </ng-container>
-                        <ng-container *ngIf="achievementForm.get('subType').value=== 'aLevel'">
-                            <mat-grid-tile colspan="1" rowspan="1">
-                                <mat-form-field appearance="outline" class="achievement-form-field">
-                                    <mat-label>Stream</mat-label>
-                                    <mat-select formControlName="stream" required>
-                                        <mat-option value="biological">Biological Science</mat-option>
-                                        <mat-option value="physical">Physical Science</mat-option>
-                                        <mat-option value="commerce">Commerce</mat-option>
-                                        <mat-option value="arts">Arts</mat-option>
-                                        <mat-option value="technology">Technology</mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="achievementForm.get('stream').invalid">{{getError(achievementForm.get('stream'))}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-                            <mat-grid-tile 
-                                colspan="1" 
-                                rowspan="3"
-                            >
-                                <div class="add-result">
-                                    <form [formGroup]="addSubjectForm">
-                                        <mat-form-field appearance="outline" class="add-subject-form-field">
-                                            <mat-label>Subject</mat-label>
-                                            <input matInput formControlName="subject" required>
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline" class="add-subject-form-field">
-                                            <mat-label>grade</mat-label>
-                                            <mat-select formControlName="grade">
-                                                <mat-option *ngFor="let grade of gradeList" [value]="grade">{{grade}}</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                        <button 
-                                            mat-raised-button 
-                                            id="addresultbtn"
-                                            (click)="addResult(addSubjectForm.get('subject').value,addSubjectForm.get('grade').value)"
-                                        >
-                                            Add Result
-                                        </button>
-                                    </form>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile 
-                                colspan="2" 
-                                rowspan="3"
-                            >
-                                <div class="add-result result-list">
-                                    Results
-                                    <div class="scrollbar" id="style-3">
-                                        <div class="force-overflow">
-                                            <div style="display: flex; justify-content: space-between;" *ngFor="let result of results">
-                                                <h4 style="margin-bottom: 0;">{{result.subject}}</h4>
-                                                <h4 style="margin-right: 10%; margin-bottom: 0;">{{result.grade}}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-grid-tile>
-                            <mat-grid-tile colspan="1" rowspan="1">
-                                <mat-form-field appearance="outline" class="achievement-form-field">
-                                    <mat-label>Medium</mat-label>
-                                    <mat-select formControlName="medium" required>
-                                        <mat-option value="sinhala">Sinhala</mat-option>
-                                        <mat-option value="english">English</mat-option>
-                                        <mat-option value="tamil">Tamil</mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="achievementForm.get('medium').invalid">{{getError(achievementForm.get('medium'))}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-                        </ng-container>
-                        <ng-container *ngIf="achievementForm.get('subType').value=== 'other'">
-                            <mat-grid-tile colspan="1" rowspan="1">
-                                <mat-form-field appearance="outline" class="achievement-form-field">
-                                    <mat-label>Competition</mat-label>
-                                    <input matInput formControlName="competition" required>
-                                    <mat-error *ngIf="achievementForm.get('competition').invalid">{{getError(achievementForm.get('competition'))}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-                            <mat-grid-tile colspan="1" rowspan="1">
-                                <mat-form-field appearance="outline" class="achievement-form-field">
-                                    <mat-label>Event</mat-label>
-                                    <input matInput formControlName="event" required>
-                                    <mat-error *ngIf="achievementForm.get('event').invalid">{{getError(achievementForm.get('event'))}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-                            <mat-grid-tile colspan="1" rowspan="1">
-                                <mat-form-field appearance="outline" class="achievement-form-field">
-                                    <mat-label>Place</mat-label>
-                                    <input matInput formControlName="place" required>
-                                    <mat-error *ngIf="achievementForm.get('place').invalid">{{getError(achievementForm.get('place'))}}</mat-error>
-                                </mat-form-field>
-                            </mat-grid-tile>
-                        </ng-container>
-                    </ng-container>
-                    <ng-container *ngIf="achievementForm.get('type').value=== 'extraCurricular'">
-                        <mat-grid-tile colspan="1" rowspan="1">
-                            <mat-form-field appearance="outline" class="achievement-form-field">
-                                <mat-label>Year</mat-label>
-                                <mat-select formControlName="year" required>
-                                    <mat-option *ngFor="let year of yearArray" [value]="year">{{year}}</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="achievementForm.get('year').invalid">{{getError(achievementForm.get('year'))}}</mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
-                            <mat-form-field appearance="outline" class="achievement-form-field">
-                                <mat-label>Competition</mat-label>
-                                <input matInput formControlName="competition" required>
-                                <mat-error *ngIf="achievementForm.get('competition').invalid">{{getError(achievementForm.get('competition'))}}</mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
-                            <mat-form-field appearance="outline" class="achievement-form-field">
-                                <mat-label>Event</mat-label>
-                                <input matInput formControlName="event" required>
-                                <mat-error *ngIf="achievementForm.get('event').invalid">{{getError(achievementForm.get('event'))}}</mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
-                            <mat-form-field appearance="outline" class="achievement-form-field">
-                                <mat-label>Place</mat-label>
-                                <input matInput formControlName="place" required>
-                                <mat-error *ngIf="achievementForm.get('place').invalid">{{getError(achievementForm.get('place'))}}</mat-error>
-                            </mat-form-field>
-                        </mat-grid-tile>
-                    </ng-container>
-                    <mat-grid-tile 
-                        *ngIf="achievementForm.get('type').value=== 'extraCurricular' || achievementForm.get('subType').value=== 'other'" 
-                        colspan="4" 
-                        rowspan="2"></mat-grid-tile>
-                    <mat-grid-tile
-                        colspan="3" 
-                        rowspan="1"></mat-grid-tile>
-                    <mat-grid-tile colspan="1" rowspan="1" id="button-group">
-                        <button type="submit" mat-raised-button id="savebtn">Save</button>
-                    </mat-grid-tile>
-                </form>
-            </mat-grid-list>
-        </div>
-    </mat-card>
+  <mat-card>
+    <div class="card-head">
+      <h3 class="card-head-heading">Add Student Achievement</h3>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="card-body">
+      <mat-grid-list cols="4" rowHeight="90px">
+        <form
+          [formGroup]="achievementForm"
+          (ngSubmit)="Save(achievementForm.value)"
+        >
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="achievement-form-field">
+              <input
+                matInput
+                placeholder="Student"
+                aria-label="Student"
+                [matAutocomplete]="auto"
+                formControlName="student"
+                required
+              />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option
+                  *ngFor="let student of filteredStudents | async"
+                  [value]="student.studentId"
+                  ><span>{{ student.nameinitials }}</span> |
+                  <small>{{ student.grade }}-{{ student.class }}</small>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="achievement-form-field">
+              <mat-label>Type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option value="academic">Academic</mat-option>
+                <mat-option value="extraCurricular"
+                  >Extra-Curricular</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+          <ng-container
+            *ngIf="achievementForm.get('type').value === 'academic'"
+          >
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Sub-Type</mat-label>
+                <mat-select formControlName="subType">
+                  <mat-option value="oLevel">O/L Exam</mat-option>
+                  <mat-option value="aLevel">A/L Exam</mat-option>
+                  <mat-option value="other">Other</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Year</mat-label>
+                <mat-select formControlName="year" required>
+                  <mat-option *ngFor="let year of yearArray" [value]="year">{{
+                    year
+                  }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="achievementForm.get('year').invalid">{{
+                  getError(achievementForm.get("year"))
+                }}</mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <ng-container
+              *ngIf="achievementForm.get('subType').value === 'oLevel'"
+            >
+              <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Medium</mat-label>
+                  <mat-select formControlName="medium">
+                    <mat-option value="sinhala">Sinhala</mat-option>
+                    <mat-option value="english">English</mat-option>
+                    <mat-option value="tamil">Tamil</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+
+              <mat-grid-tile colspan="1" rowspan="3">
+                <div class="add-result">
+                  <form [formGroup]="addSubjectForm">
+                    <mat-form-field
+                      appearance="outline"
+                      class="add-subject-form-field"
+                    >
+                      <mat-label>Subject</mat-label>
+                      <input matInput formControlName="subject" />
+                    </mat-form-field>
+                    <mat-form-field
+                      appearance="outline"
+                      class="add-subject-form-field"
+                    >
+                      <mat-label>grade</mat-label>
+                      <mat-select formControlName="grade">
+                        <mat-option
+                          *ngFor="let grade of gradeList"
+                          [value]="grade"
+                          >{{ grade }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                    <button
+                      mat-raised-button
+                      id="addresultbtn"
+                      (click)="
+                        addResult(
+                          addSubjectForm.get('subject').value,
+                          addSubjectForm.get('grade').value
+                        )
+                      "
+                    >
+                      Add Result
+                    </button>
+                  </form>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="3">
+                <div class="add-result result-list">
+                  Results
+                  <div class="scrollbar" id="style-3">
+                    <div class="force-overflow">
+                      <div
+                        style="display: flex; justify-content: space-between;"
+                        *ngFor="let result of results"
+                      >
+                        <h4 style="margin-bottom: 0;">{{ result.subject }}</h4>
+                        <h4 style="margin-right: 10%; margin-bottom: 0;">
+                          {{ result.grade }}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-grid-tile>
+            </ng-container>
+            <ng-container
+              *ngIf="achievementForm.get('subType').value === 'aLevel'"
+            >
+              <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Stream</mat-label>
+                  <mat-select formControlName="stream">
+                    <mat-option value="biological"
+                      >Biological Science</mat-option
+                    >
+                    <mat-option value="physical">Physical Science</mat-option>
+                    <mat-option value="commerce">Commerce</mat-option>
+                    <mat-option value="arts">Arts</mat-option>
+                    <mat-option value="technology">Technology</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1" rowspan="3">
+                <div class="add-result">
+                  <form [formGroup]="addSubjectForm">
+                    <mat-form-field
+                      appearance="outline"
+                      class="add-subject-form-field"
+                    >
+                      <mat-label>Subject</mat-label>
+                      <input matInput formControlName="subject" />
+                    </mat-form-field>
+                    <mat-form-field
+                      appearance="outline"
+                      class="add-subject-form-field"
+                    >
+                      <mat-label>grade</mat-label>
+                      <mat-select formControlName="grade">
+                        <mat-option
+                          *ngFor="let grade of gradeList"
+                          [value]="grade"
+                          >{{ grade }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                    <button
+                      mat-raised-button
+                      id="addresultbtn"
+                      (click)="
+                        addResult(
+                          addSubjectForm.get('subject').value,
+                          addSubjectForm.get('grade').value
+                        )
+                      "
+                    >
+                      Add Result
+                    </button>
+                  </form>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="2" rowspan="3">
+                <div class="add-result result-list">
+                  Results
+                  <div class="scrollbar" id="style-3">
+                    <div class="force-overflow">
+                      <div
+                        style="display: flex; justify-content: space-between;"
+                        *ngFor="let result of results"
+                      >
+                        <h4 style="margin-bottom: 0;">{{ result.subject }}</h4>
+                        <h4 style="margin-right: 10%; margin-bottom: 0;">
+                          {{ result.grade }}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Medium</mat-label>
+                  <mat-select formControlName="medium">
+                    <mat-option value="sinhala">Sinhala</mat-option>
+                    <mat-option value="english">English</mat-option>
+                    <mat-option value="tamil">Tamil</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+            </ng-container>
+            <ng-container
+              *ngIf="achievementForm.get('subType').value === 'other'"
+            >
+              <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Competition</mat-label>
+                  <input matInput formControlName="competition" />
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Event</mat-label>
+                  <input matInput formControlName="event" />
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Place</mat-label>
+                  <input matInput formControlName="place" />
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="3" rowspan="1">
+                <mat-form-field
+                  appearance="outline"
+                  class="achievement-form-field"
+                >
+                  <mat-label>Description</mat-label>
+                  <input matInput formControlName="description" />
+                </mat-form-field>
+              </mat-grid-tile>
+            </ng-container>
+          </ng-container>
+          <ng-container
+            *ngIf="achievementForm.get('type').value === 'extraCurricular'"
+          >
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Year</mat-label>
+                <mat-select formControlName="year">
+                  <mat-option *ngFor="let year of yearArray" [value]="year">{{
+                    year
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Competition</mat-label>
+                <input matInput formControlName="competition" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Event</mat-label>
+                <input matInput formControlName="event" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Place</mat-label>
+                <input matInput formControlName="place" />
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="3" rowspan="1">
+              <mat-form-field
+                appearance="outline"
+                class="achievement-form-field"
+              >
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" />
+              </mat-form-field>
+            </mat-grid-tile>
+          </ng-container>
+          <mat-grid-tile
+            *ngIf="
+              achievementForm.get('subType').value === 'other' ||
+              achievementForm.get('type').value === 'extraCurricular'
+            "
+            colspan="4"
+            rowspan="1"
+          ></mat-grid-tile>
+          <mat-grid-tile colspan="3" rowspan="1"></mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1" id="button-group">
+            <button type="submit" mat-raised-button id="savebtn">Save</button>
+          </mat-grid-tile>
+        </form>
+      </mat-grid-list>
+    </div>
+  </mat-card>
 </div>
