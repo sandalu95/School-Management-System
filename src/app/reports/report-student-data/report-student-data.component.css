@@ -1,0 +1,40 @@
+.outer-container {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.mat-card {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.card-head {
+    height: 40px;
+}
+
+.card-head-heading {
+    margin: 0;
+}
+
+.card-body{
+    box-sizing: border-box;
+    height: 90%;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.text-inside-grid-left {
+  width: 40%;
+  margin-left: 10%;
+}
+
+.text-inside-grid-right {
+  width: 60%;
+}
+
+.text-inside-grid-left-second {
+  width: 40%;
+  margin-left: 15%;
+}

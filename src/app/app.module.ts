@@ -47,6 +47,8 @@ import { ClerkAchievementsComponent } from './clerk/clerk-achievements/clerk-ach
 import { ParentDashboardComponent } from './parent/parent-dashboard/parent-dashboard.component';
 import { ParentMarksComponent } from './parent/parent-marks/parent-marks.component';
 import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
+import { ReportStudentDataComponent } from './reports/report-student-data/report-student-data.component';
+import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,9 @@ import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.componen
     ClerkAchievementsComponent,
     ParentDashboardComponent,
     ParentMarksComponent,
-    ClerkLeavesComponent
+    ClerkLeavesComponent,
+    ReportStudentDataComponent,
+    ReportTeacherDataComponent
   ],
   imports: [
     BrowserModule,
