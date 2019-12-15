@@ -107,30 +107,30 @@
                 </mat-grid-list>
             </mat-tab>
             <mat-tab label="Assignment">
-                <mat-grid-list cols="4" rowHeight="90px">
+                <mat-grid-list cols="15" rowHeight="90px">
                     <form [formGroup]="assignmentForm" (ngSubmit) = "Save(assignmentForm.value)">
-                        <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-grid-tile colspan="3" rowspan="1">
                             <mat-form-field appearance="outline" class="assignment-form-field">
                                 <mat-label>Assignment Name</mat-label>
                                 <input matInput formControlName="assignmentName" required>
                                 <mat-error *ngIf="assignmentForm.get('assignmentName').invalid">{{getError(assignmentForm.get('assignmentName'))}}</mat-error>
                             </mat-form-field>
                         </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-grid-tile colspan="3" rowspan="1">
                             <mat-form-field appearance="outline" class="assignment-form-field">
                                 <mat-label>Subject</mat-label>
                                 <input matInput formControlName="subject" required>
                                 <mat-error *ngIf="assignmentForm.get('subject').invalid">{{getError(assignmentForm.get('subject'))}}</mat-error>
                             </mat-form-field>
                         </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-grid-tile colspan="3" rowspan="1">
                             <mat-form-field appearance="outline" class="assignment-form-field">
                                 <mat-label>Grade</mat-label>
                                 <input matInput formControlName="grade" required>
                                 <mat-error *ngIf="assignmentForm.get('grade').invalid">{{getError(assignmentForm.get('grade'))}}</mat-error>
                             </mat-form-field>
                         </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-grid-tile colspan="3" rowspan="1">
                             <mat-form-field appearance="outline" class="assignment-form-field">
                                 <mat-label>Class</mat-label>
                                 <mat-select formControlName="class" required>
@@ -144,8 +144,16 @@
                                 <mat-error *ngIf="assignmentForm.get('class').invalid">{{getError(assignmentForm.get('class'))}}</mat-error>
                             </mat-form-field>
                         </mat-grid-tile>
+                        <mat-grid-tile colspan="3" rowspan="1">
+                            <button 
+                            mat-raised-button 
+                            class="button" 
+                            (click)="apply(assignmentForm.get('grade').value,assignmentForm.get('class').value)">
+                            Apply
+                        </button>
+                        </mat-grid-tile>
                         <mat-grid-tile 
-                            colspan="3" 
+                            colspan="12" 
                             rowspan="3"
                         >
                             <div class="student-list">
@@ -159,9 +167,9 @@
                                 </div>
                             </div>
                         </mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="2"></mat-grid-tile>
-                        <mat-grid-tile colspan="1" rowspan="1" id="button-group">
-                            <button type="submit" mat-raised-button id="savebtn">Save</button>
+                        <mat-grid-tile colspan="3" rowspan="2"></mat-grid-tile>
+                        <mat-grid-tile colspan="3" rowspan="1" id="button-group">
+                            <button type="submit" mat-raised-button class="button">Save</button>
                         </mat-grid-tile>
                     </form>
                 </mat-grid-list>

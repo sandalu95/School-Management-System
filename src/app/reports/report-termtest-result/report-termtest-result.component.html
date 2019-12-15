@@ -1,0 +1,154 @@
+<div class="outer-container">
+    <mat-card>
+        <div class="card-head">
+            <h3 class="card-head-heading">Results of Term End Test</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+            <mat-grid-list cols="5" rowHeight="90px">
+                <form [formGroup]="ttMarksForm" (ngSubmit) = "apply(ttMarksForm.value)">
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="ttMarks-form-field">
+                            <mat-label>Year</mat-label>
+                            <input matInput formControlName="year" required>
+                            <mat-error *ngIf="ttMarksForm.get('year').invalid">{{getError(ttMarksForm.get('year'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="ttMarks-form-field">
+                            <mat-label>Term</mat-label>
+                            <input matInput formControlName="term" required>
+                            <mat-error *ngIf="ttMarksForm.get('term').invalid">{{getError(ttMarksForm.get('term'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="ttMarks-form-field">
+                            <mat-label>Grade</mat-label>
+                            <input matInput formControlName="grade" required>
+                            <mat-error *ngIf="ttMarksForm.get('grade').invalid">{{getError(ttMarksForm.get('grade'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="ttMarks-form-field">
+                            <mat-label>Class</mat-label>
+                            <input matInput formControlName="class" required>
+                            <mat-error *ngIf="ttMarksForm.get('class').invalid">{{getError(ttMarksForm.get('class'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <mat-form-field appearance="outline" class="ttMarks-form-field">
+                            <mat-label>Admission Number</mat-label>
+                            <input matInput formControlName="admissionNumber" required>
+                            <mat-error *ngIf="ttMarksForm.get('admissionNumber').invalid">{{getError(ttMarksForm.get('admissionNumber'))}}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1" rowspan="1">
+                        <button type="submit" mat-raised-button style="width:50%; background: #ffd740; color: white;">Apply</button>
+                    </mat-grid-tile>
+                </form>
+            </mat-grid-list>
+            <mat-card>
+                <mat-form-field>
+                    <input
+                    matInput
+                    (keyup)="applyFilterResult($event.target.value)"
+                    placeholder="Filter"
+                    />
+                </mat-form-field>
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="resultdataSource" matSort>
+
+                    <!-- Subject Column -->
+                    <ng-container matColumnDef="subject">
+                        <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header
+                        id="subject"
+                        >
+                        Subject
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{ row.subject }}</td>
+                    </ng-container>
+
+                    <!-- Marks Column -->
+                    <ng-container matColumnDef="mark">
+                        <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header
+                        id="mark"
+                        >
+                        Mark
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{ row.mark }}</td>
+                    </ng-container>
+
+                    <!-- Grade Column -->
+                    <ng-container matColumnDef="grade">
+                        <th 
+                        mat-header-cell 
+                        *matHeaderCellDef 
+                        mat-sort-header
+                        id="grade"
+                        >
+                        Grade
+                        </th>
+                        <td mat-cell *matCellDef="let row">{{ row.grade }}</td>
+                    </ng-container>
+                    <tr
+                        mat-header-row
+                        *matHeaderRowDef="resultdisplayedColumns"
+                    ></tr>
+                    <tr
+                        mat-row
+                        *matRowDef="let row; columns: resultdisplayedColumns"
+                    ></tr>
+                    </table>
+
+                    <mat-paginator
+                    pageSize="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    ></mat-paginator>
+                </div>
+            </mat-card>
+            <div style="margin-top:30px;">
+                <mat-grid-list cols="1" rowHeight="30px" style="width: 95%; margin-left:5%;">
+                    <mat-grid-tile>
+                        <div class="text-inside-grid-left">Average</div>
+                        <span style="margin-right: 10%;">:</span>
+                        <div class="text-inside-grid-right">{{ average }}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="text-inside-grid-left">Overall Grade</div>
+                        <span style="margin-right: 10%;">:</span>
+                        <div class="text-inside-grid-right">{{ overallGrade }}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="text-inside-grid-left">Rank</div>
+                        <span style="margin-right: 10%;">:</span>
+                        <div class="text-inside-grid-right">{{ rank }}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="text-inside-grid-left">Result</div>
+                        <span style="margin-right: 10%;">:</span>
+                        <div class="text-inside-grid-right">{{ finalResult }}</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <div class="text-inside-grid-left">Promoted to grade</div>
+                        <span style="margin-right: 10%;">:</span>
+                        <div class="text-inside-grid-right">{{ gradePromoted }}</div>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
+            <div style="margin:20px; margin-left: 80%;">
+                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+
+
+

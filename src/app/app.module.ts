@@ -51,6 +51,7 @@ import { ReportStudentDataComponent } from './reports/report-student-data/report
 import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
 import { ReportClerkDataComponent } from './reports/report-clerk-data/report-clerk-data.component';
 import { ReportContactInfoComponent } from './reports/report-contact-info/report-contact-info.component';
+import { ReportTermtestResultComponent } from './reports/report-termtest-result/report-termtest-result.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { ReportContactInfoComponent } from './reports/report-contact-info/report
     ReportStudentDataComponent,
     ReportTeacherDataComponent,
     ReportClerkDataComponent,
-    ReportContactInfoComponent
+    ReportContactInfoComponent,
+    ReportTermtestResultComponent
   ],
   imports: [
     BrowserModule,
