@@ -10,7 +10,7 @@ import { GetSalaryResponse } from "../models/response/getSalaryResponse";
   providedIn: "root"
 })
 export class SalaryService {
-  apiURL: string = "http://localhost:3000/api/salary";
+  apiURL: string = "https://sms-web-service.herokuapp.com/api/salary";
   apiURLGetUsers: string =
     "https://sms-web-service.herokuapp.com/api/user/user";
   user = JSON.parse(localStorage.getItem("httpCache"));
