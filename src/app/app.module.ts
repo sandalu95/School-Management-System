@@ -49,6 +49,8 @@ import { ParentMarksComponent } from './parent/parent-marks/parent-marks.compone
 import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
 import { ReportStudentDataComponent } from './reports/report-student-data/report-student-data.component';
 import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
+import { ReportClerkDataComponent } from './reports/report-clerk-data/report-clerk-data.component';
+import { ReportContactInfoComponent } from './reports/report-contact-info/report-contact-info.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { ReportTeacherDataComponent } from './reports/report-teacher-data/report
     ParentMarksComponent,
     ClerkLeavesComponent,
     ReportStudentDataComponent,
-    ReportTeacherDataComponent
+    ReportTeacherDataComponent,
+    ReportClerkDataComponent,
+    ReportContactInfoComponent
   ],
   imports: [
     BrowserModule,
