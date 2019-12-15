@@ -52,7 +52,7 @@ export class ClerkLeavesComponent implements OnInit {
         leaveType:"sick leave",
         reason:"i am sick",
         appliedDate:"2019-02-10",
-        assignedWorkId:null
+        assignedWork:null
       },
       {
         id:"gtr",
@@ -63,7 +63,7 @@ export class ClerkLeavesComponent implements OnInit {
         leaveType:"casual leave",
         reason:"a wedding",
         appliedDate:"2019-02-11",
-        assignedWorkId:null
+        assignedWork:null
       }
     ];
   }
