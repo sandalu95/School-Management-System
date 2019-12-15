@@ -126,7 +126,7 @@ form {
   background-color: #000000;
 }
 
-#savebtn {
+.button {
     background:#ffd740;
     color: white;
     width: 60%;

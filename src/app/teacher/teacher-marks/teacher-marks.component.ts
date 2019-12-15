@@ -44,18 +44,21 @@ export class TeacherMarksComponent implements OnInit {
         grade: [null, Validators.required],
         class: [null, Validators.required],
       });
-      this.studentService.getAllStudents().subscribe(
-        data => {
-          this.studentlist = data.students;
-          console.log(this.studentlist);
-        },
-        error => {
-          this.handleResponseError(error);
-        }
-      );
   }
 
   ngOnInit() {
+  }
+
+  apply(Grade,Class){
+    // this.studentService.getAllStudents().subscribe(
+    //   data => {
+    //     this.studentlist = data.students;
+    //     console.log(this.studentlist);
+    //   },
+    //   error => {
+    //     this.handleResponseError(error);
+    //   }
+    // );
   }
 
   addResult(subject,grade){
