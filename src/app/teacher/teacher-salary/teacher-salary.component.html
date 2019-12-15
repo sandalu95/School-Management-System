@@ -1,66 +1,83 @@
 <mat-card class="outer-container">
-    <div class="form-container">
-        <h3>Salary Information</h3>
-        <mat-divider></mat-divider>
-        <form [formGroup]="searchForm" (ngSubmit)="searchSalary(searchForm.value)">
-            <mat-form-field appearance="outline" class="salary-form-field">
-                <input matInput placeholder="Year" formControlName="year" required/>
-                <mat-error *ngIf="searchForm.get('year').invalid">{{
-                    getError(searchForm.get("year"))
-                }}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="salary-form-field">
-                <input matInput outline placeholder="Month" formControlName="month" required/>
-                <mat-error *ngIf="searchForm.get('month').invalid">{{
-                    getError(searchForm.get("month"))
-                }}</mat-error>
-            </mat-form-field>
-            <button mat-raised-button class="add-btn" type="submit">Search</button>
-        </form>
-        
-    </div>
+  <div class="form-container">
+    <h3>Salary Information</h3>
+    <mat-divider></mat-divider>
+    <form [formGroup]="searchForm" (ngSubmit)="searchSalary(searchForm.value)">
+      <mat-form-field appearance="outline" class="salary-form-field">
+        <input matInput placeholder="Year" formControlName="year" required />
+        <mat-error *ngIf="searchForm.get('year').invalid">{{
+          getError(searchForm.get("year"))
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="salary-form-field">
+        <input
+          matInput
+          outline
+          placeholder="Month"
+          formControlName="month"
+          required
+        />
+        <mat-error *ngIf="searchForm.get('month').invalid">{{
+          getError(searchForm.get("month"))
+        }}</mat-error>
+      </mat-form-field>
+      <button mat-raised-button class="add-btn" type="submit">Search</button>
+    </form>
+  </div>
+  <ng-container *ngIf="salary != null">
     <div class="data-container">
-        <mat-grid-list cols="1" rowHeight="30:1">
-            <mat-grid-tile>
-                <div class="text-inside-grid-left">Name</div>
-                <div class="text-inside-grid-right">{{ name }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left">Designation</div>
-                <div class="text-inside-grid-right">{{ designation }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left">Date of first appontment</div>
-                <div class="text-inside-grid-right">{{ firstAppointmentDate }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left">Date of appointment to this school</div>
-                <div class="text-inside-grid-right">{{ schoolAppointmentDate }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left">Date of retirement</div>
-                <div class="text-inside-grid-right">{{ retirementDate }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left">Basic Salary</div>
-                <div class="text-inside-grid-right">{{ basicSalary }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left"><b>Earnings</b></div>
-                <div class="text-inside-grid-right"></div>
-            </mat-grid-tile>
-            <mat-grid-tile *ngFor="let earning of earnings">
-                <div class="text-inside-grid-left" style="margin-left: 20px">{{ earning.name }}</div>
-                <div class="text-inside-grid-right" style="margin-left: 20px">{{ earning.value }}</div>
-            </mat-grid-tile>
-            <mat-grid-tile>
-                <div class="text-inside-grid-left"><b>Deductions</b></div>
-                <div class="text-inside-grid-right"></div>
-            </mat-grid-tile>
-            <mat-grid-tile *ngFor="let deduction of deductions">
-                <div class="text-inside-grid-left" style="margin-left: 20px">{{ deduction.name }}</div>
-                <div class="text-inside-grid-right" style="margin-left: 20px">{{ deduction.value }}</div>
-            </mat-grid-tile>
-        </mat-grid-list>
+      <mat-grid-list cols="1" rowHeight="30:1">
+        <mat-grid-tile>
+          <div class="text-inside-grid-left">Name</div>
+          <div class="text-inside-grid-right">{{ name }}</div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-inside-grid-left">Designation</div>
+          <div class="text-inside-grid-right">{{ designation }}</div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-inside-grid-left">Date of first appontment</div>
+          <div class="text-inside-grid-right">
+            {{ firstAppointmentDate | date }}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-inside-grid-left">
+            Date of appointment to this school
+          </div>
+          <div class="text-inside-grid-right">
+            {{ schoolAppointmentDate | date }}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-inside-grid-left">Basic Salary</div>
+          <div class="text-inside-grid-right">{{ basicSalary }}</div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-inside-grid-left"><strong>Earnings</strong></div>
+          <div class="text-inside-grid-right"></div>
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor="let earning of earnings">
+          <div class="text-inside-grid-left" style="margin-left: 20px">
+            {{ earning.name }}
+          </div>
+          <div class="text-inside-grid-right" style="margin-left: 20px">
+            {{ earning.value }}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-inside-grid-left"><strong>Deductions</strong></div>
+          <div class="text-inside-grid-right"></div>
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor="let deduction of deductions">
+          <div class="text-inside-grid-left" style="margin-left: 20px">
+            {{ deduction.name }}
+          </div>
+          <div class="text-inside-grid-right" style="margin-left: 20px">
+            {{ deduction.value }}
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
+  </ng-container>
 </mat-card>
