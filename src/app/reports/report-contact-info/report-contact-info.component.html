@@ -1,1 +1,175 @@
-<p>report-contact-info works!</p>
+<div class="outer-container">
+    <mat-card>
+        <div class="card-head">
+            <h3 class="card-head-heading">Contact Information</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+            <form [formGroup]="userTypeForm" (ngSubmit)="apply(userTypeForm.value)">
+                <span>Enter User Type : </span>
+                <mat-form-field appearance="outline">
+                    <mat-label>User Type</mat-label>
+                    <mat-select #userTypeSelect formControlName="userType" required>
+                        <mat-option value="Student">Student</mat-option>
+                        <mat-option value="Teacher">Teacher</mat-option>
+                        <mat-option value="Clerk">Clerk</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userTypeForm.get('userType').invalid">{{
+                        getError(userTypeForm.get("userType"))
+                    }}</mat-error>
+                </mat-form-field>
+                <button type="submit" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Apply</button>
+            </form>
+            <div>
+                <h4 style="text-align: center; text-decoration: underline;">Contact Information - {{userTypeSelect.value}}</h4>
+                <mat-card>
+                    <mat-form-field>
+                        <input
+                        matInput
+                        (keyup)="applyFilterContact($event.target.value)"
+                        placeholder="Filter"
+                        />
+                    </mat-form-field>
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="contactdataSource" matSort>
+
+                        <!-- Name initials Column -->
+                        <ng-container matColumnDef="nameinitials">
+                            <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            id="nameinitials"
+                            >
+                            Name with initials
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.nameinitials }}</td>
+                        </ng-container>
+
+                        <!-- Address Column -->
+                        <ng-container matColumnDef="address">
+                            <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            id="address"
+                            >
+                            Address
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.address }}</td>
+                        </ng-container>
+
+                        <!-- Email Column -->
+                        <ng-container matColumnDef="email">
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            mat-sort-header
+                            id="email"
+                            >
+                            Email
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+                        </ng-container>
+
+                        <!-- Contact Column -->
+                        <ng-container matColumnDef="contact">
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            mat-sort-header
+                            id="contact"
+                            >
+                            Contact
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.contact }}</td>
+                        </ng-container>
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="contactdisplayedColumns"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: contactdisplayedColumns"
+                        ></tr>
+                        </table>
+
+                        <mat-paginator
+                        pageSize="5"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        ></mat-paginator>
+                    </div>
+                    <!-- <mat-grid-list cols="1" rowHeight="30px" style="width: 80%; margin: auto;">
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Clerk ID</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ clerkId }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Full Name</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ fullname }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Name with Initial</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ nameWithInitial }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Gender</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ gender }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Date of Birth</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ dob | date }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">NIC Number</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ nic }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Address</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ address }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Email Address</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ email }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Contact Number</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ contact }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Position</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ position }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Date of first appointment</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ firstadmission }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Date of appointment to school</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ scladmission }}</div>
+                        </mat-grid-tile>
+                    </mat-grid-list> -->
+                </mat-card>
+            </div>
+            <div style="margin:20px; margin-left: 80%;">
+                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+
+
