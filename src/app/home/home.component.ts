@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
         { label: "Dashboard", route: "/home/admin/dashboard" },
         { label: "Teachers", route: "/home/admin/teachers" },
         { label: "Clerks", route: "/home/admin/clerks" },
-        { label: "Notice", route: "/home/admin/notice" }
+        { label: "Notice", route: "/home/admin/notice" },
       ];
     } else if (this.userType == "Teacher") {
       this.links = [

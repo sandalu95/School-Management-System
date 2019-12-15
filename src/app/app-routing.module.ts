@@ -37,6 +37,10 @@ import { ClerkSalaryComponent } from './clerk/clerk-salary/clerk-salary.componen
 import { ParentDashboardComponent } from './parent/parent-dashboard/parent-dashboard.component';
 import { ParentMarksComponent } from './parent/parent-marks/parent-marks.component';
 import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
+import { ReportStudentDataComponent } from './reports/report-student-data/report-student-data.component';
+import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
+import { ReportClerkDataComponent } from './reports/report-clerk-data/report-clerk-data.component';
+import { ReportContactInfoComponent } from './reports/report-contact-info/report-contact-info.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -60,6 +64,10 @@ const routes: Routes = [
       { path: "admin/clerks/add-clerks", component: AddClerksComponent },
       { path: "admin/clerks/edit-clerks", component: EditClerksComponent },
       { path: "admin/clerks/view-clerks", component: ViewClerksComponent },
+      { path: "admin/reports/student-data", component: ReportStudentDataComponent },
+      { path: "admin/reports/teacher-data", component: ReportTeacherDataComponent },
+      { path: "admin/reports/clerk-data", component: ReportClerkDataComponent },
+      { path: "admin/reports/contact-info", component: ReportContactInfoComponent },
       { path: "admin/notice", component: NoticeComponent },
       { path: "teacher", redirectTo: "teacher/dashboard", pathMatch: "full" },
       { path: "teacher/dashboard", component: TeacherDashboardComponent },
