@@ -39,6 +39,7 @@ import { ParentMarksComponent } from './parent/parent-marks/parent-marks.compone
 import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
 import { ReportStudentDataComponent } from './reports/report-student-data/report-student-data.component';
 import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
+import { ReportClerkDataComponent } from './reports/report-clerk-data/report-clerk-data.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -64,6 +65,7 @@ const routes: Routes = [
       { path: "admin/clerks/view-clerks", component: ViewClerksComponent },
       { path: "admin/reports/student-data", component: ReportStudentDataComponent },
       { path: "admin/reports/teacher-data", component: ReportTeacherDataComponent },
+      { path: "admin/reports/clerk-data", component: ReportClerkDataComponent },
       { path: "admin/notice", component: NoticeComponent },
       { path: "teacher", redirectTo: "teacher/dashboard", pathMatch: "full" },
       { path: "teacher/dashboard", component: TeacherDashboardComponent },
