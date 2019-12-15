@@ -1,92 +1,104 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Leave } from 'src/app/models/leave';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Leave } from "src/app/models/leave";
+import Swal from "sweetalert2";
+import { LeaveService } from "src/app/services/leave.service";
 
 @Component({
-  selector: 'app-clerk-leaves',
-  templateUrl: './clerk-leaves.component.html',
-  styleUrls: ['./clerk-leaves.component.css']
+  selector: "app-clerk-leaves",
+  templateUrl: "./clerk-leaves.component.html",
+  styleUrls: ["./clerk-leaves.component.css"]
 })
 export class ClerkLeavesComponent implements OnInit {
   leaveForm: FormGroup;
-  userId: string = "";
+
   commencedDate: string = "";
   assumedDate: string = "";
   noOfDays: string = "";
   leaveType: string = "";
   reason: string = "";
   appliedDate: string = "";
-  assignedWorkId: string = "";
+  assignedWork: string = "";
   leaves: Leave[];
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private leaveService: LeaveService) {
     this.leaveForm = fb.group({
-      userId: [null, Validators.required],
       commencedDate: [null, Validators.required],
       assumedDate: [null, Validators.required],
       noOfDays: [null, Validators.required],
       leaveType: [null, Validators.required],
       reason: [null, Validators.required],
-      appliedDate: [null, Validators.required],
-      assignedWorkId: [null, Validators.required]
+      appliedDate: [null, Validators.required]
     });
   }
 
   ngOnInit() {
-    // this.leaveService.getAllLeaves().subscribe(
-    //   data => {
-    //     this.leaves = data.leaves;
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
-    this.leaves = [
-      {
-        id:"drfe",
-        userId:"231",
-        commencedDate:"2019-02-13",
-        assumedDate:"2019-02-12",
-        noOfDays:"2",
-        leaveType:"sick leave",
-        reason:"i am sick",
-        appliedDate:"2019-02-10",
-        assignedWork:null
+    this.leaveService.getLeavesByUserId().subscribe(
+      data => {
+        console.log(data);
+        this.leaves = data.leaves;
       },
-      {
-        id:"gtr",
-        userId:"432",
-        commencedDate:"2019-02-14",
-        assumedDate:"2019-02-16",
-        noOfDays:"4",
-        leaveType:"casual leave",
-        reason:"a wedding",
-        appliedDate:"2019-02-11",
-        assignedWork:null
+      error => {
+        this.handleResponseError(error);
       }
-    ];
+    );
   }
 
   saveLeave(data) {
     if (this.leaveForm.invalid) return;
-    console.log("success");
-    // Swal.showLoading();
-    // this.leaveService.createLeave(data).subscribe(
-    //   data => {
-    //     Swal.hideLoading();
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Great!",
-    //       text: data.message
-    //     }).then(res => {
-    //       this.leaveForm.reset();
-    //     });
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
+
+    Swal.showLoading();
+    this.leaveService.requestLeaves(data).subscribe(
+      data => {
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "success",
+          title: "Great!",
+          text: data.message
+        }).then(res => {
+          this.leaveForm.reset();
+        });
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
+  }
+
+  deleteLeave(leave: Leave) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        Swal.close();
+        this.leaveService.deleteLeave(leave.id).subscribe(
+          data => {
+            if (data.status == 401) {
+              Swal.fire({
+                icon: "warning",
+                title: "Unauthorized!",
+                text: data.message
+              });
+            } else {
+              Swal.fire({
+                icon: "success",
+                title: "Deleted!",
+                text: data.message
+              });
+            }
+          },
+          error => {
+            this.handleResponseError(error);
+          }
+        );
+      }
+    });
   }
 
   getError(texttype) {
@@ -101,5 +113,4 @@ export class ClerkLeavesComponent implements OnInit {
       text: error.error.error
     });
   }
-
 }

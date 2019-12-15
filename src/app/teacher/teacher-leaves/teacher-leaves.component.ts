@@ -109,6 +109,10 @@ export class TeacherLeavesComponent implements OnInit {
     return texttype.hasError("required") ? "You must enter a value" : "";
   }
 
+  onFileSelected(event) {
+    this.selectedFile = event.target.files[0];
+  }
+
   handleResponseError(error) {
     Swal.hideLoading();
     Swal.fire({
