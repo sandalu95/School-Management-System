@@ -52,6 +52,8 @@ import { ReportTeacherDataComponent } from './reports/report-teacher-data/report
 import { ReportClerkDataComponent } from './reports/report-clerk-data/report-clerk-data.component';
 import { ReportContactInfoComponent } from './reports/report-contact-info/report-contact-info.component';
 import { ReportTermtestResultComponent } from './reports/report-termtest-result/report-termtest-result.component';
+import { ReportStudentProgressComponent } from './reports/report-student-progress/report-student-progress.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,8 @@ import { ReportTermtestResultComponent } from './reports/report-termtest-result/
     ReportTeacherDataComponent,
     ReportClerkDataComponent,
     ReportContactInfoComponent,
-    ReportTermtestResultComponent
+    ReportTermtestResultComponent,
+    ReportStudentProgressComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ import { ReportTermtestResultComponent } from './reports/report-termtest-result/
     BrowserAnimationsModule,
     HttpClientModule,
     PdfViewerModule,
-    FileSaverModule
+    FileSaverModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
