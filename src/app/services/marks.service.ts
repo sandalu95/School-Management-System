@@ -9,9 +9,7 @@ import { TermTestMarks } from "../models/termtestmarks";
   providedIn: "root"
 })
 export class MarksService {
-  // assignmnetApiUrl: string =
-  //   "https://sms-web-service.herokuapp.com/api/marks/assignment";
-  apiUrl: string = "http://localhost:3000/api/marks";
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/marks";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
