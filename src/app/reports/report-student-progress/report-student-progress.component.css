@@ -1,0 +1,51 @@
+.outer-container {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.mat-card {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.card-head {
+    height: 25px;
+}
+
+.card-head-heading {
+    margin: 0;
+    text-align: center;
+}
+
+.card-body{
+    box-sizing: border-box;
+    display: block;
+    height: 90%;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+#chart-body{
+  height: 420px;
+  margin-left: 20%;
+}
+
+.comment-body{
+  height: 200px;
+}
+
+.text-inside-grid-left {
+  width: 70%;
+  margin-left: 5%;
+}
+
+.text-inside-grid-right {
+  width: 60%;
+}
+
+.text-inside-grid-left-second {
+  width: 40%;
+  margin-left: 15%;
+}

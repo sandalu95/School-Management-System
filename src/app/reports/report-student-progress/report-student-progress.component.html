@@ -1,0 +1,151 @@
+<div class="outer-container">
+    <mat-card>
+        <mat-grid-list cols="5" rowHeight="90px">
+            <form [formGroup]="progressForm" (ngSubmit)="getProgress(progressForm.value)">
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Year</mat-label>
+                        <input matInput formControlName="year" required>
+                        <mat-error *ngIf="progressForm.get('year').invalid">{{
+                            getError(progressForm.get("year"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Grade</mat-label>
+                        <input matInput formControlName="grade" required>
+                        <mat-error *ngIf="progressForm.get('grade').invalid">{{
+                            getError(progressForm.get("grade"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Class</mat-label>
+                        <input matInput formControlName="class" required>
+                        <mat-error *ngIf="progressForm.get('class').invalid">{{
+                            getError(progressForm.get("class"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Admission Number</mat-label>
+                        <input matInput formControlName="admissionNumber" required>
+                        <mat-error *ngIf="progressForm.get('admissionNumber').invalid">{{
+                            getError(progressForm.get("admissionNumber"))
+                        }}</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1" rowspan="1">
+                    <button type="submit" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Apply</button>
+                </mat-grid-tile>
+            </form>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+        <div class="card-head">
+            <h4 class="card-head-heading">Academic Progress</h4>
+        </div>
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="data.length==0">
+            <div style="text-align: center; height:80px; padding-top:5%;">No Data</div>
+        </ng-container>
+        <ng-container *ngIf="data.length>0">
+            <div id="chart-body">
+                <ngx-charts-bar-vertical-2d
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="data"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [legendTitle]="legendTitle"
+                    (select)="onSelect($event)"
+                    (activate)="onActivate($event)"
+                    (deactivate)="onDeactivate($event)">
+                </ngx-charts-bar-vertical-2d>
+            </div>
+        </ng-container>
+
+        <mat-divider></mat-divider>
+        <div class="card-head">
+            <h4 class="card-head-heading">Conduct</h4>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+                <mat-grid-list cols="5" rowHeight="50px">
+                    <mat-grid-tile colspan="2" rowspan="1">
+                        <div class="text-inside-grid-left" id="obedience">Obedience</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-radio-group
+                        aria-labelledby="obedience"
+                        class="example-radio-group"
+                        [(ngModel)]="obedience">
+                            <mat-radio-button style="margin: 5px;" class="example-radio-button" *ngFor="let level of conductLevels" [value]="level">
+                            {{level}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="2" rowspan="1">
+                        <div class="text-inside-grid-left" id="workNeat">Works Neatly</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-radio-group
+                        aria-labelledby="workNeat"
+                        class="example-radio-group"
+                        [(ngModel)]="workNeat">
+                            <mat-radio-button style="margin: 5px;" class="example-radio-button" *ngFor="let level of conductLevels" [value]="level">
+                            {{level}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="2" rowspan="1">
+                        <div class="text-inside-grid-left" id="classParticipation">Class Participation</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-radio-group
+                        aria-labelledby="classParticipation"
+                        class="example-radio-group"
+                        [(ngModel)]="classParticipation">
+                            <mat-radio-button style="margin: 5px;" class="example-radio-button" *ngFor="let level of conductLevels" [value]="level">
+                            {{level}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="2" rowspan="1">
+                        <div class="text-inside-grid-left" id="refrainDistrupting">Refrain from disrupting others</div>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-radio-group
+                        aria-labelledby="refrainDistrupting"
+                        class="example-radio-group"
+                        [(ngModel)]="refrainDistrupting">
+                            <mat-radio-button style="margin: 5px;" class="example-radio-button" *ngFor="let level of conductLevels" [value]="level">
+                            {{level}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            <mat-divider></mat-divider>
+            <div class="card-head">
+                <h4 class="card-head-heading">Teacher Comments</h4>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="comment-body">
+                <!-- <textarea matInput placeholder="Teacher Comment Here"></textarea> -->
+            </div>
+            <mat-divider></mat-divider>
+            <div style="margin:20px; margin-left: 80%;">
+                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+            </div>
+        </div>
+    </mat-card>
+</div>

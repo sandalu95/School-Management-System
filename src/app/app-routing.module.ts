@@ -42,6 +42,7 @@ import { ReportTeacherDataComponent } from './reports/report-teacher-data/report
 import { ReportClerkDataComponent } from './reports/report-clerk-data/report-clerk-data.component';
 import { ReportContactInfoComponent } from './reports/report-contact-info/report-contact-info.component';
 import { ReportTermtestResultComponent } from './reports/report-termtest-result/report-termtest-result.component';
+import { ReportStudentProgressComponent } from './reports/report-student-progress/report-student-progress.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -70,6 +71,7 @@ const routes: Routes = [
       { path: "admin/reports/clerk-data", component: ReportClerkDataComponent },
       { path: "admin/reports/contact-info", component: ReportContactInfoComponent },
       { path: "admin/reports/term-test-result", component: ReportTermtestResultComponent },
+      { path: "admin/reports/student-progress", component: ReportStudentProgressComponent },
       { path: "admin/notice", component: NoticeComponent },
       { path: "teacher", redirectTo: "teacher/dashboard", pathMatch: "full" },
       { path: "teacher/dashboard", component: TeacherDashboardComponent },

@@ -20,7 +20,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatAutocompleteModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatRadioModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -45,7 +46,8 @@ const modules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatAutocompleteModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatRadioModule
 ];
 
 @NgModule({
