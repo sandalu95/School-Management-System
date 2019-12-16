@@ -54,6 +54,8 @@ import { ReportContactInfoComponent } from './reports/report-contact-info/report
 import { ReportTermtestResultComponent } from './reports/report-termtest-result/report-termtest-result.component';
 import { ReportStudentProgressComponent } from './reports/report-student-progress/report-student-progress.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ReportServiceLetterComponent } from './reports/report-service-letter/report-service-letter.component';
+import { ReportCharacterCertificateComponent } from './reports/report-character-certificate/report-character-certificate.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +102,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     ReportClerkDataComponent,
     ReportContactInfoComponent,
     ReportTermtestResultComponent,
-    ReportStudentProgressComponent
+    ReportStudentProgressComponent,
+    ReportServiceLetterComponent,
+    ReportCharacterCertificateComponent
   ],
   imports: [
     BrowserModule,

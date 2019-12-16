@@ -43,6 +43,8 @@ import { ReportClerkDataComponent } from './reports/report-clerk-data/report-cle
 import { ReportContactInfoComponent } from './reports/report-contact-info/report-contact-info.component';
 import { ReportTermtestResultComponent } from './reports/report-termtest-result/report-termtest-result.component';
 import { ReportStudentProgressComponent } from './reports/report-student-progress/report-student-progress.component';
+import { ReportCharacterCertificateComponent } from './reports/report-character-certificate/report-character-certificate.component';
+import { ReportServiceLetterComponent } from './reports/report-service-letter/report-service-letter.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -72,6 +74,8 @@ const routes: Routes = [
       { path: "admin/reports/contact-info", component: ReportContactInfoComponent },
       { path: "admin/reports/term-test-result", component: ReportTermtestResultComponent },
       { path: "admin/reports/student-progress", component: ReportStudentProgressComponent },
+      { path: "admin/reports/character-certificate", component: ReportCharacterCertificateComponent },
+      { path: "admin/reports/service-letter", component: ReportServiceLetterComponent },
       { path: "admin/notice", component: NoticeComponent },
       { path: "teacher", redirectTo: "teacher/dashboard", pathMatch: "full" },
       { path: "teacher/dashboard", component: TeacherDashboardComponent },

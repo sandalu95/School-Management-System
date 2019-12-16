@@ -9,44 +9,25 @@
     height: 100%;
 }
 
-.card-main-head {
-  height: 40px;
-}
-
-.card-main-head-heading {
-  margin: 0;
-}
-
 .card-head {
-    height: 25px;
+    height: 40px;
 }
 
 .card-head-heading {
     margin: 0;
-    text-align: center;
 }
 
 .card-body{
     box-sizing: border-box;
-    display: block;
     height: 90%;
     width: 100%;
     padding-top: 15px;
     padding-bottom: 10px;
 }
 
-#chart-body{
-  height: 420px;
-  margin-left: 20%;
-}
-
-.comment-body{
-  height: 200px;
-}
-
 .text-inside-grid-left {
-  width: 70%;
-  margin-left: 5%;
+  width: 40%;
+  margin-left: 10%;
 }
 
 .text-inside-grid-right {

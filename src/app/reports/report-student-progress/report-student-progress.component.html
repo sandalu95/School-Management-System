@@ -1,7 +1,11 @@
 <div class="outer-container">
     <mat-card>
+        <div class="card-main-head">
+            <h3 class="card-main-head-heading">Student Progress Report</h3>
+        </div>
+        <mat-divider></mat-divider>
         <mat-grid-list cols="5" rowHeight="90px">
-            <form [formGroup]="progressForm" (ngSubmit)="getProgress(progressForm.value)">
+            <form [formGroup]="progressForm" (ngSubmit)="getProgress(progressForm.value)" style="margin-top:20px; ">
                 <mat-grid-tile colspan="1" rowspan="1">
                     <mat-form-field appearance="outline">
                         <mat-label>Year</mat-label>
