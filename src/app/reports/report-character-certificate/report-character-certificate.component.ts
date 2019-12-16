@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import { Achievement } from 'src/app/models/achievement';
+import { Student } from 'src/app/models/student';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
