@@ -5,6 +5,9 @@ import { SalaryService } from "src/app/services/salary.service";
 import Swal from "sweetalert2";
 import { Salary } from "src/app/models/salary";
 import { Teacher } from "src/app/models/teacher";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: "app-teacher-salary",
@@ -13,12 +16,12 @@ import { Teacher } from "src/app/models/teacher";
 })
 export class TeacherSalaryComponent implements OnInit {
   searchForm: FormGroup;
+  pdfMake: any;
 
   name: string;
   designation: string;
   firstAppointmentDate: string;
   schoolAppointmentDate: string;
-  retirementDate: string;
   basicSalary: string;
   earnings: Pay[];
   deductions: Pay[];
@@ -34,34 +37,6 @@ export class TeacherSalaryComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.earnings = [
-    //   {
-    //     name: "Basic Salary",
-    //     value: "4353"
-    //   },
-    //   {
-    //     name: "Increments",
-    //     value: "2020"
-    //   },
-    //   {
-    //     name: "Arrears",
-    //     value: "321"
-    //   }
-    // ];
-    // this.deductions = [
-    //   {
-    //     name: "Stamp",
-    //     value: "4353"
-    //   },
-    //   {
-    //     name: "No Pay",
-    //     value: "2020"
-    //   },
-    //   {
-    //     name: "EDCS",
-    //     value: "321"
-    //   }
-    // ];
   }
 
   searchSalary(data) {
@@ -189,6 +164,119 @@ export class TeacherSalaryComponent implements OnInit {
         this.handleResponseError(error);
       }
     );
+  }
+
+  generatePdf(action = 'open') {
+    console.log(pdfMake);
+    const documentDefinition = this.getDocumentDefinition();
+
+    switch (action) {
+      case 'open': pdfMake.createPdf(documentDefinition).open(); break;
+      case 'print': pdfMake.createPdf(documentDefinition).print(); break;
+      case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+
+      default: pdfMake.createPdf(documentDefinition).open(); break;
+    }
+  }
+
+  getDocumentDefinition() {
+    return {
+      content: [
+        {
+          text: 'Pay Report - '+this.searchForm.get('month').value+" "+this.searchForm.get('year').value,
+          bold: true,
+          fontSize: 15,
+          decoration: 'underline',
+          alignment: 'center',
+          margin: [0, 0, 0, 20]
+        },
+        {
+          columns: [
+            [{
+              text: "Name\t:\t"+this.name,
+              style: 'name'
+            },
+            {
+              text: "Designation\t:\t"+this.designation,
+              style: 'name'
+            },
+            {
+              text: "Date of first appointment\t:\t"+this.firstAppointmentDate,
+              style: 'name'
+            },
+            {
+              text: "Date of appointment to the school\t:\t"+this.schoolAppointmentDate,
+              style: 'name'
+            },
+            {
+              text: "Basic Salary\t:\t"+this.basicSalary,
+              style: 'name'
+            },
+            {
+              text: 'Earnings',
+              style: 'header'
+            },
+            this.getEarnings(),
+            {
+              text: 'Deductions',
+              style: 'header'
+            },
+            this.getDeductions(),
+            ]
+          ]
+        },
+      ],
+      info: {
+        title: 'Pay Report - '+this.searchForm.get('month').value+" "+this.searchForm.get('year').value,
+        author: 'admin',
+        subject: 'Pay Report',
+        keywords: 'Pay Report',
+      },
+        styles: {
+          name: {
+            fontSize: 12,
+            margin: [0, 20, 0, 0]
+          }
+        }
+    };
+  }
+
+  getEarnings(){
+    const earnlist=[]
+
+    this.earnings.forEach(earning => {
+      var x = {
+        ul: [
+          `${earning.name}    ${earning.value}`
+        ]
+      }
+      earnlist.push(x)
+    })
+
+    return {
+      columns : [
+        earnlist
+      ]
+    }
+  }
+
+  getDeductions(){
+    const deductlist=[]
+
+    this.deductions.forEach(deduction => {
+      var x = {
+        ul: [
+          `${deduction.name}    ${deduction.value}`
+        ]
+      }
+      deductlist.push(x)
+    })
+
+    return {
+      columns : [
+        deductlist
+      ]
+    }
   }
 
   getError(texttype) {

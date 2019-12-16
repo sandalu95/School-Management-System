@@ -79,5 +79,9 @@
         </mat-grid-tile>
       </mat-grid-list>
     </div>
+    <div style="margin:20px; margin-left: 80%;">
+        <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+        <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+    </div>
   </ng-container>
 </mat-card>
