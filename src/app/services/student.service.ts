@@ -90,4 +90,23 @@ export class StudentService {
       options
     );
   }
+
+  public getStudentsByClass(
+    grade: string,
+    _class: string
+  ): Observable<GetStudentResponse> {
+    let params = new HttpParams();
+    params = params.append("grade", grade);
+    params = params.append("class", _class);
+
+    const options = {
+      params: params,
+      headers: this.headers
+    };
+
+    return this.http.get<GetStudentResponse>(
+      `${this.apiURL}/get/byclass`,
+      options
+    );
+  }
 }
