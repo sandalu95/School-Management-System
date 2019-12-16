@@ -13,7 +13,7 @@
           >
             <mat-grid-tile colspan="3" rowspan="1">
               <mat-form-field appearance="outline" class="ttMarks-form-field">
-                <mat-label>Student Number</mat-label>
+                <mat-label>Admission Number</mat-label>
                 <input matInput formControlName="studentNumber" required />
                 <mat-error *ngIf="ttMarksForm.get('studentNumber').invalid">{{
                   getError(ttMarksForm.get("studentNumber"))
@@ -33,12 +33,9 @@
               <mat-form-field appearance="outline" class="ttMarks-form-field">
                 <mat-label>Class</mat-label>
                 <mat-select formControlName="class" required>
-                  <mat-option value="A">A</mat-option>
-                  <mat-option value="B">B</mat-option>
-                  <mat-option value="C">C</mat-option>
-                  <mat-option value="D">D</mat-option>
-                  <mat-option value="E">E</mat-option>
-                  <mat-option value="F">F</mat-option>
+                  <mat-option *ngFor="let class of classList" [value]="class">{{
+                    class
+                  }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="ttMarksForm.get('class').invalid">{{
                   getError(ttMarksForm.get("class"))
@@ -79,20 +76,14 @@
                     class="add-subject-form-field"
                   >
                     <mat-label>Subject</mat-label>
-                    <input matInput formControlName="subject" required />
+                    <input matInput formControlName="subject" />
                   </mat-form-field>
                   <mat-form-field
                     appearance="outline"
                     class="add-subject-form-field"
                   >
-                    <mat-label>Grade</mat-label>
-                    <mat-select formControlName="subjectGrade">
-                      <mat-option
-                        *ngFor="let subjectGrade of subjectGradeList"
-                        [value]="subjectGrade"
-                        >{{ subjectGrade }}</mat-option
-                      >
-                    </mat-select>
+                    <mat-label>Mark</mat-label>
+                    <input matInput formControlName="mark" />
                   </mat-form-field>
                   <button
                     mat-raised-button
@@ -100,7 +91,7 @@
                     (click)="
                       addResult(
                         addSubjectForm.get('subject').value,
-                        addSubjectForm.get('subjectGrade').value
+                        addSubjectForm.get('mark').value
                       )
                     "
                   >
@@ -120,7 +111,7 @@
                     >
                       <h4 style="margin-bottom: 0;">{{ result.subject }}</h4>
                       <h4 style="margin-right: 10%; margin-bottom: 0;">
-                        {{ result.grade }}
+                        {{ result.mark }}
                       </h4>
                     </div>
                   </div>
@@ -187,12 +178,9 @@
               >
                 <mat-label>Class</mat-label>
                 <mat-select formControlName="class" required>
-                  <mat-option value="A">A</mat-option>
-                  <mat-option value="B">B</mat-option>
-                  <mat-option value="C">C</mat-option>
-                  <mat-option value="D">D</mat-option>
-                  <mat-option value="E">E</mat-option>
-                  <mat-option value="F">F</mat-option>
+                  <mat-option *ngFor="let class of classList" [value]="class">{{
+                    class
+                  }}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="assignmentForm.get('class').invalid">{{
                   getError(assignmentForm.get("class"))
