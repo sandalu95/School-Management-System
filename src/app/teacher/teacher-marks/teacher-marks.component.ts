@@ -1,13 +1,14 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Result } from "src/app/models/result";
 import Swal from "sweetalert2";
 import { Student } from "src/app/models/student";
 import { StudentService } from "src/app/services/student.service";
 import { AssignmentMark } from "src/app/models/assignmentmark";
 import { Assignment } from "src/app/models/assignment";
 import { MarksService } from "src/app/services/marks.service";
+import { Mark } from "src/app/models/mark";
+import { TermTestMarks } from "src/app/models/termtestmarks";
 
 @Component({
   selector: "app-teacher-marks",
@@ -22,9 +23,9 @@ export class TeacherMarksComponent implements OnInit {
   typetxt: string = "";
 
   yearArray = [...Array(30).keys()].map(i => i + 2000);
-  subjectGradeList = ["A", "B", "C", "S", "F"];
+  classList = ["A", "B", "C", "D", "E", "F"];
 
-  results: Result[] = [];
+  results: Mark[] = [];
   studentlist: Student[] = [];
 
   constructor(
@@ -40,10 +41,12 @@ export class TeacherMarksComponent implements OnInit {
       year: [null, Validators.required],
       term: [null, Validators.required]
     });
+
     this.addSubjectForm = fb.group({
       subject: [null],
-      subjectGrade: [null]
+      mark: [null]
     });
+
     this.assignmentForm = fb.group({
       assignmentName: [null, Validators.required],
       subject: [null, Validators.required],
@@ -68,17 +71,40 @@ export class TeacherMarksComponent implements OnInit {
     );
   }
 
-  addResult(subject, grade) {
-    const result = new Result();
+  addResult(subject, mark) {
+    const result = new Mark();
     result.subject = subject;
-    result.grade = grade;
+    result.mark = mark;
     this.results.push(result);
   }
 
   saveTermTestMarks(data) {
     if (this.ttMarksForm.invalid) return;
 
-    console.log(data);
+    let termTestMark = new TermTestMarks();
+    termTestMark.admissionNumber = data.studentNumber;
+    termTestMark.class = data.class;
+    termTestMark.grade = data.grade;
+    termTestMark.term = data.term;
+    termTestMark.year = data.year;
+    termTestMark.marks = this.results;
+
+    Swal.showLoading();
+
+    this.markService.saveTermTestMarks(termTestMark).subscribe(
+      data => {
+        Swal.hideLoading();
+        Swal.fire({
+          icon: "success",
+          title: "Great!",
+          text: data.message
+        });
+      },
+      error => {
+        Swal.hideLoading();
+        this.handleResponseError(error);
+      }
+    );
   }
 
   saveAssignment(data) {
