@@ -52,4 +52,17 @@ export class NotesService {
 
     return this.http.delete<CommonResponse>(this.apiUrl, options);
   }
+
+  public getNotes(data): Observable<GetNotesResponse> {
+    let params = new HttpParams();
+    params = params.append("grade", data.grade);
+    params = params.append("class", data.class);
+    params = params.append("subject", data.subject);
+
+    const options = {
+      params: params,
+      headers: this.headers
+    };
+    return this.http.get<GetNotesResponse>(`${this.apiUrl}/bygrade`, options);
+  }
 }

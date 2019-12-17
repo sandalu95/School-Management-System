@@ -109,4 +109,13 @@ export class StudentService {
       options
     );
   }
+
+  public getStudentByUserId(): Observable<GetStudentResponse> {
+    return this.http.get<GetStudentResponse>(
+      `${this.apiURL}/${this.user.userId}`,
+      {
+        headers: this.headers
+      }
+    );
+  }
 }

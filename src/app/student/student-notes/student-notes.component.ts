@@ -4,6 +4,8 @@ import { Note } from "src/app/models/note";
 import { HttpClient } from "@angular/common/http";
 import { FileSaverService } from "ngx-filesaver";
 import { Teacher } from "src/app/models/teacher";
+import { NotesService } from "src/app/services/notes.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-student-notes",
@@ -12,12 +14,13 @@ import { Teacher } from "src/app/models/teacher";
 })
 export class StudentNotesComponent implements OnInit {
   searchForm: FormGroup;
-  notes: Note[];
+  notes: Note[] = [];
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _FileSaverService: FileSaverService
+    private _FileSaverService: FileSaverService,
+    private notesService: NotesService
   ) {
     this.searchForm = fb.group({
       grade: [null, Validators.required],
@@ -27,38 +30,49 @@ export class StudentNotesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.notes = [
-      {
-        id: "fc",
-        userId: "edd",
-        subject: "Maths",
-        description: "edrfcredfcrfcrwesdfdsc",
-        grade: "3",
-        class: "C",
-        notes:
-          "https://pdfs.semanticscholar.org/32be/a26f2328f8eb81b700d6ec4b7587c6d2a934.pdf",
-        teacher: new Teacher()
-      },
-      {
-        id: "sd",
-        userId: "sedf",
-        subject: "Maths",
-        description: "edrfcredfcrfcrwesdfdsc",
-        grade: "4",
-        class: "A",
-        notes:
-          "https://pdfs.semanticscholar.org/4493/234db4bbe69c23aba090ad5154b465008376.pdf",
-        teacher: new Teacher()
-      }
-    ];
+    // this.notes = [
+    //   {
+    //     id: "fc",
+    //     userId: "edd",
+    //     subject: "Maths",
+    //     description: "edrfcredfcrfcrwesdfdsc",
+    //     grade: "3",
+    //     class: "C",
+    //     notes:
+    //       "https://pdfs.semanticscholar.org/32be/a26f2328f8eb81b700d6ec4b7587c6d2a934.pdf",
+    //     teacher: new Teacher()
+    //   },
+    //   {
+    //     id: "sd",
+    //     userId: "sedf",
+    //     subject: "Maths",
+    //     description: "edrfcredfcrfcrwesdfdsc",
+    //     grade: "4",
+    //     class: "A",
+    //     notes:
+    //       "https://pdfs.semanticscholar.org/4493/234db4bbe69c23aba090ad5154b465008376.pdf",
+    //     teacher: new Teacher()
+    //   }
+    // ];
   }
 
   searchNotes(data) {
     if (this.searchForm.invalid) return;
+
+    Swal.showLoading();
+    this.notesService.getNotes(data).subscribe(
+      data => {
+        Swal.hideLoading();
+        this.notes = data.notes;
+      },
+      error => {
+        Swal.hideLoading();
+        this.handleResponseError(error);
+      }
+    );
   }
 
   download(note) {
-    console.log(note);
     const fileName = `${Date.now()}${note.subject}-${note.grade}-${note.class}`;
     this.http
       .get(note.notes, {
@@ -77,5 +91,14 @@ export class StudentNotesComponent implements OnInit {
       : texttype.hasError("email")
       ? "Not a valid email"
       : "";
+  }
+
+  handleResponseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
   }
 }

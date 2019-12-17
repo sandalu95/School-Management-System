@@ -8,7 +8,6 @@
       <mat-divider></mat-divider>
       <div class="card-body">
         <div class="body-left-container">
-          <!-- <div mat-card-avatar class="example-header-image"></div> -->
           <img [src]="profileImage" class="profile-image" alt="profile-image" />
         </div>
         <div class="body-right-container">
@@ -47,31 +46,35 @@
             </mat-grid-tile>
             <mat-grid-tile>
               <div class="text-inside-grid-left">Admission Date</div>
-              <div class="text-inside-grid-right">{{ admissionDate | date }}</div>
+              <div class="text-inside-grid-right">
+                {{ admissionDate | date }}
+              </div>
             </mat-grid-tile>
             <mat-grid-tile>
-                <div class="text-inside-grid-left">
+              <div class="text-inside-grid-left">
                 <strong>Parent's Details :</strong>
-                </div>
-                <div class="text-inside-grid-right"></div>
+              </div>
+              <div class="text-inside-grid-right"></div>
             </mat-grid-tile>
             <mat-grid-tile>
-                <div class="text-inside-grid-left-second">Name</div>
-                <div class="text-inside-grid-right">{{ parentName }}</div>
+              <div class="text-inside-grid-left-second">Name</div>
+              <div class="text-inside-grid-right">{{ parentName }}</div>
             </mat-grid-tile>
             <mat-grid-tile>
-                <div class="text-inside-grid-left-second">Email</div>
-                <div class="text-inside-grid-right">{{ parentEmail }}</div>
+              <div class="text-inside-grid-left-second">Email</div>
+              <div class="text-inside-grid-right">{{ parentEmail }}</div>
             </mat-grid-tile>
             <mat-grid-tile>
-                <div class="text-inside-grid-left-second">Contact</div>
-                <div class="text-inside-grid-right">{{ parentContactNumber }}</div>
+              <div class="text-inside-grid-left-second">Contact</div>
+              <div class="text-inside-grid-right">
+                {{ parentContactNumber }}
+              </div>
             </mat-grid-tile>
             <mat-grid-tile>
-                <div class="text-inside-grid-left-second">
+              <div class="text-inside-grid-left-second">
                 Relationship
-                </div>
-                <div class="text-inside-grid-right">{{ relationship }}</div>
+              </div>
+              <div class="text-inside-grid-right">{{ relationship }}</div>
             </mat-grid-tile>
           </mat-grid-list>
         </div>
@@ -94,9 +97,15 @@
         <div class="card-right-content">
           <mat-divider vertical style="height:50%; width: 0%"></mat-divider>
           <div class="card-data">
-                <h2 class="card-inner-data" id="achievement-name">{{achievementName}}</h2>
-                <h3 class="card-inner-data" id="achievement-date">{{achievementDate}}</h3>
-                <h4 class="card-inner-data" id="achievement-desc">{{achievementDescription}}</h4>
+            <h2 class="card-inner-data" id="achievement-name">
+              {{ achievementName }}
+            </h2>
+            <h3 class="card-inner-data" id="achievement-date">
+              {{ achievementDate }}
+            </h3>
+            <h4 class="card-inner-data" id="achievement-desc">
+              {{ achievementDescription }}
+            </h4>
           </div>
         </div>
       </mat-card>
@@ -124,4 +133,3 @@
     </div>
   </div>
 </div>
-
