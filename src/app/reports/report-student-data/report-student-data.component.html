@@ -16,6 +16,19 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Apply</button>
             </form>
+            <ng-container
+            *ngIf="
+            studentListLength == 0
+            "
+          >
+            <mat-grid-tile rowspan="2">
+              <div style="width: 300px;">
+                No Data Found
+              </div>
+              <div class="text-inside-grid-right"></div>
+            </mat-grid-tile>
+          </ng-container>
+          <ng-container *ngIf="studentListLength > 0">
             <div>
                 <h4 style="text-align: center; text-decoration: underline;">Student Data Report</h4>
                 <mat-grid-list cols="1" rowHeight="30px" style="width: 80%; margin: auto;">
@@ -94,10 +107,12 @@
                     </mat-grid-tile>
                 </mat-grid-list>
             </div>
+        
             <div style="margin:20px; margin-left: 80%;">
                 <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
                 <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
             </div>
+        </ng-container>
         </div>
     </mat-card>
 </div>

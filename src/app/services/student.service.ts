@@ -9,7 +9,8 @@ import { CommonResponse } from "../models/response/commonResponse";
   providedIn: "root"
 })
 export class StudentService {
-  apiURL: string = "https://sms-web-service.herokuapp.com/api/user/student";
+  apiURL: string = "http://localhost:3000/api/user/student";
+  // apiURL: string = "https://sms-web-service.herokuapp.com/api/user/student";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
@@ -116,6 +117,20 @@ export class StudentService {
       {
         headers: this.headers
       }
+    );
+  }
+
+  public getStudentByAddmissionNUmber(
+    addmissionNumber: string
+  ): Observable<GetStudentResponse> {
+    const options = {
+      params: new HttpParams().set("addmissionNumber", addmissionNumber),
+      headers: this.headers
+    };
+
+    return this.http.get<GetStudentResponse>(
+      `${this.apiURL}/get/byaddmissionnumber`,
+      options
     );
   }
 }
