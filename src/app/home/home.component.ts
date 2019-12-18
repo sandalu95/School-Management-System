@@ -34,14 +34,11 @@ export class HomeComponent implements OnInit {
       this.links = [
         { label: "Dashboard", route: "/home/student/dashboard" },
         { label: "Notes", route: "/home/student/notes" },
-        { label: "Exams", route: "/home/student/exams" },
-        { label: "Marks", route: "/home/student/marks" },
         { label: "Achievements", route: "/home/student/achievements" }
       ];
     } else if (this.userType == "Parent") {
       this.links = [
-        { label: "Dashboard", route: "/home/parent/dashboard" },
-        { label: "Marks", route: "/home/parent/marks" },
+        { label: "Dashboard", route: "/home/parent/dashboard" }
       ];
     } else if (this.userType == "Clerk") {
       this.links = [

@@ -38,14 +38,11 @@ import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.com
 import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { StudentNotesComponent } from './student/student-notes/student-notes.component';
-import { StudentMarksComponent } from './student/student-marks/student-marks.component';
 import { StudentAchievementsComponent } from './student/student-achievements/student-achievements.component';
-import { StudentExamsComponent } from './student/student-exams/student-exams.component';
 import { ClerkDashboardComponent } from './clerk/clerk-dashboard/clerk-dashboard.component';
 import { ClerkSalaryComponent } from './clerk/clerk-salary/clerk-salary.component';
 import { ClerkAchievementsComponent } from './clerk/clerk-achievements/clerk-achievements.component';
 import { ParentDashboardComponent } from './parent/parent-dashboard/parent-dashboard.component';
-import { ParentMarksComponent } from './parent/parent-marks/parent-marks.component';
 import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
 import { ReportStudentDataComponent } from './reports/report-student-data/report-student-data.component';
 import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
@@ -88,14 +85,11 @@ import { ReportCharacterCertificateComponent } from './reports/report-character-
     TeacherMarksComponent,
     StudentDashboardComponent,
     StudentNotesComponent,
-    StudentMarksComponent,
     StudentAchievementsComponent,
-    StudentExamsComponent,
     ClerkDashboardComponent,
     ClerkSalaryComponent,
     ClerkAchievementsComponent,
     ParentDashboardComponent,
-    ParentMarksComponent,
     ClerkLeavesComponent,
     ReportStudentDataComponent,
     ReportTeacherDataComponent,

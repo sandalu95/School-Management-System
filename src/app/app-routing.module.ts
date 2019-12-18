@@ -28,14 +28,11 @@ import { TeacherNotesComponent } from './teacher/teacher-notes/teacher-notes.com
 import { TeacherMarksComponent } from './teacher/teacher-marks/teacher-marks.component';
 import { StudentDashboardComponent } from './student/student-dashboard/student-dashboard.component';
 import { StudentAchievementsComponent } from './student/student-achievements/student-achievements.component';
-import { StudentExamsComponent } from './student/student-exams/student-exams.component';
-import { StudentMarksComponent } from './student/student-marks/student-marks.component';
 import { StudentNotesComponent } from './student/student-notes/student-notes.component';
 import { ClerkDashboardComponent } from './clerk/clerk-dashboard/clerk-dashboard.component';
 import { ClerkAchievementsComponent } from './clerk/clerk-achievements/clerk-achievements.component';
 import { ClerkSalaryComponent } from './clerk/clerk-salary/clerk-salary.component';
 import { ParentDashboardComponent } from './parent/parent-dashboard/parent-dashboard.component';
-import { ParentMarksComponent } from './parent/parent-marks/parent-marks.component';
 import { ClerkLeavesComponent } from './clerk/clerk-leaves/clerk-leaves.component';
 import { ReportStudentDataComponent } from './reports/report-student-data/report-student-data.component';
 import { ReportTeacherDataComponent } from './reports/report-teacher-data/report-teacher-data.component';
@@ -83,6 +80,8 @@ const routes: Routes = [
       { path: "teacher/notice", component: TeacherNoticeComponent },
       { path: "teacher/notes", component: TeacherNotesComponent },
       { path: "teacher/marks", component: TeacherMarksComponent },
+      { path: "teacher/reports/term-test-result", component: ReportTermtestResultComponent },
+      { path: "teacher/reports/student-progress", component: ReportStudentProgressComponent },
       { path: "teacher/parents", component: TeacherParentsComponent },
       {
         path: "teacher/parents/add-parents",
@@ -113,9 +112,9 @@ const routes: Routes = [
       { path: "student", redirectTo: "student/dashboard", pathMatch: "full" },
       { path: "student/dashboard", component: StudentDashboardComponent },
       { path: "student/achievements", component: StudentAchievementsComponent },
-      { path: "student/exams", component: StudentExamsComponent },
-      { path: "student/marks", component: StudentMarksComponent },
       { path: "student/notes", component: StudentNotesComponent },
+      { path: "student/reports/term-test-result", component: ReportTermtestResultComponent },
+      { path: "student/reports/student-progress", component: ReportStudentProgressComponent },
       { path: "clerk", redirectTo: "clerk/dashboard", pathMatch: "full" },
       { path: "clerk/dashboard", component: ClerkDashboardComponent },
       { path: "clerk/achievements", component: ClerkAchievementsComponent },
@@ -123,7 +122,8 @@ const routes: Routes = [
       { path: "clerk/leaves", component: ClerkLeavesComponent },
       { path: "parent", redirectTo: "parent/dashboard", pathMatch: "full" },
       { path: "parent/dashboard", component: ParentDashboardComponent },
-      { path: "parent/marks", component: ParentMarksComponent }
+      { path: "parent/reports/term-test-result", component: ReportTermtestResultComponent },
+      { path: "parent/reports/student-progress", component: ReportStudentProgressComponent },
     ]
   }
 ];

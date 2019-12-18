@@ -31,12 +31,12 @@
     <mat-sidenav #sidenav mode="side" opened>
         <mat-nav-list>
             <a mat-list-item [routerLink]="link.route" *ngFor="let link of links">{{ link.label }}</a>
-            <ng-container *ngIf="userType=='Admin'">
-                <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
-                    <mat-expansion-panel-header>
-                        Reports
-                    </mat-expansion-panel-header>
-                    <mat-nav-list dense>
+            <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+                <mat-expansion-panel-header>
+                    Reports
+                </mat-expansion-panel-header>
+                <mat-nav-list dense>
+                    <ng-container *ngIf="userType=='Admin'">
                         <a mat-list-item routerLink="/home/admin/reports/student-data">Student Data</a>
                         <a mat-list-item routerLink="/home/admin/reports/teacher-data">Teacher Data</a>
                         <a mat-list-item routerLink="/home/admin/reports/clerk-data">Clerk Data</a>
@@ -45,9 +45,21 @@
                         <a mat-list-item routerLink="/home/admin/reports/student-progress">Student Progress</a>
                         <a mat-list-item routerLink="/home/admin/reports/character-certificate">Character Certificate</a>
                         <a mat-list-item routerLink="/home/admin/reports/service-letter">Service Letter</a>
-                    </mat-nav-list>
-                </mat-expansion-panel>
-            </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="userType=='Teacher'">
+                        <a mat-list-item routerLink="/home/teacher/reports/term-test-result">Term Test Results</a>
+                        <a mat-list-item routerLink="/home/teacher/reports/student-progress">Student Progress</a>
+                    </ng-container>
+                    <ng-container *ngIf="userType=='Student'">
+                        <a mat-list-item routerLink="/home/student/reports/term-test-result">Term Test Results</a>
+                        <a mat-list-item routerLink="/home/student/reports/student-progress">Student Progress</a>
+                    </ng-container>
+                    <ng-container *ngIf="userType=='Parent'">
+                        <a mat-list-item routerLink="/home/parent/reports/term-test-result">Term Test Results</a>
+                        <a mat-list-item routerLink="/home/parent/reports/student-progress">Student Progress</a>
+                    </ng-container>
+                </mat-nav-list>
+            </mat-expansion-panel>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
