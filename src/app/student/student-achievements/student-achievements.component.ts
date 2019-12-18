@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Result } from "src/app/models/result";
 import { Achievement } from "src/app/models/achievement";
+import { AchivementService } from "src/app/services/achivement.service";
+import Swal from "sweetalert2";
+import { Exam } from "src/app/models/exam";
+import { Competition } from "src/app/models/competition";
 
 @Component({
   selector: "app-student-achievements",
@@ -10,113 +14,48 @@ import { Achievement } from "src/app/models/achievement";
 export class StudentAchievementsComponent implements OnInit {
   oLevelResults: Result[];
   aLevelResults: Result[];
-  academicOther: Achievement[];
-  extraCurricular: Achievement[];
+  academicOther: Competition[];
+  extraCurricular: Competition[];
+  oLevelResultsLenght: number;
+  aLevelResultsLenght: number;
+  otherResultsLenght: number;
 
-  constructor() {}
+  constructor(private achivementService: AchivementService) {}
 
   ngOnInit() {
-    this.oLevelResults = [
-      {
-        subject: "Maths",
-        grade: "A"
+    this.achivementService.getAchivementByUserId().subscribe(
+      data => {
+        this.oLevelResultsLenght = data.achivement[0].aLevel.length;
+        this.aLevelResultsLenght = data.achivement[0].oLevel.length;
+        this.otherResultsLenght = data.achivement[0].other.length;
+        console.log(this.oLevelResultsLenght);
+        if (data.achivement.length > 0) {
+          if (data.achivement[0].aLevel.length > 0) {
+            this.aLevelResults = data.achivement[0].aLevel[0].results;
+          }
+          if (data.achivement[0].oLevel.length > 0) {
+            this.oLevelResults = data.achivement[0].oLevel[0].results;
+          }
+          if (data.achivement[0].other.length > 0) {
+            this.academicOther = data.achivement[0].other;
+          }
+          if (data.achivement[0].extraCuricular.length > 0) {
+            this.extraCurricular = data.achivement[0].extraCuricular;
+          }
+        }
       },
-      {
-        subject: "Science",
-        grade: "A"
-      },
-      {
-        subject: "Sinhala",
-        grade: "A"
-      },
-      {
-        subject: "Buddhism",
-        grade: "A"
-      },
-      {
-        subject: "English",
-        grade: "A"
-      },
-      {
-        subject: "History",
-        grade: "A"
-      },
-      {
-        subject: "Health",
-        grade: "A"
-      },
-      {
-        subject: "Drama",
-        grade: "A"
-      },
-      {
-        subject: "Tamil",
-        grade: "A"
+      error => {
+        this.handleResponseError(error);
       }
-    ];
-    this.aLevelResults = [
-      {
-        subject: "Biology",
-        grade: "A"
-      },
-      {
-        subject: "Chemistry",
-        grade: "A"
-      },
-      {
-        subject: "Physics",
-        grade: "A"
-      },
-      {
-        subject: "English",
-        grade: "A"
-      }
-    ];
-    this.academicOther = [
-      //   {
-      //     year: "2010",
-      //     competition: "Olympiad",
-      //     event: "Science",
-      //     place: "2nd",
-      //     description:"dsfcew"
-      //   },
-      //   {
-      //     year: "2011",
-      //     competition: "All island Chem Quiz",
-      //     event: "Chemistry",
-      //     place: "1st",
-      //     description:"dsfcewsfdc"
-      //   },
-      //   {
-      //     year: "2012",
-      //     competition: "Olympiad",
-      //     event: "Maths",
-      //     place: "3rd",
-      //     description:"sedewscsa"
-      //   }
-      // ];
-      // this.extraCurricular=[
-      //   {
-      //     year: "2009",
-      //     competition: "All island inter-school",
-      //     event: "Cricket",
-      //     place: "1st",
-      //     description:"dscsdfcwwe"
-      //   },
-      //   {
-      //     year: "2011",
-      //     competition: "All island inter-school",
-      //     event: "Football",
-      //     place: "2nd",
-      //     description:"sfeewfdc"
-      //   },
-      //   {
-      //     year: "2012",
-      //     competition: "School sports meet",
-      //     event: "Swimming",
-      //     place: "3rd",
-      //     description:"gyguytngb"
-      //   }
-    ];
+    );
+  }
+
+  handleResponseError(error) {
+    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.error.error
+    });
   }
 }

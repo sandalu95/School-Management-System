@@ -78,11 +78,11 @@
 }
 
 #achievement-date {
-    color: indigo;
+  color: indigo;
 }
 
 #achievement-desc {
-    color: lightgrey;
+  color: lightgrey;
 }
 
 .card-icon {
@@ -95,7 +95,7 @@
 }
 
 .secondcard {
-  height: 95%;
+  height: 101%;
 }
 
 .card-head {
