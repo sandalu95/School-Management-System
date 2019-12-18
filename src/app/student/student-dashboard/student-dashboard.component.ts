@@ -4,6 +4,8 @@ import { Parent } from "src/app/models/parent";
 import { StudentService } from "src/app/services/student.service";
 import { NoticeService } from "src/app/services/notice.service";
 import Swal from "sweetalert2";
+import { AchivementService } from "src/app/services/achivement.service";
+import { Competition } from "src/app/models/competition";
 
 @Component({
   selector: "app-student-dashboard",
@@ -12,6 +14,8 @@ import Swal from "sweetalert2";
 })
 export class StudentDashboardComponent implements OnInit {
   notices: Notice[];
+
+  achivements: Competition[];
 
   fullname: string;
   nameWithInitial: string;
@@ -31,11 +35,13 @@ export class StudentDashboardComponent implements OnInit {
   relationship: string;
   achievementName: string;
   achievementDate: string;
-  achievementDescription: string;
+  achievementPlace: string;
+  achievementEvent: string;
 
   constructor(
     private noticeService: NoticeService,
-    public studentService: StudentService
+    public studentService: StudentService,
+    public achivementService: AchivementService
   ) {}
 
   ngOnInit() {
@@ -46,7 +52,6 @@ export class StudentDashboardComponent implements OnInit {
   getStudentDetails() {
     this.studentService.getStudentByUserId().subscribe(
       data => {
-        console.log(data.students[0]);
         this.fullname = data.students[0].fullname;
         this.nameWithInitial = data.students[0].nameinitials;
         this.gender = data.students[0].gender;
@@ -67,9 +72,23 @@ export class StudentDashboardComponent implements OnInit {
         handleResponseError(error);
       }
     );
-    this.achievementName = "Olympiad 2010";
-    this.achievementDate = "2019-08-12";
-    this.achievementDescription = "sdcverhbrfgbfgbryfhbdggb";
+
+    this.achivementService.getAchivementByUserId().subscribe(
+      data => {
+        this.achivements = data.achivement[0].extraCuricular;
+        this.achivements = this.achivements.concat(data.achivement[0].other);
+
+        this.achivements.sort((a, b) => (a.year < b.year ? 1 : -1));
+
+        this.achievementName = this.achivements[0].competition;
+        this.achievementDate = this.achivements[0].year;
+        this.achievementPlace = this.achivements[0].place;
+        this.achievementEvent = this.achivements[0].event;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
   }
 
   /**

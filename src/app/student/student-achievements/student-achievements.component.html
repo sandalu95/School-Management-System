@@ -7,45 +7,91 @@
       <mat-divider></mat-divider>
       <div class="card-body">
         <mat-grid-list cols="1" rowHeight="20px">
+          <ng-container
+            *ngIf="
+              oLevelResultsLenght == 0 &&
+              aLevelResultsLenght == 0 &&
+              otherResultsLenght == 0
+            "
+          >
+            <mat-grid-tile rowspan="2">
+              <div style="width: 300px;">
+                No Achievements Found
+              </div>
+              <div class="text-inside-grid-right"></div>
+            </mat-grid-tile>
+          </ng-container>
+          <ng-container *ngIf="oLevelResultsLenght > 0">
             <mat-grid-tile rowspan="1">
-                <div class="text-inside-grid-left">
-                    <strong>O/L Results :</strong>
-                </div>
-                <div class="text-inside-grid-right"></div>
+              <div class="text-inside-grid-left">
+                <strong>O/L Results :</strong>
+              </div>
+              <div class="text-inside-grid-right"></div>
             </mat-grid-tile>
-            <mat-grid-tile *ngFor="let oLevelResult of oLevelResults" rowspan="1">
-                <div class="text-inside-grid-left-second">{{oLevelResult.subject}}</div>
-                <div class="text-inside-grid-right">{{oLevelResult.grade}}</div>
+            <mat-grid-tile
+              *ngFor="let oLevelResult of oLevelResults"
+              rowspan="1"
+            >
+              <div class="text-inside-grid-left-second">
+                {{ oLevelResult.subject }}
+              </div>
+              <div class="text-inside-grid-right">{{ oLevelResult.grade }}</div>
             </mat-grid-tile>
+          </ng-container>
+          <ng-container *ngIf="aLevelResultsLenght > 0">
             <mat-grid-tile rowspan="1">
-                <div class="text-inside-grid-left">
-                    <strong>A/L Results :</strong>
-                </div>
-                <div class="text-inside-grid-right"></div>
+              <div class="text-inside-grid-left">
+                <strong>A/L Results :</strong>
+              </div>
+              <div class="text-inside-grid-right"></div>
             </mat-grid-tile>
-            <mat-grid-tile *ngFor="let aLevelResult of aLevelResults" rowspan="1">
-                <div class="text-inside-grid-left-second">{{aLevelResult.subject}}</div>
-                <div class="text-inside-grid-right">{{aLevelResult.grade}}</div>
+            <mat-grid-tile
+              *ngFor="let aLevelResult of aLevelResults"
+              rowspan="1"
+            >
+              <div class="text-inside-grid-left-second">
+                {{ aLevelResult.subject }}
+              </div>
+              <div class="text-inside-grid-right">{{ aLevelResult.grade }}</div>
             </mat-grid-tile>
+          </ng-container>
+          <ng-container *ngIf="otherResultsLenght > 0">
             <mat-grid-tile rowspan="1">
-                <div class="text-inside-grid-left">
-                    <strong>Other :</strong>
-                </div>
-                <div class="text-inside-grid-right"></div>
+              <div class="text-inside-grid-left">
+                <strong>Other :</strong>
+              </div>
+              <div class="text-inside-grid-right"></div>
             </mat-grid-tile>
-            <mat-grid-tile *ngFor="let academicOtherItem of academicOther" colspan="1" rowspan="4">
-                <div style="width: 100%; display: flex; flex-direction: row">
-                    <div style="justify-content: center; margin: auto 0; margin-left: 15%; margin-right: 5%;">
-                        <mat-icon mat-card-avatar class="achievements-icon">emoji_events</mat-icon>
-                    </div>
-                    <div style="justify-content: start;">
-                            <div class="competition-txt">{{academicOtherItem.competition}}</div>
-                            <div class="competition-details-txt">{{academicOtherItem.year}}</div>
-                            <div class="competition-details-txt">{{academicOtherItem.event}}</div>
-                            <div class="competition-details-txt">{{academicOtherItem.place}} place</div>
-                    </div>
+            <mat-grid-tile
+              *ngFor="let academicOtherItem of academicOther"
+              colspan="1"
+              rowspan="4"
+            >
+              <div style="width: 100%; display: flex; flex-direction: row">
+                <div
+                  style="justify-content: center; margin: auto 0; margin-left: 15%; margin-right: 5%;"
+                >
+                  <mat-icon mat-card-avatar class="achievements-icon"
+                    >emoji_events</mat-icon
+                  >
                 </div>
+                <div style="justify-content: start;">
+                  <div class="competition-txt">
+                    {{ academicOtherItem.competition }}
+                  </div>
+                  <div class="competition-details-txt">
+                    {{ academicOtherItem.year }}
+                  </div>
+                  <div class="competition-details-txt">
+                    {{ academicOtherItem.event }}
+                  </div>
+                  <div class="competition-details-txt">
+                    {{ academicOtherItem.place }} place
+                  </div>
+                </div>
+              </div>
             </mat-grid-tile>
+          </ng-container>
         </mat-grid-list>
       </div>
     </mat-card>
@@ -57,23 +103,38 @@
       </div>
       <mat-divider></mat-divider>
       <div class="card-body">
-            <mat-grid-list cols="1" rowHeight="20px">
-                <mat-grid-tile *ngFor="let extraCurricularItem of extraCurricular" colspan="1" rowspan="4">
-                    <div style="width: 100%; display: flex; flex-direction: row">
-                        <div style="justify-content: center; margin: auto 0; margin-left: 15%; margin-right: 5%;">
-                            <mat-icon mat-card-avatar class="achievements-icon">emoji_events</mat-icon>
-                        </div>
-                        <div style="justify-content: start;">
-                                <div class="competition-txt">{{extraCurricularItem.competition}}</div>
-                                <div class="competition-details-txt">{{extraCurricularItem.year}}</div>
-                                <div class="competition-details-txt">{{extraCurricularItem.event}}</div>
-                                <div class="competition-details-txt">{{extraCurricularItem.place}} place</div>
-                        </div>
-                    </div>
-                </mat-grid-tile>
-            </mat-grid-list>
+        <mat-grid-list cols="1" rowHeight="20px">
+          <mat-grid-tile
+            *ngFor="let extraCurricularItem of extraCurricular"
+            colspan="1"
+            rowspan="4"
+          >
+            <div style="width: 100%; display: flex; flex-direction: row">
+              <div
+                style="justify-content: center; margin: auto 0; margin-left: 15%; margin-right: 5%;"
+              >
+                <mat-icon mat-card-avatar class="achievements-icon"
+                  >emoji_events</mat-icon
+                >
+              </div>
+              <div style="justify-content: start;">
+                <div class="competition-txt">
+                  {{ extraCurricularItem.competition }}
+                </div>
+                <div class="competition-details-txt">
+                  {{ extraCurricularItem.year }}
+                </div>
+                <div class="competition-details-txt">
+                  {{ extraCurricularItem.event }}
+                </div>
+                <div class="competition-details-txt">
+                  {{ extraCurricularItem.place }} place
+                </div>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
     </mat-card>
   </div>
 </div>
-

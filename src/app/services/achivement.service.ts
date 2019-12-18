@@ -6,12 +6,13 @@ import { CommonResponse } from "../models/response/commonResponse";
 import { AddAchivementRequest } from "../models/request/addAchivementRequest";
 import { Exam } from "../models/exam";
 import { Competition } from "../models/competition";
+import { GetAchivementResponse } from "../models/response/getAchivementResponse";
 
 @Injectable({
   providedIn: "root"
 })
 export class AchivementService {
-  apiUrl: string = "http://localhost:3000/api/achivements";
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/achivements";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
@@ -45,6 +46,12 @@ export class AchivementService {
     }
 
     return this.http.post<CommonResponse>(this.apiUrl, addAchivement, {
+      headers: this.headers
+    });
+  }
+
+  public getAchivementByUserId(): Observable<GetAchivementResponse> {
+    return this.http.get<GetAchivementResponse>(`${this.apiUrl}/byuserid`, {
       headers: this.headers
     });
   }
