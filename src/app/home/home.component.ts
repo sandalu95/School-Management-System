@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NavItem } from "../models/navitem";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -11,7 +12,7 @@ export class HomeComponent implements OnInit {
   userType = this.user.userType;
   links: NavItem[];
 
-  constructor() {
+  constructor(public router: Router,) {
     if (this.userType == "Admin") {
       this.links = [
         { label: "Dashboard", route: "/home/admin/dashboard" },
@@ -47,6 +48,24 @@ export class HomeComponent implements OnInit {
         { label: "Leaves", route: "/home/clerk/leaves" },
         { label: "Achievements", route: "/home/clerk/achievements" }
       ];
+    }
+  }
+
+  logout() {
+    this.router.navigate(["./"], {});
+  }
+
+  navigateToHome(){
+    if(this.userType == "Admin"){
+      this.router.navigate(["/home/admin/dashboard"], {});
+    } else if(this.userType == "Teacher") {
+      this.router.navigate(["/home/teacher/dashboard"], {});
+    } else if(this.userType == "Student"){
+      this.router.navigate(["/home/student/dashboard"], {});
+    } else if(this.userType == "Parent") {
+      this.router.navigate(["/home/parent/dashboard"], {});
+    } else if(this.userType == "Clerk"){
+      this.router.navigate(["/home/clerk/dashboard"], {});
     }
   }
 
