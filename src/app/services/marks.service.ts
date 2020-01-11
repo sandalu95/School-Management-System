@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { CommonResponse } from "../models/response/commonResponse";
 import { Assignment } from "../models/assignment";
 import { TermTestMarks } from "../models/termtestmarks";
+import { GetTermTestMarksResponse } from "../models/response/getTermTestMarks";
 
 @Injectable({
   providedIn: "root"
@@ -37,5 +38,20 @@ export class MarksService {
         headers: this.headers
       }
     );
+  }
+
+  public getTermTestMarks(data): Observable<GetTermTestMarksResponse> {
+    let params = new HttpParams();
+    params = params.append("year", data.year);
+    params = params.append("term", data.term);
+    params = params.append("grade", data.grade);
+    params = params.append("admissionNumber", data.admissionNumber);
+
+    const options = {
+      params: params,
+      headers: this.headers
+    };
+
+    return this.http.get<GetTermTestMarksResponse>(this.apiUrl, options);
   }
 }
