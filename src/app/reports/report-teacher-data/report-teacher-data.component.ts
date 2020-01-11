@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Teacher } from 'src/app/models/teacher';
-import { TeacherService } from 'src/app/services/teacher.service';
+import { Component, OnInit } from "@angular/core";
+import Swal from "sweetalert2";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Teacher } from "src/app/models/teacher";
+import { TeacherService } from "src/app/services/teacher.service";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-report-teacher-data',
-  templateUrl: './report-teacher-data.component.html',
-  styleUrls: ['./report-teacher-data.component.css']
+  selector: "app-report-teacher-data",
+  templateUrl: "./report-teacher-data.component.html",
+  styleUrls: ["./report-teacher-data.component.css"]
 })
 export class ReportTeacherDataComponent implements OnInit {
-
   teacherIdForm: FormGroup;
-  teacher:Teacher;
+  teacher: Teacher;
   pdfMake: any;
 
   fullname: string;
@@ -34,12 +33,11 @@ export class ReportTeacherDataComponent implements OnInit {
 
   constructor(private fb: FormBuilder, public teacherService: TeacherService) {
     this.teacherIdForm = fb.group({
-      teacherId: [null, Validators.required],
+      teacherId: [null, Validators.required]
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getTeacherDetails(data) {
     if (this.teacherIdForm.invalid) return;
@@ -67,16 +65,24 @@ export class ReportTeacherDataComponent implements OnInit {
     this.subject = "Maths";
   }
 
-  generatePdf(action = 'open') {
+  generatePdf(action = "open") {
     console.log(pdfMake);
     const documentDefinition = this.getDocumentDefinition();
 
     switch (action) {
-      case 'open': pdfMake.createPdf(documentDefinition).open(); break;
-      case 'print': pdfMake.createPdf(documentDefinition).print(); break;
-      case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+      case "open":
+        pdfMake.createPdf(documentDefinition).open();
+        break;
+      case "print":
+        pdfMake.createPdf(documentDefinition).print();
+        break;
+      case "download":
+        pdfMake.createPdf(documentDefinition).download();
+        break;
 
-      default: pdfMake.createPdf(documentDefinition).open(); break;
+      default:
+        pdfMake.createPdf(documentDefinition).open();
+        break;
     }
   }
 
@@ -84,83 +90,89 @@ export class ReportTeacherDataComponent implements OnInit {
     return {
       content: [
         {
-          text: 'Teacher Data Report',
+          text: "Teacher Data Report",
           bold: true,
           fontSize: 15,
-          decoration: 'underline',
-          alignment: 'center',
+          decoration: "underline",
+          alignment: "center",
           margin: [0, 0, 0, 20]
         },
         {
           columns: [
-            [{
-              text: "Teacher ID\t:\t"+this.teacherId,
-              style: 'name'
-            },
-            {
-              text: "Fullname\t:\t"+this.fullname,
-              style: 'name'
-            },
-            {
-              text: "Name with initials\t:\t"+this.nameWithInitial,
-              style: 'name'
-            },
-            {
-              text: "Gender\t:\t"+this.gender,
-              style: 'name'
-            },
-            {
-              text: "Date of birth\t:\t"+this.dob,
-              style: 'name'
-            },
-            {
-              text: "NIC Number\t:\t"+this.nic,
-              style: 'name'
-            },
-            {
-              text: "Address\t:\t"+this.address,
-              style: 'name'
-            },
-            {
-              text: "Email Address\t:\t"+this.email,
-              style: 'name'
-            },
-            {
-              text: "Contact Number\t:\t"+this.contact,
-              style: 'name'
-            },
-            {
-              text: "Position\t:\t"+this.position,
-              style: 'name'
-            },
-            {
-              text: "Date of first appointment\t:\t"+this.firstadmission,
-              style: 'name'
-            },
-            {
-              text: "Date of appointment to school\t:\t"+this.scladmission,
-              style: 'name'
-            },
-            {
-              text: "Subject\t:\t"+this.subject,
-              style: 'name'
-            }
+            [
+              {
+                text: "Teacher ID\t:\t" + this.teacherId,
+                style: "name"
+              },
+              {
+                text: "Fullname\t:\t" + this.fullname,
+                style: "name"
+              },
+              {
+                text: "Name with initials\t:\t" + this.nameWithInitial,
+                style: "name"
+              },
+              {
+                text: "Gender\t:\t" + this.gender,
+                style: "name"
+              },
+              {
+                text:
+                  "Date of birth\t:\t" + this.formatDate(this.firstadmission),
+                style: "name"
+              },
+              {
+                text: "NIC Number\t:\t" + this.nic,
+                style: "name"
+              },
+              {
+                text: "Address\t:\t" + this.address,
+                style: "name"
+              },
+              {
+                text: "Email Address\t:\t" + this.email,
+                style: "name"
+              },
+              {
+                text: "Contact Number\t:\t" + this.contact,
+                style: "name"
+              },
+              {
+                text: "Position\t:\t" + this.position,
+                style: "name"
+              },
+              {
+                text:
+                  "Date of first appointment\t:\t" +
+                  this.formatDate(this.firstadmission),
+                style: "name"
+              },
+              {
+                text:
+                  "Date of appointment to school\t:\t" +
+                  this.formatDate(this.firstadmission),
+                style: "name"
+              },
+              {
+                text: "Subject\t:\t" + this.subject,
+                style: "name"
+              }
             ]
           ]
-        },
+        }
       ],
       info: {
-        title: this.teacherId+'-Teacher Data',
-        author: 'admin',
-        subject: 'Teacher Data',
-        keywords: 'Teacher Data',
+        title: this.teacherId + "-Teacher Data",
+        author: "admin",
+        subject: "Teacher Data",
+        keywords: "Teacher Data"
       },
-        styles: {
-          name: {
-            fontSize: 12,
-            margin: [0, 20, 0, 0]
-          }
+      styles: {
+        name: {
+          fontSize: 12,
+          margin: [0, 20, 0, 0]
         }
+      }
     };
   }
 
@@ -181,4 +193,10 @@ export class ReportTeacherDataComponent implements OnInit {
     });
   }
 
+  formatDate(date: string): string {
+    var newDate = new Date(date);
+    var formattedDate = new Intl.DateTimeFormat("en-AU").format(newDate);
+
+    return formattedDate;
+  }
 }
