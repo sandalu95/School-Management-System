@@ -25,10 +25,12 @@ export class TeacherService {
   public registerTeacher(
     teacher: Teacher
   ): Observable<RegisterTeacherResponse> {
+
     const fd = new FormData();
     if (teacher.file) {
       fd.append("profileImage", teacher.file, teacher.file.name);
     }
+    fd.append("teacherid", teacher.teacherid);
     fd.append("fullName", teacher.fullname);
     fd.append("nameWithInitial", teacher.nameinitials);
     fd.append("gender", teacher.gender);
