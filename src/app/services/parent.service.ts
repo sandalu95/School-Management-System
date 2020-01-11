@@ -9,8 +9,8 @@ import { CommonResponse } from "../models/response/commonResponse";
   providedIn: "root"
 })
 export class ParentService {
-  // apiURL: string = "https://sms-web-service.herokuapp.com/api/user/parent";
-  apiURL: string = "http://localhost:3000/api/user/parent";
+  apiURL: string = "https://sms-web-service.herokuapp.com/api/user/parent";
+  // apiURL: string = "http://localhost:3000/api/user/parent";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
