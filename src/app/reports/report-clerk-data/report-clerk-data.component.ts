@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Clerk } from 'src/app/models/clerk';
-import { ClerkService } from 'src/app/services/clerk.service';
+import { Component, OnInit } from "@angular/core";
+import Swal from "sweetalert2";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Clerk } from "src/app/models/clerk";
+import { ClerkService } from "src/app/services/clerk.service";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-report-clerk-data',
-  templateUrl: './report-clerk-data.component.html',
-  styleUrls: ['./report-clerk-data.component.css']
+  selector: "app-report-clerk-data",
+  templateUrl: "./report-clerk-data.component.html",
+  styleUrls: ["./report-clerk-data.component.css"]
 })
 export class ReportClerkDataComponent implements OnInit {
-
   clerkIdForm: FormGroup;
-  clerk:Clerk;
+  clerk: Clerk;
   pdfMake: any;
 
   fullname: string;
@@ -33,12 +32,11 @@ export class ReportClerkDataComponent implements OnInit {
 
   constructor(private fb: FormBuilder, public clerkService: ClerkService) {
     this.clerkIdForm = fb.group({
-      clerkId: [null, Validators.required],
+      clerkId: [null, Validators.required]
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getClerkDetails(data) {
     if (this.clerkIdForm.invalid) return;
@@ -65,16 +63,24 @@ export class ReportClerkDataComponent implements OnInit {
     this.scladmission = "2010-12-12";
   }
 
-  generatePdf(action = 'open') {
+  generatePdf(action = "open") {
     console.log(pdfMake);
     const documentDefinition = this.getDocumentDefinition();
 
     switch (action) {
-      case 'open': pdfMake.createPdf(documentDefinition).open(); break;
-      case 'print': pdfMake.createPdf(documentDefinition).print(); break;
-      case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+      case "open":
+        pdfMake.createPdf(documentDefinition).open();
+        break;
+      case "print":
+        pdfMake.createPdf(documentDefinition).print();
+        break;
+      case "download":
+        pdfMake.createPdf(documentDefinition).download();
+        break;
 
-      default: pdfMake.createPdf(documentDefinition).open(); break;
+      default:
+        pdfMake.createPdf(documentDefinition).open();
+        break;
     }
   }
 
@@ -82,79 +88,85 @@ export class ReportClerkDataComponent implements OnInit {
     return {
       content: [
         {
-          text: 'Clerk Data Report',
+          text: "Clerk Data Report",
           bold: true,
           fontSize: 15,
-          decoration: 'underline',
-          alignment: 'center',
+          decoration: "underline",
+          alignment: "center",
           margin: [0, 0, 0, 20]
         },
         {
           columns: [
-            [{
-              text: "Clerk ID\t:\t"+this.clerkId,
-              style: 'name'
-            },
-            {
-              text: "Fullname\t:\t"+this.fullname,
-              style: 'name'
-            },
-            {
-              text: "Name with initials\t:\t"+this.nameWithInitial,
-              style: 'name'
-            },
-            {
-              text: "Gender\t:\t"+this.gender,
-              style: 'name'
-            },
-            {
-              text: "Date of birth\t:\t"+this.dob,
-              style: 'name'
-            },
-            {
-              text: "NIC Number\t:\t"+this.nic,
-              style: 'name'
-            },
-            {
-              text: "Address\t:\t"+this.address,
-              style: 'name'
-            },
-            {
-              text: "Email Address\t:\t"+this.email,
-              style: 'name'
-            },
-            {
-              text: "Contact Number\t:\t"+this.contact,
-              style: 'name'
-            },
-            {
-              text: "Position\t:\t"+this.position,
-              style: 'name'
-            },
-            {
-              text: "Date of first appointment\t:\t"+this.firstadmission,
-              style: 'name'
-            },
-            {
-              text: "Date of appointment to school\t:\t"+this.scladmission,
-              style: 'name'
-            }
+            [
+              {
+                text: "Clerk ID\t:\t" + this.clerkId,
+                style: "name"
+              },
+              {
+                text: "Fullname\t:\t" + this.fullname,
+                style: "name"
+              },
+              {
+                text: "Name with initials\t:\t" + this.nameWithInitial,
+                style: "name"
+              },
+              {
+                text: "Gender\t:\t" + this.gender,
+                style: "name"
+              },
+              {
+                text:
+                  "Date of birth\t:\t" + this.formatDate(this.firstadmission),
+                style: "name"
+              },
+              {
+                text: "NIC Number\t:\t" + this.nic,
+                style: "name"
+              },
+              {
+                text: "Address\t:\t" + this.address,
+                style: "name"
+              },
+              {
+                text: "Email Address\t:\t" + this.email,
+                style: "name"
+              },
+              {
+                text: "Contact Number\t:\t" + this.contact,
+                style: "name"
+              },
+              {
+                text: "Position\t:\t" + this.position,
+                style: "name"
+              },
+              {
+                text:
+                  "Date of first appointment\t:\t" +
+                  this.formatDate(this.firstadmission),
+                style: "name"
+              },
+              {
+                text:
+                  "Date of appointment to school\t:\t" +
+                  this.formatDate(this.scladmission),
+                style: "name"
+              }
             ]
           ]
-        },
+        }
       ],
       info: {
-        title: this.clerkId+'-Clerk Data',
-        author: 'admin',
-        subject: 'Clerk Data',
-        keywords: 'Clerk Data',
+        title: this.clerkId + "-Clerk Data",
+        author: "admin",
+        subject: "Clerk Data",
+        keywords: "Clerk Data"
       },
-        styles: {
-          name: {
-            fontSize: 12,
-            margin: [0, 20, 0, 0]
-          }
+      styles: {
+        name: {
+          fontSize: 12,
+          margin: [0, 20, 0, 0]
         }
+      }
     };
   }
 
@@ -175,4 +187,10 @@ export class ReportClerkDataComponent implements OnInit {
     });
   }
 
+  formatDate(date: string): string {
+    var newDate = new Date(date);
+    var formattedDate = new Intl.DateTimeFormat("en-AU").format(newDate);
+
+    return formattedDate;
+  }
 }
