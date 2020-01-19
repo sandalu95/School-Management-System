@@ -21,7 +21,8 @@ export class ReportContactInfoComponent implements OnInit {
   pdfMake: any;
   selectedUserType:string;
   contactdisplayedColumns: string[] = ["nameinitials", "address", "email", "contact"];
-  contactInfoList:Contact[];
+  contactInfoList: Contact[];
+  contactInformationListLength: number;
   contactdataSource: MatTableDataSource<Contact>;
   @ViewChild(MatPaginator, { static: true }) contactpaginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) contactsort: MatSort;
@@ -56,10 +57,11 @@ export class ReportContactInfoComponent implements OnInit {
               contact:null
             };
             this.contactInfoList.push(contactInfo);
-            this.contactdataSource = new MatTableDataSource(this.contactInfoList);
-            this.contactdataSource.paginator = this.contactpaginator;
-            this.contactdataSource.sort = this.contactsort;
           });
+          this.contactInformationListLength = this.contactInfoList.length;
+          this.contactdataSource = new MatTableDataSource(this.contactInfoList);
+          this.contactdataSource.paginator = this.contactpaginator;
+          this.contactdataSource.sort = this.contactsort;
         },
         error => {
           this.handleResponseError(error);
@@ -76,10 +78,11 @@ export class ReportContactInfoComponent implements OnInit {
               contact:(teacher.contact==null)?null:teacher.contact,
             };
             this.contactInfoList.push(contactInfo);
-            this.contactdataSource = new MatTableDataSource(this.contactInfoList);
-            this.contactdataSource.paginator = this.contactpaginator;
-            this.contactdataSource.sort = this.contactsort;
           });
+          this.contactInformationListLength = this.contactInfoList.length;
+          this.contactdataSource = new MatTableDataSource(this.contactInfoList);
+          this.contactdataSource.paginator = this.contactpaginator;
+          this.contactdataSource.sort = this.contactsort;
         },
         error => {
           this.handleResponseError(error);
@@ -96,16 +99,19 @@ export class ReportContactInfoComponent implements OnInit {
               contact:(clerk.contact==null)?null:clerk.contact,
             };
             this.contactInfoList.push(contactInfo);
-            this.contactdataSource = new MatTableDataSource(this.contactInfoList);
-            this.contactdataSource.paginator = this.contactpaginator;
-            this.contactdataSource.sort = this.contactsort;
           });
+          this.contactInformationListLength = this.contactInfoList.length;
+          this.contactdataSource = new MatTableDataSource(this.contactInfoList);
+          this.contactdataSource.paginator = this.contactpaginator;
+          this.contactdataSource.sort = this.contactsort;
         },
         error => {
           this.handleResponseError(error);
         }
       );
     }
+    
+    // this.contactInformationListLength = this.contactInfoList.length;
   }
 
   generatePdf(action = 'open') {
@@ -197,6 +203,12 @@ export class ReportContactInfoComponent implements OnInit {
       title: "Oops...",
       text: error.error.error
     });
+  }
+
+  emptyContactInforList(event) {
+    console.log("cange")
+    this.contactInfoList = [];
+    this.contactInformationListLength = 0;
   }
 
 }

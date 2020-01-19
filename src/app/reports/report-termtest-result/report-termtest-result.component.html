@@ -47,104 +47,107 @@
                     </mat-grid-tile>
                 </form>
             </mat-grid-list>
-            <mat-card>
-                <mat-form-field>
-                    <input
-                    matInput
-                    (keyup)="applyFilterResult($event.target.value)"
-                    placeholder="Filter"
-                    />
-                </mat-form-field>
-                <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="resultdataSource" matSort>
-
-                    <!-- Subject Column -->
-                    <ng-container matColumnDef="subject">
-                        <th
-                        mat-header-cell
-                        *matHeaderCellDef
-                        mat-sort-header
-                        id="subject"
-                        >
-                        Subject
-                        </th>
-                        <td mat-cell *matCellDef="let row">{{ row.subject }}</td>
-                    </ng-container>
-
-                    <!-- Marks Column -->
-                    <ng-container matColumnDef="mark">
-                        <th
-                        mat-header-cell
-                        *matHeaderCellDef
-                        mat-sort-header
-                        id="mark"
-                        >
-                        Mark
-                        </th>
-                        <td mat-cell *matCellDef="let row">{{ row.mark }}</td>
-                    </ng-container>
-
-                    <!-- Grade Column -->
-                    <ng-container matColumnDef="grade">
-                        <th 
-                        mat-header-cell 
-                        *matHeaderCellDef 
-                        mat-sort-header
-                        id="grade"
-                        >
-                        Grade
-                        </th>
-                        <td mat-cell *matCellDef="let row">{{ row.grade }}</td>
-                    </ng-container>
-                    <tr
-                        mat-header-row
-                        *matHeaderRowDef="resultdisplayedColumns"
-                    ></tr>
-                    <tr
-                        mat-row
-                        *matRowDef="let row; columns: resultdisplayedColumns"
-                    ></tr>
-                    </table>
-
-                    <mat-paginator
-                    pageSize="10"
-                    [pageSizeOptions]="[5, 10, 25, 100]"
-                    ></mat-paginator>
+            <ng-container *ngIf="termTestmarksLength > 0">
+                <mat-card>
+                    <mat-form-field>
+                        <input
+                        matInput
+                        (keyup)="applyFilterResult($event.target.value)"
+                        placeholder="Filter"
+                        />
+                    </mat-form-field>
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="resultdataSource" matSort>
+    
+                        <!-- Subject Column -->
+                        <ng-container matColumnDef="subject">
+                            <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            id="subject"
+                            >
+                            Subject
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.subject }}</td>
+                        </ng-container>
+    
+                        <!-- Marks Column -->
+                        <ng-container matColumnDef="mark">
+                            <th
+                            mat-header-cell
+                            *matHeaderCellDef
+                            mat-sort-header
+                            id="mark"
+                            >
+                            Mark
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.mark }}</td>
+                        </ng-container>
+    
+                        <!-- Grade Column -->
+                        <ng-container matColumnDef="grade">
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            mat-sort-header
+                            id="grade"
+                            >
+                            Grade
+                            </th>
+                            <td mat-cell *matCellDef="let row">{{ row.grade }}</td>
+                        </ng-container>
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="resultdisplayedColumns"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: resultdisplayedColumns"
+                        ></tr>
+                        </table>
+    
+                        <mat-paginator
+                        pageSize="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        ></mat-paginator>
+                    </div>
+                </mat-card>
+                <div style="margin-top:30px;">
+                    <mat-grid-list cols="1" rowHeight="30px" style="width: 95%; margin-left:5%;">
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Average</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ average }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Overall Grade</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ overallGrade }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Rank</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ rank }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Result</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ finalResult }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Promoted to grade</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ gradePromoted }}</div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
                 </div>
-            </mat-card>
-            <div style="margin-top:30px;">
-                <mat-grid-list cols="1" rowHeight="30px" style="width: 95%; margin-left:5%;">
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Average</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ average }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Overall Grade</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ overallGrade }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Rank</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ rank }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Result</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ finalResult }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Promoted to grade</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ gradePromoted }}</div>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </div>
-            <div style="margin:20px; margin-left: 80%;">
-                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
-                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
-            </div>
+                <div style="margin:20px; margin-left: 80%;">
+                    <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                    <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+                </div>
+            </ng-container>
+            
         </div>
     </mat-card>
 </div>
