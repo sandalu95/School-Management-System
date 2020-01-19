@@ -24,8 +24,7 @@ export class NoticeComponent implements OnInit {
   constructor(private fb: FormBuilder, private noticeService: NoticeService) {
     this.noticeForm = fb.group({
       title: [null, Validators.required],
-      details: [null, Validators.required],
-      postedby: [null, Validators.required]
+      details: [null, Validators.required]
     });
   }
 
