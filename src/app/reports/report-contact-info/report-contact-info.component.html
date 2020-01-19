@@ -9,7 +9,7 @@
                 <span>Enter User Type : </span>
                 <mat-form-field appearance="outline">
                     <mat-label>User Type</mat-label>
-                    <mat-select #userTypeSelect formControlName="userType" required>
+                    <mat-select #userTypeSelect formControlName="userType" (change)='emptyContactInforList($event)' required>
                         <mat-option value="Student">Student</mat-option>
                         <mat-option value="Teacher">Teacher</mat-option>
                         <mat-option value="Clerk">Clerk</mat-option>
@@ -20,91 +20,93 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Apply</button>
             </form>
-            <div>
-                <h4 style="text-align: center; text-decoration: underline;">Contact Information - {{userTypeSelect.value}}</h4>
-                <mat-card>
-                    <mat-form-field>
-                        <input
-                        matInput
-                        (keyup)="applyFilterContact($event.target.value)"
-                        placeholder="Filter"
-                        />
-                    </mat-form-field>
-                    <div class="mat-elevation-z8">
-                        <table mat-table [dataSource]="contactdataSource" matSort>
-
-                        <!-- Name initials Column -->
-                        <ng-container matColumnDef="nameinitials">
-                            <th
-                            mat-header-cell
-                            *matHeaderCellDef
-                            mat-sort-header
-                            id="nameinitials"
-                            >
-                            Name with initials
-                            </th>
-                            <td mat-cell *matCellDef="let row">{{ row.nameinitials }}</td>
-                        </ng-container>
-
-                        <!-- Address Column -->
-                        <ng-container matColumnDef="address">
-                            <th
-                            mat-header-cell
-                            *matHeaderCellDef
-                            mat-sort-header
-                            id="address"
-                            >
-                            Address
-                            </th>
-                            <td mat-cell *matCellDef="let row">{{ row.address }}</td>
-                        </ng-container>
-
-                        <!-- Email Column -->
-                        <ng-container matColumnDef="email">
-                            <th 
-                            mat-header-cell 
-                            *matHeaderCellDef 
-                            mat-sort-header
-                            id="email"
-                            >
-                            Email
-                            </th>
-                            <td mat-cell *matCellDef="let row">{{ row.email }}</td>
-                        </ng-container>
-
-                        <!-- Contact Column -->
-                        <ng-container matColumnDef="contact">
-                            <th 
-                            mat-header-cell 
-                            *matHeaderCellDef 
-                            mat-sort-header
-                            id="contact"
-                            >
-                            Contact
-                            </th>
-                            <td mat-cell *matCellDef="let row">{{ row.contact }}</td>
-                        </ng-container>
-                        <tr
-                            mat-header-row
-                            *matHeaderRowDef="contactdisplayedColumns"
-                        ></tr>
-                        <tr
-                            mat-row
-                            *matRowDef="let row; columns: contactdisplayedColumns"
-                        ></tr>
-                        </table>
-
-                        <mat-paginator
-                        pageSize="5"
-                        [pageSizeOptions]="[5, 10, 25, 100]"
-                        ></mat-paginator>
-                    </div>
-                </mat-card>
-            </div>
-            <div style="margin:20px; margin-left: 80%;">
-                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
-                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
-            </div>
+            <ng-container *ngIf="contactInformationListLength > 0">
+                <div>
+                    <h4 style="text-align: center; text-decoration: underline;">Contact Information - {{userTypeSelect.value}}</h4>
+                    <mat-card>
+                        <mat-form-field>
+                            <input
+                            matInput
+                            (keyup)="applyFilterContact($event.target.value)"
+                            placeholder="Filter"
+                            />
+                        </mat-form-field>
+                        <div class="mat-elevation-z8">
+                            <table mat-table [dataSource]="contactdataSource" matSort>
+    
+                            <!-- Name initials Column -->
+                            <ng-container matColumnDef="nameinitials">
+                                <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header
+                                id="nameinitials"
+                                >
+                                Name with initials
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{ row.nameinitials }}</td>
+                            </ng-container>
+    
+                            <!-- Address Column -->
+                            <ng-container matColumnDef="address">
+                                <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header
+                                id="address"
+                                >
+                                Address
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{ row.address }}</td>
+                            </ng-container>
+    
+                            <!-- Email Column -->
+                            <ng-container matColumnDef="email">
+                                <th 
+                                mat-header-cell 
+                                *matHeaderCellDef 
+                                mat-sort-header
+                                id="email"
+                                >
+                                Email
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+                            </ng-container>
+    
+                            <!-- Contact Column -->
+                            <ng-container matColumnDef="contact">
+                                <th 
+                                mat-header-cell 
+                                *matHeaderCellDef 
+                                mat-sort-header
+                                id="contact"
+                                >
+                                Contact
+                                </th>
+                                <td mat-cell *matCellDef="let row">{{ row.contact }}</td>
+                            </ng-container>
+                            <tr
+                                mat-header-row
+                                *matHeaderRowDef="contactdisplayedColumns"
+                            ></tr>
+                            <tr
+                                mat-row
+                                *matRowDef="let row; columns: contactdisplayedColumns"
+                            ></tr>
+                            </table>
+    
+                            <mat-paginator
+                            pageSize="5"
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            ></mat-paginator>
+                        </div>
+                    </mat-card>
+                </div>
+                <div style="margin:20px; margin-left: 80%;">
+                    <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                    <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+                </div>
+            </ng-container>    
         </div>
     </mat-card>
 </div>
