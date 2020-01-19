@@ -24,14 +24,14 @@
               getError(noticeForm.get("details"))
             }}</mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" class="notice-form-field">
+          <!-- <mat-form-field appearance="outline" class="notice-form-field">
             <mat-label>Posted By</mat-label>
             <input matInput formControlName="postedby" />
             <mat-icon matSuffix>person</mat-icon>
             <mat-error *ngIf="noticeForm.get('postedby').invalid">{{
               getError(noticeForm.get("postedby"))
             }}</mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
           <button type="submit" mat-raised-button id="submitbtn">Submit</button>
         </form>
       </div>
@@ -51,6 +51,7 @@
                 {{ notice.dateofpost | date }}
               </h3>
               <p matLine class="notice-name">{{ notice.postedby }}</p>
+              <p matLine class="notice-name">{{ notice.title }}</p>
               <p matLine class="notice-content">
                 {{ notice.details }}
               </p>
