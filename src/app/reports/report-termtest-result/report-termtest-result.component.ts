@@ -19,6 +19,7 @@ export class ReportTermtestResultComponent implements OnInit {
   pdfMake: any;
   termTestMarks: Mark[];
   termTest: TermTestMarks;
+  termTestmarksLength: number;
   average: number;
   overallGrade: string;
   rank: string;
@@ -46,48 +47,56 @@ export class ReportTermtestResultComponent implements OnInit {
 
     this.marksservice.getTermTestMarks(data).subscribe(
       data => {
+        console.log(data);
         if (data.termTestMarks.length > 0) {
           this.termTest = data.termTestMarks[0];
           this.termTestMarks = data.termTestMarks[0].marks;
+          this.termTestmarksLength = data.termTestMarks.length;
         }
+
+        this.termTestMarks.forEach(ttmark => {
+          ttmark.grade = this.generateMarkGrade(ttmark.mark);
+        })
+
+        this.resultdataSource = new MatTableDataSource(this.termTestMarks);
+        this.resultdataSource.paginator = this.resultpaginator;
+        this.resultdataSource.sort = this.resultsort;
+
+        let totalMarks: number = 0;
+
+          this.termTestMarks.forEach(ttmark => {
+            totalMarks += ttmark.mark;
+          });
+          this.average = totalMarks / this.termTestMarks.length;
+          if (this.average >= 75) {
+            this.overallGrade = "A";
+            this.finalResult = "Qualified";
+          } else if (this.average >= 65) {
+            this.overallGrade = "B";
+            this.finalResult = "Qualified";
+          } else if (this.average >= 50) {
+            this.overallGrade = "C";
+            this.finalResult = "Qualified";
+          } else if (this.average >= 35) {
+            this.overallGrade = "S";
+            this.finalResult = "Qualified";
+          } else {
+            this.overallGrade = "F";
+            this.finalResult = "Not Qualified";
+          }
+
+          this.rank = "10";
+          
+          if (this.finalResult == "Qualified") {
+            this.gradePromoted = +this.termTest.grade + 1;
+          } else {
+            this.gradePromoted = +this.termTest.grade;
+          }
       },
       error => {
         this.handleResponseError(error);
       }
     );
-
-    this.resultdataSource = new MatTableDataSource(this.termTestMarks);
-    this.resultdataSource.paginator = this.resultpaginator;
-    this.resultdataSource.sort = this.resultsort;
-    let totalMarks: number = 0;
-
-    this.termTestMarks.forEach(ttmark => {
-      totalMarks += ttmark.mark;
-    });
-    this.average = totalMarks / this.termTestMarks.length;
-    if (this.average >= 75) {
-      this.overallGrade = "A";
-      this.finalResult = "Qualified";
-    } else if (this.average >= 65) {
-      this.overallGrade = "B";
-      this.finalResult = "Qualified";
-    } else if (this.average >= 55) {
-      this.overallGrade = "C";
-      this.finalResult = "Qualified";
-    } else if (this.average >= 45) {
-      this.overallGrade = "S";
-      this.finalResult = "Qualified";
-    } else {
-      this.overallGrade = "W";
-      this.finalResult = "Not Qualified";
-    }
-
-    this.rank = "10";
-    if (this.finalResult == "Qualified") {
-      this.gradePromoted = +this.termTest.grade + 1;
-    } else {
-      this.gradePromoted = +this.termTest.grade;
-    }
   }
 
   generatePdf(action = "open") {
@@ -236,5 +245,19 @@ export class ReportTermtestResultComponent implements OnInit {
       title: "Oops...",
       text: error.error.error
     });
+  }
+
+  generateMarkGrade(mark: number): string {
+    if (mark >= 75) {
+      return "A"
+    } else if (mark >= 65) {
+      return "B"
+    } else if (mark >= 50) {
+      return "C"
+    } else if (mark >= 35) {
+      return "S"
+    } else {
+      return "F"
+    }
   }
 }

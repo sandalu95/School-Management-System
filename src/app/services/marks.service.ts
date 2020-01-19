@@ -52,6 +52,6 @@ export class MarksService {
       headers: this.headers
     };
 
-    return this.http.get<GetTermTestMarksResponse>(this.apiUrl, options);
+    return this.http.get<GetTermTestMarksResponse>(`${this.apiUrl}/termtest`, options);
   }
 }
