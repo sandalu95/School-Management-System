@@ -48,9 +48,7 @@ export class TeacherAddStudentsComponent implements OnInit {
       admissionnumber: [null, Validators.required],
       admissiondate: [null, Validators.required],
       parent: [null, Validators.required],
-      file: [null, null],
-      year: [null, Validators.required],
-      month: [null, Validators.required],
+      file: [null, null]
     });
 
     this.parentService.getAllParents().subscribe(
@@ -86,6 +84,8 @@ export class TeacherAddStudentsComponent implements OnInit {
 
   save(data) {
     if (this.studentForm.invalid) return;
+
+    console.log(data);
 
     Swal.showLoading();
 

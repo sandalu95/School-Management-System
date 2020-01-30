@@ -49,9 +49,7 @@ export class NoticeComponent implements OnInit {
           icon: "success",
           title: "Great!",
           text: data.message
-        }).then(res => {
-          this.noticeForm.reset();
-        });
+        })
       },
       error => {
         this.handleResponseError(error);
