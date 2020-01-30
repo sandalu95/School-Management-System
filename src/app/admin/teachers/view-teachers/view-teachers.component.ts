@@ -45,7 +45,7 @@ export class ViewTeachersComponent implements OnInit {
       this.contactNumber = this.teacher.contact;
       this.email = this.teacher.email;
       this.subject = this.teacher.subject;
-      this.teacherId = this.teacher.id;
+      this.teacherId = this.teacher.teacherid;
     }
   }
 }

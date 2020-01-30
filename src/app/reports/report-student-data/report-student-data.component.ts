@@ -17,7 +17,7 @@ export class ReportStudentDataComponent implements OnInit {
   admissionNumberForm: FormGroup;
   student: Student[];
   pdfMake: any;
-  studentListLength: number;
+  studentListLength: number = -1;
 
   fullname: string;
   nameWithInitial: string;

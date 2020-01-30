@@ -16,6 +16,7 @@ export class ReportTeacherDataComponent implements OnInit {
   teacherIdForm: FormGroup;
   teacher: Teacher;
   pdfMake: any;
+  teacherListLength: number = -1;
 
   fullname: string;
   nameWithInitial: string;
@@ -42,27 +43,29 @@ export class ReportTeacherDataComponent implements OnInit {
   getTeacherDetails(data) {
     if (this.teacherIdForm.invalid) return;
 
-    // this.teacherService.getTeacherByTeacherId(data.teacherId).subscribe(
-    //   data => {
-    //     this.teacher = data.teacher;
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
-    this.teacherId = "345345";
-    this.fullname = "Sandalu Kalpanee";
-    this.nameWithInitial = "U.S.Kalpanee";
-    this.gender = "Female";
-    this.dob = "1994-02-09";
-    this.nic = "125464565v";
-    this.address = "Kurunegala";
-    this.email = "sandy@gmail.com";
-    this.contact = "2018-09-18";
-    this.position = "Teacher";
-    this.firstadmission = "2018-09-23";
-    this.scladmission = "2010-12-12";
-    this.subject = "Maths";
+    this.teacherService.getTeacherByTeacherId(data.teacherId).subscribe(
+      data => {
+        this.teacherListLength = data.teachers.length;
+        console.log(this.teacherListLength);
+        this.teacher = data.teachers[0];
+        this.teacherId = this.teacher.teacherid;
+        this.fullname = this.teacher.fullname;
+        this.nameWithInitial = this.teacher.nameinitials;
+        this.gender = this.teacher.gender;
+        this.dob = this.teacher.dob;
+        this.nic = this.teacher.nic;
+        this.address = this.teacher.address;
+        this.email = this.teacher.email;
+        this.contact = this.teacher.contact;
+        this.position = this.teacher.position;
+        this.firstadmission = this.teacher.firstadmission;
+        this.scladmission = this.teacher.scladmission;
+        this.subject = this.teacher.subject;
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
   }
 
   generatePdf(action = "open") {

@@ -72,7 +72,9 @@ export class DashboardComponent implements OnInit {
     private noticeService: NoticeService,
     private studentService: StudentService,
     private parentService: ParentService
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit() {
     /**
