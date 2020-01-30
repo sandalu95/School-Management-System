@@ -16,6 +16,7 @@ export class ReportClerkDataComponent implements OnInit {
   clerkIdForm: FormGroup;
   clerk: Clerk;
   pdfMake: any;
+  clerkListLength: number = -1;
 
   fullname: string;
   nameWithInitial: string;
@@ -41,6 +42,8 @@ export class ReportClerkDataComponent implements OnInit {
   getClerkDetails(data) {
     if (this.clerkIdForm.invalid) return;
 
+    this.clerkListLength = 0;
+
     // this.clerkService.getClerkByClerkId(data.clerkId).subscribe(
     //   data => {
     //     this.clerk = data.clerk;
@@ -49,18 +52,18 @@ export class ReportClerkDataComponent implements OnInit {
     //     this.handleResponseError(error);
     //   }
     // );
-    this.clerkId = "345345";
-    this.fullname = "Ishara Rathnayake";
-    this.nameWithInitial = "I.M.Rathnayake";
-    this.gender = "Male";
-    this.dob = "1994-02-09";
-    this.nic = "125464565v";
-    this.address = "Kurunegala";
-    this.email = "isharay@gmail.com";
-    this.contact = "2018-09-18";
-    this.position = "Clerk";
-    this.firstadmission = "2018-09-23";
-    this.scladmission = "2010-12-12";
+    // this.clerkId = "345345";
+    // this.fullname = "Ishara Rathnayake";
+    // this.nameWithInitial = "I.M.Rathnayake";
+    // this.gender = "Male";
+    // this.dob = "1994-02-09";
+    // this.nic = "125464565v";
+    // this.address = "Kurunegala";
+    // this.email = "isharay@gmail.com";
+    // this.contact = "2018-09-18";
+    // this.position = "Clerk";
+    // this.firstadmission = "2018-09-23";
+    // this.scladmission = "2010-12-12";
   }
 
   generatePdf(action = "open") {
