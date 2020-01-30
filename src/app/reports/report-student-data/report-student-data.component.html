@@ -18,12 +18,10 @@
             </form>
             <ng-container
             *ngIf="studentListLength == 0">
-            <mat-grid-tile rowspan="2">
               <div style="width: 300px;">
                 <h1>No Data Found</h1>
               </div>
               <div class="text-inside-grid-right"></div>
-            </mat-grid-tile>
           </ng-container>
           <ng-container *ngIf="studentListLength > 0">
             <div>

@@ -82,6 +82,8 @@ export class EditTeachersComponent implements OnInit {
 
     data.file = this.selectedFile;
 
+    console.log(this.teacher.id);
+
     this.teacherService.editTeacher(this.teacher.id, data).subscribe(
       data => {
         Swal.hideLoading();
