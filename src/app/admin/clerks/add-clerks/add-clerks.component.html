@@ -36,6 +36,15 @@
           </mat-grid-tile>
           <mat-grid-tile colspan="1" rowspan="1">
             <mat-form-field appearance="outline" class="clerk-form-field">
+              <mat-label>Clerk ID</mat-label>
+              <input matInput formControlName="clerkId" required />
+              <mat-error *ngIf="clerkForm.get('clerkId').invalid">{{
+                getError(clerkForm.get("clerkId"))
+              }}</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+            <mat-form-field appearance="outline" class="clerk-form-field">
               <mat-label>Gender</mat-label>
               <mat-select formControlName="gender" required>
                 <mat-option value="Male">Male</mat-option>
@@ -142,7 +151,7 @@
               <mat-datepicker touchUi #scladmissionpicker></mat-datepicker>
             </mat-form-field>
           </mat-grid-tile>
-          <mat-grid-tile colspan="2" rowspan="1"> </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1"> </mat-grid-tile>
           <mat-grid-tile colspan="1" rowspan="1">
             <div class="upload-image-field">
               <mat-label>Upload Clerk Photo</mat-label>
