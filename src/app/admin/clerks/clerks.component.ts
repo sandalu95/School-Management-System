@@ -96,6 +96,23 @@ export class ClerksComponent implements OnInit {
               icon: "success",
               title: "Deleted!",
               text: data.message
+            }).then(result => {
+              this.clerkService.getAllClerks().subscribe(
+                data => {
+                  // Assign the data to the data source for the table to render
+                  this.dataSource = new MatTableDataSource(data.clerks);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                },
+                error => {
+                  console.log(error);
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.error.error
+                  });
+                }
+              );
             });
           },
           error => {

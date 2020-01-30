@@ -46,7 +46,6 @@ export class ReportTeacherDataComponent implements OnInit {
     this.teacherService.getTeacherByTeacherId(data.teacherId).subscribe(
       data => {
         this.teacherListLength = data.teachers.length;
-        console.log(this.teacherListLength);
         this.teacher = data.teachers[0];
         this.teacherId = this.teacher.teacherid;
         this.fullname = this.teacher.fullname;

@@ -93,7 +93,17 @@ export class TeachersComponent implements OnInit {
               title: "Deleted!",
               text: data.message
             }).then(res => {
-              this.router.navigate(["./home/admin/teachers"], {});
+              this.teacherService.getAllTeachers().subscribe(
+                data => {
+                  // Assign the data to the data source for the table to render
+                  this.dataSource = new MatTableDataSource(data.teachers);
+                  this.dataSource.paginator = this.paginator;
+                  this.dataSource.sort = this.sort;
+                },
+                error => {
+                  this.handleRespnseError(error);
+                }
+              );
             });
           },
           error => {
