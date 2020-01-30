@@ -25,6 +25,7 @@ export class AddClerksComponent implements OnInit {
   fullnametxt: string = "";
   nameinitialstxt: string = "";
   positiontxt: string = "";
+  clerkIdtxt: string = "";
   gendertxt: string = "";
   dobtxt: string = "";
   nictxt: string = "";
@@ -43,6 +44,7 @@ export class AddClerksComponent implements OnInit {
       fullname: [null, Validators.required],
       nameinitials: [null, Validators.required],
       position: [null, Validators.required],
+      clerkId: [null, Validators.required],
       gender: [null, Validators.required],
       dob: [null, Validators.required],
       nic: [null, Validators.required],
