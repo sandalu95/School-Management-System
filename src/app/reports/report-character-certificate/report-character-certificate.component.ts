@@ -46,38 +46,40 @@ export class ReportCharacterCertificateComponent implements OnInit {
   getStudentDetails(data) {
     if (this.admissionNumberForm.invalid) return;
 
-    // this.studentService.getStudentByAdmission(data.admissionNumber).subscribe(
-    //   data => {
-    //     this.student = data.student;
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
-
-    this.fullname = "tharidu lakshan";
-    this.nameWithInitial = "T.M.Thake";
-    this.gradeOfLeaving = "12-C";
-    this.admissionNumber = "345";
-    this.admissionDate = "2018-09-18";
-    this.achievement=[
-      {
-        type:'Other',
-        competition:'vfswfc',
-        event:'sdce',
-        place:'rsfvcesw',
-        year:'2019',
-        description:'dfcerfe'
+    this.studentService.getStudentByAddmissionNUmber(data.admissionNumber).subscribe(
+      data => {
+        console.log(data);
+        this.student = data.students[0];
+        if(data.students.length > 0){
+          this.fullname = this.student.fullname;
+          this.nameWithInitial = this.student.nameinitials;
+          this.gradeOfLeaving = "13";
+          this.admissionNumber = this.student.admissionnumber;
+          this.admissionDate = this.student.admissiondate;
+        }
+        this.achievement=[
+          {
+            type:'Other',
+            competition:'vfswfc',
+            event:'sdce',
+            place:'rsfvcesw',
+            year:'2019',
+            description:'dfcerfe'
+          },
+          {
+            type:'Other',
+            competition:'ertfgrf',
+            event:'rfersdgv',
+            place:'rfvbgbn',
+            year:'2019',
+            description:'uiku'
+          }
+        ];
       },
-      {
-        type:'Other',
-        competition:'ertfgrf',
-        event:'rfersdgv',
-        place:'rfvbgbn',
-        year:'2019',
-        description:'uiku'
+      error => {
+        this.handleResponseError(error);
       }
-    ];
+    );
   }
 
   generatePdf(action = 'open') {
@@ -186,6 +188,29 @@ export class ReportCharacterCertificateComponent implements OnInit {
             {
               text: "Participation extra-curricular activities\t:\t"+this.participateExtraCurricular,
               style: 'name'
+            },
+            {
+              text: "\n\nI do hereby certify that the foregoing is true and correct.",
+              style: 'name'
+            },
+            {
+              columns: [
+                {
+                  width: 'auto',
+                  text: "...........................\nClass Teacher",
+                  style: 'name'
+                },
+                {
+                  width: 350,
+                  text: " ..",
+                  style: 'name'
+                },
+                {
+                  width: 'auto',
+                  text: "...........................\nPrincipal",
+                  style: 'name'
+                }
+              ],
             }
             ]
           ]

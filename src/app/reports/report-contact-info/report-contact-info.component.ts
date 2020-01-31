@@ -52,9 +52,9 @@ export class ReportContactInfoComponent implements OnInit {
           data.students.forEach(student => {
             let contactInfo:Contact={
               nameinitials:(student.nameinitials==null)?null:student.nameinitials,
-              address:(student.address==null)?null:student.address,
-              email:null,
-              contact:null
+              address:(student.parent.address==null)?null:student.parent.address,
+              email:(student.parent.email==null)?null:student.parent.email,
+              contact:(student.parent.contact==null)?null:student.parent.contact,
             };
             this.contactInfoList.push(contactInfo);
           });
