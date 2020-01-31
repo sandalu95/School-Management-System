@@ -42,28 +42,30 @@ export class ReportClerkDataComponent implements OnInit {
   getClerkDetails(data) {
     if (this.clerkIdForm.invalid) return;
 
-    this.clerkListLength = 0;
+    this.clerkService.getClerkByClerkId(data.clerkId).subscribe(
+      data => {
+        this.clerk = data.clerks[0];
+        this.clerkListLength = data.clerks.length;
 
-    // this.clerkService.getClerkByClerkId(data.clerkId).subscribe(
-    //   data => {
-    //     this.clerk = data.clerk;
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
-    // this.clerkId = "345345";
-    // this.fullname = "Ishara Rathnayake";
-    // this.nameWithInitial = "I.M.Rathnayake";
-    // this.gender = "Male";
-    // this.dob = "1994-02-09";
-    // this.nic = "125464565v";
-    // this.address = "Kurunegala";
-    // this.email = "isharay@gmail.com";
-    // this.contact = "2018-09-18";
-    // this.position = "Clerk";
-    // this.firstadmission = "2018-09-23";
-    // this.scladmission = "2010-12-12";
+        this.clerkId = this.clerk.clerkId;
+        this.fullname = this.clerk.fullname;
+        this.nameWithInitial = this.clerk.nameinitials;
+        this.gender = this.clerk.gender;
+        this.dob = this.clerk.dob;
+        this.nic = this.clerk.nic;
+        this.address = this.clerk.address;
+        this.email = this.clerk.email;
+        this.contact = this.clerk.contact;
+        this.position = this.clerk.position;
+        this.firstadmission = this.clerk.firstadmission;
+        this.scladmission = this.clerk.scladmission;
+
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
+  
   }
 
   generatePdf(action = "open") {

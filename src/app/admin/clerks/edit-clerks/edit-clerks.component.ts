@@ -29,6 +29,7 @@ export class EditClerksComponent implements OnInit {
     this.clerkForm = fb.group({
       fullname: [null, Validators.required],
       nameinitials: [null, Validators.required],
+      clerkId: [null, Validators.required],
       position: [null, Validators.required],
       gender: [null, Validators.required],
       dob: [null, Validators.required],
@@ -50,6 +51,7 @@ export class EditClerksComponent implements OnInit {
     if (this.clerk) {
       this.clerkForm.get("fullname").setValue(this.clerk.fullname);
       this.clerkForm.get("nameinitials").setValue(this.clerk.nameinitials);
+      this.clerkForm.get("clerkId").setValue(this.clerk.id);
       this.clerkForm.get("position").setValue(this.clerk.position);
       this.clerkForm.get("gender").setValue(this.clerk.gender);
       this.clerkForm.get("dob").setValue(this.clerk.dob);
