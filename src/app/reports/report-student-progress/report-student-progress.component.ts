@@ -29,6 +29,7 @@ export class ReportStudentProgressComponent implements OnInit {
   workNeat:string;
   classParticipation:string;
   refrainDistrupting:string;
+  teacherComment:string;
 
   // options
   showXAxis: boolean = true;
@@ -174,6 +175,14 @@ export class ReportStudentProgressComponent implements OnInit {
             },
             {
               text: "Refrain from distrupting others\t:\t"+this.refrainDistrupting,
+              style: 'name'
+            },
+            {
+              text: "Teacher's Comments\t:\t"+this.teacherComment,
+              style: 'name'
+            },
+            {
+              text: "",
               style: 'name'
             }
             ]
