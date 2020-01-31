@@ -1,6 +1,5 @@
 .outer-container {
     width: 100%;
-    height: 90vh;
     box-sizing: border-box;
     padding: 30px;
 }
@@ -26,13 +25,26 @@
     padding-bottom: 10px;
 }
 
-.letter-deatil-form-field {
-    width: 100%;
-    height: 65px;
+.text-inside-grid-left {
+  width: 40%;
+  margin-left: 10%;
 }
 
-#submitbtn {
-    margin: 0 30%;
-    margin-top: 10px;
-    width: 40%;
+.text-inside-grid-right {
+  width: 60%;
+}
+
+.text-inside-grid-left-second {
+  width: 40%;
+  margin-left: 15%;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.radio-button {
+  margin: 5px;
 }
