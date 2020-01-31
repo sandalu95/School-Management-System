@@ -4,8 +4,8 @@
         <h1 id="heading">Login to your Account</h1>
         <h5 id="subHeading">School Management System</h5>
         <mat-form-field class="formField">
-            <input type="email" placeholder="Email" matInput formControlName="email">
-            <mat-error *ngIf="reForm.get('email').invalid">{{getEmailErrorMessage()}}</mat-error>
+            <input type="email" placeholder="Username" matInput formControlName="username">
+            <mat-error *ngIf="reForm.get('username').invalid">{{getUsernameErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field class="formField">
             <input type="password" placeholder="Password" matInput formControlName="pass">

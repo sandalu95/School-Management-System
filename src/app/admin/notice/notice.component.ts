@@ -8,6 +8,7 @@ import {
 import Swal from "sweetalert2";
 import { NoticeService } from "../../services/notice.service";
 import { Notice } from "src/app/models/notice";
+import { Result } from 'src/app/models/result';
 
 @Component({
   selector: "app-notice",
@@ -49,6 +50,15 @@ export class NoticeComponent implements OnInit {
           icon: "success",
           title: "Great!",
           text: data.message
+        }).then(result => {
+          this.noticeService.getAllNotices().subscribe(
+            data => {
+              this.notices = data.notices;
+            },
+            error => {
+              this.handleResponseError(error);
+            }
+          );
         })
       },
       error => {

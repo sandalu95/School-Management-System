@@ -82,6 +82,7 @@ export class DashboardComponent implements OnInit {
      */
     this.teacherService.getAllTeachers().subscribe(
       data => {
+        data.teachers.sort((a,b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0)); 
         // Assign the data to the data source for the table to render
         this.teacherdataSource = new MatTableDataSource(data.teachers);
         this.teacherdataSource.paginator = this.teacherpaginator;
@@ -98,6 +99,7 @@ export class DashboardComponent implements OnInit {
      */
     this.clerkService.getAllClerks().subscribe(
       data => {
+        data.clerks.sort((a,b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0)); 
         // Assign the data to the data source for the table to render
         this.clerkdataSource = new MatTableDataSource(data.clerks);
         this.clerkdataSource.paginator = this.clerkpaginator;
@@ -126,6 +128,7 @@ export class DashboardComponent implements OnInit {
      */
     this.studentService.getAllStudents().subscribe(
       data => {
+        data.students.sort((a,b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0)); 
         this.studentdataSource = new MatTableDataSource(data.students);
         this.studentdataSource.paginator = this.studentpaginator;
         this.studentdataSource.sort = this.studentsort;
@@ -141,6 +144,7 @@ export class DashboardComponent implements OnInit {
      */
     this.parentService.getAllParents().subscribe(
       data => {
+        data.parents.sort((a,b) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0)); 
         this.parentdataSource = new MatTableDataSource(data.parents);
         this.parentdataSource.paginator = this.parentpaginator;
         this.parentdataSource.sort = this.parentsort;

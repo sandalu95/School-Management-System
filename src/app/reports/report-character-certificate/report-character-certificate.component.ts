@@ -6,6 +6,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import { Achievement } from 'src/app/models/achievement';
 import { Student } from 'src/app/models/student';
+import { AchivementService } from 'src/app/services/achivement.service';
+import { Competition } from 'src/app/models/competition';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -23,7 +25,10 @@ export class ReportCharacterCertificateComponent implements OnInit {
   gradeOfLeaving:string;
   admissionNumber:string;
   admissionDate:string;
-  achievement:any;
+  achievement: Competition[] = [];
+
+  achivementLength: number = -1;
+  studentInfoLength: number = -1;
 
   characterLevels=['None','Outstanding','Satisfactory','Needs'];
   discipline:string='None';
@@ -34,7 +39,7 @@ export class ReportCharacterCertificateComponent implements OnInit {
   dedicationSchool:string='None';
   participateExtraCurricular:string='None';
 
-  constructor(private fb: FormBuilder, public studentService: StudentService) { 
+  constructor(private fb: FormBuilder, public studentService: StudentService, private achivementService: AchivementService) { 
     this.admissionNumberForm = fb.group({
       admissionNumber: [null, Validators.required],
     });
@@ -48,8 +53,8 @@ export class ReportCharacterCertificateComponent implements OnInit {
 
     this.studentService.getStudentByAddmissionNUmber(data.admissionNumber).subscribe(
       data => {
-        console.log(data);
         this.student = data.students[0];
+        this.studentInfoLength = data.students.length;
         if(data.students.length > 0){
           this.fullname = this.student.fullname;
           this.nameWithInitial = this.student.nameinitials;
@@ -57,29 +62,24 @@ export class ReportCharacterCertificateComponent implements OnInit {
           this.admissionNumber = this.student.admissionnumber;
           this.admissionDate = this.student.admissiondate;
         }
-        this.achievement=[
-          {
-            type:'Other',
-            competition:'vfswfc',
-            event:'sdce',
-            place:'rsfvcesw',
-            year:'2019',
-            description:'dfcerfe'
-          },
-          {
-            type:'Other',
-            competition:'ertfgrf',
-            event:'rfersdgv',
-            place:'rfvbgbn',
-            year:'2019',
-            description:'uiku'
-          }
-        ];
       },
       error => {
         this.handleResponseError(error);
       }
     );
+
+    this.achivementService.getAchivementByAddmissionNumber(data.admissionNumber).subscribe(
+      data => {
+        if(data.achivement.length > 0){
+          this.achivementLength = data.achivement[0].other.length + data.achivement[0].extraCuricular.length;
+          this.achievement = data.achivement[0].extraCuricular
+          this.achievement.concat(data.achivement[0].other)
+        }
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    )
   }
 
   generatePdf(action = 'open') {
@@ -121,7 +121,7 @@ export class ReportCharacterCertificateComponent implements OnInit {
               style: 'name'
             },
             {
-              text: "Admission Date\t:\t"+this.admissionDate,
+              text: "Admission Date\t:\t"+new Date(this.admissionDate).toLocaleDateString(),
               style: 'name'
             },
             {
