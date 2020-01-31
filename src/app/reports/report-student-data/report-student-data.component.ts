@@ -58,7 +58,7 @@ export class ReportStudentDataComponent implements OnInit {
             this.dob = this.student[0].dob;
             this.grade = this.student[0].grade;
             this.class = this.student[0].class;
-            this.address = this.student[0].address;
+            this.address = this.student[0].parent.address;
             this.admissionNumber = this.student[0].admissionnumber;
             this.admissionDate = this.student[0].admissiondate;
 

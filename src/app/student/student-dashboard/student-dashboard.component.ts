@@ -17,6 +17,8 @@ export class StudentDashboardComponent implements OnInit {
 
   achivements: Competition[];
 
+  isAchivement: boolean = false;
+
   fullname: string;
   nameWithInitial: string;
   id: string;
@@ -58,7 +60,7 @@ export class StudentDashboardComponent implements OnInit {
         this.dob = data.students[0].dob;
         this.grade = data.students[0].grade;
         this.class = data.students[0].class;
-        this.address = data.students[0].address;
+        this.address = data.students[0].parent.address;
         this.admissionNumber = data.students[0].admissionnumber;
         this.admissionDate = data.students[0].admissiondate;
         this.profileImage = data.students[0].profileImage;
@@ -75,15 +77,21 @@ export class StudentDashboardComponent implements OnInit {
 
     this.achivementService.getAchivementByUserId().subscribe(
       data => {
-        this.achivements = data.achivement[0].extraCuricular;
-        this.achivements = this.achivements.concat(data.achivement[0].other);
+        if(data.achivement.length > 0 ) {
+          this.achivements = data.achivement[0].extraCuricular;
+          this.achivements = this.achivements.concat(data.achivement[0].other);
 
-        this.achivements.sort((a, b) => (a.year < b.year ? 1 : -1));
+          if(this.achivements.length > 0){
+            this.isAchivement = true;
+          }
 
-        this.achievementName = this.achivements[0].competition;
-        this.achievementDate = this.achivements[0].year;
-        this.achievementPlace = this.achivements[0].place;
-        this.achievementEvent = this.achivements[0].event;
+          this.achivements.sort((a, b) => (a.year < b.year ? 1 : -1));
+
+          this.achievementName = this.achivements[0].competition;
+          this.achievementDate = this.achivements[0].year;
+          this.achievementPlace = this.achivements[0].place;
+          this.achievementEvent = this.achivements[0].event;
+        }
       },
       error => {
         handleResponseError(error);

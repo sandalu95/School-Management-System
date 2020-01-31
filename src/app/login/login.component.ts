@@ -21,7 +21,7 @@ const CACHE_KEY = "httpCache";
 export class LoginComponent implements OnInit {
   reForm: FormGroup;
   data: any;
-  email: string = "";
+  username: string = "";
   pass: string = "";
 
   constructor(
@@ -30,10 +30,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.reForm = fb.group({
-      email: [
-        null,
-        Validators.compose([Validators.required, Validators.email])
-      ],
+      username: [null, Validators.required],
       pass: [null, Validators.required]
     });
   }
@@ -45,11 +42,11 @@ export class LoginComponent implements OnInit {
 
     Swal.showLoading();
 
-    this.email = data.email;
+    this.username = data.username;
     this.pass = data.pass;
 
     const loginRequest: LoginRequest = {
-      username: data.email,
+      username: data.username,
       password: data.pass
     };
 
@@ -89,11 +86,17 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginRequest).subscribe(loginObserver);
   }
 
-  getEmailErrorMessage() {
-    return this.reForm.get("email").hasError("required")
-      ? "You must enter your email"
-      : this.reForm.get("email").hasError("email")
-      ? "Not a valid email"
+  // getEmailErrorMessage() {
+  //   return this.reForm.get("email").hasError("required")
+  //     ? "You must enter your email"
+  //     : this.reForm.get("email").hasError("email")
+  //     ? "Not a valid email"
+  //     : "";
+  // }
+
+  getUsernameErrorMessage() {
+    return this.reForm.get("username").hasError("required")
+      ? "You must enter your username"
       : "";
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Achievement } from "../models/achievement";
 import { Observable } from "rxjs";
 import { CommonResponse } from "../models/response/commonResponse";
@@ -12,7 +12,9 @@ import { GetAchivementResponse } from "../models/response/getAchivementResponse"
   providedIn: "root"
 })
 export class AchivementService {
-  apiUrl: string = "https://sms-web-service.herokuapp.com/api/achivements";
+  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/achivements";
+  apiUrl: string = "http://localhost:3000/api/achivements";
+
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
@@ -54,5 +56,14 @@ export class AchivementService {
     return this.http.get<GetAchivementResponse>(`${this.apiUrl}/byuserid`, {
       headers: this.headers
     });
+  }
+
+  public getAchivementByAddmissionNumber(addmissionNumber: string): Observable<GetAchivementResponse> {
+    const options = {
+      params: new HttpParams().set("addmissionNumber", addmissionNumber),
+      headers: this.headers
+    };
+
+    return this.http.get<GetAchivementResponse>(`${this.apiUrl}/byaddmissionnumber`, options);
   }
 }

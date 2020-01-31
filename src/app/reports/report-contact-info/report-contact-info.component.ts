@@ -140,7 +140,7 @@ export class ReportContactInfoComponent implements OnInit {
         },
         {
           table: {
-            widths: ['*', '*', '*', '*'],
+            widths: [100, 150, 150, 75],
             body: [
               [{
                 text: 'Name',
