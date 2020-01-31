@@ -10,8 +10,8 @@ import { CommonResponse } from "../models/response/commonResponse";
   providedIn: "root"
 })
 export class ClerkService {
-  // apiURL: string = "https://sms-web-service.herokuapp.com/api/user/clerk";
-  apiURL: string = "http://localhost:3000/api/user/clerk";
+  apiURL: string = "https://sms-web-service.herokuapp.com/api/user/clerk";
+  // apiURL: string = "http://localhost:3000/api/user/clerk";
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
