@@ -148,10 +148,6 @@ export class ReportStudentProgressComponent implements OnInit {
               style: 'name'
             },
             {
-              text: "Class\t:\t"+this.progressForm.get('class').value,
-              style: 'name'
-            },
-            {
               text: "Admission Number\t:\t"+this.progressForm.get('admissionNumber').value,
               style: 'name'
             }
@@ -182,6 +178,35 @@ export class ReportStudentProgressComponent implements OnInit {
             }
             ]
           ]
+        },
+        {
+          columns: [
+            {
+              width: 'auto',
+              text: "...........................\nClass Teacher signature",
+              style: 'name'
+            },
+            {
+              width: 100,
+              text: " ",
+              style: 'name'
+            },
+            {
+              width: 'auto',
+              text: "...........................\nGuardian's signature",
+              style: 'name'
+            },
+            {
+              width: 100,
+              text: " ",
+              style: 'name'
+            },
+            {
+              width: 'auto',
+              text: "...........................\nPrincipal signature",
+              style: 'name'
+            }
+          ],
         }
       ],
       info: {
