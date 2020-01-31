@@ -24,7 +24,7 @@
                         }}</mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
-                <mat-grid-tile colspan="1" rowspan="1">
+                <!-- <mat-grid-tile colspan="1" rowspan="1">
                     <mat-form-field appearance="outline">
                         <mat-label>Class</mat-label>
                         <input matInput formControlName="class" required>
@@ -32,7 +32,7 @@
                             getError(progressForm.get("class"))
                         }}</mat-error>
                     </mat-form-field>
-                </mat-grid-tile>
+                </mat-grid-tile> -->
                 <mat-grid-tile colspan="1" rowspan="1">
                     <mat-form-field appearance="outline">
                         <mat-label>Admission Number</mat-label>
@@ -47,7 +47,14 @@
                 </mat-grid-tile>
             </form>
         </mat-grid-list>
-        <mat-divider></mat-divider>
+        <ng-container *ngIf="termtestLength == 0">
+            <div style="width: 300px;">
+                <h1>No Data Found</h1>
+            </div>
+            <div class="text-inside-grid-right"></div>
+        </ng-container>
+        <ng-container *ngIf="data.length > 0">
+            <mat-divider></mat-divider>
         <div class="card-head">
             <h4 class="card-head-heading">Academic Progress</h4>
         </div>
@@ -151,5 +158,6 @@
                 <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
             </div>
         </div>
+        </ng-container>
     </mat-card>
 </div>

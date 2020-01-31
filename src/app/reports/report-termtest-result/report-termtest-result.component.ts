@@ -25,6 +25,12 @@ export class ReportTermtestResultComponent implements OnInit {
   rank: string;
   finalResult: string;
   gradePromoted: number;
+  totalA = 0;
+  totalB = 0;
+  totalC = 0;
+  totalS = 0;
+  totalF = 0;
+  total = 0;
 
   resultdisplayedColumns: string[] = ["subject", "mark", "grade"];
   resultdataSource: MatTableDataSource<Mark>;
@@ -44,6 +50,12 @@ export class ReportTermtestResultComponent implements OnInit {
 
   apply(data) {
     if (this.ttMarksForm.invalid) return;
+
+    this.totalA = 0;
+    this.totalB = 0;
+    this.totalC = 0;
+    this.totalS = 0;
+    this.totalF = 0;   
 
     this.marksservice.getTermTestMarks(data).subscribe(
       data => {
@@ -67,6 +79,7 @@ export class ReportTermtestResultComponent implements OnInit {
           this.termTestMarks.forEach(ttmark => {
             totalMarks += ttmark.mark;
           });
+          this.total = totalMarks;
           this.average = totalMarks / this.termTestMarks.length;
           if (this.average >= 75) {
             this.overallGrade = "A";
@@ -147,7 +160,7 @@ export class ReportTermtestResultComponent implements OnInit {
                 style: "name"
               },
               {
-                text: "Class\t:\t" + this.termTest.class,
+                text: "Class\t:\t" + this.termTest.class + "\n\n",
                 style: "name"
               }
             ]
@@ -173,7 +186,25 @@ export class ReportTermtestResultComponent implements OnInit {
               ],
               ...this.termTestMarks.map(ttMark => {
                 return [ttMark.subject, ttMark.mark, ttMark.grade];
-              })
+              }),
+              [
+                {
+                  text: "Total",
+                  style: "tableHeader"
+                },
+                {
+                  text: this.total,
+                  style: "tableHeader"
+                },
+                {
+                  table: {
+                    body: [
+                      ['A', 'B', 'C', 'S', 'F'],
+                      [this.totalA, this.totalB, this.totalC, this.totalS, this.totalF]
+                    ]
+                  }
+                }
+              ]
             ]
           }
         },
@@ -181,7 +212,7 @@ export class ReportTermtestResultComponent implements OnInit {
           columns: [
             [
               {
-                text: "Average\t:\t" + this.average,
+                text: "\n\nAverage\t:\t" + this.average,
                 style: "name"
               },
               {
@@ -202,6 +233,35 @@ export class ReportTermtestResultComponent implements OnInit {
               }
             ]
           ]
+        },
+        {
+          columns: [
+            {
+              width: 'auto',
+              text: "...........................\nClass Teacher signature",
+              style: 'name'
+            },
+            {
+              width: 100,
+              text: " ",
+              style: 'name'
+            },
+            {
+              width: 'auto',
+              text: "...........................\nGuardian's signature",
+              style: 'name'
+            },
+            {
+              width: 100,
+              text: " ",
+              style: 'name'
+            },
+            {
+              width: 'auto',
+              text: "...........................\nPrincipal signature",
+              style: 'name'
+            }
+          ],
         }
       ],
       info: {
@@ -249,14 +309,19 @@ export class ReportTermtestResultComponent implements OnInit {
 
   generateMarkGrade(mark: number): string {
     if (mark >= 75) {
+      this.totalA++;
       return "A"
     } else if (mark >= 65) {
+      this.totalB++;
       return "B"
     } else if (mark >= 50) {
+      this.totalC++;
       return "C"
     } else if (mark >= 35) {
+      this.totalS++;
       return "S"
     } else {
+      this.totalF++;
       return "F"
     }
   }

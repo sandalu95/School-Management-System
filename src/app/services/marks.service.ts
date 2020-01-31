@@ -11,6 +11,8 @@ import { GetTermTestMarksResponse } from "../models/response/getTermTestMarks";
 })
 export class MarksService {
   apiUrl: string = "https://sms-web-service.herokuapp.com/api/marks";
+  // apiUrl: string = "http://localhost:3000/api/marks";
+
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
@@ -53,5 +55,19 @@ export class MarksService {
     };
 
     return this.http.get<GetTermTestMarksResponse>(`${this.apiUrl}/termtest`, options);
+  }
+
+  public getTermTestMarksForYear(data): Observable<GetTermTestMarksResponse> {
+    let params = new HttpParams();
+    params = params.append("year", data.year);
+    params = params.append("grade", data.grade);
+    params = params.append("admissionNumber", data.admissionNumber);
+
+    const options = {
+      params: params,
+      headers: this.headers
+    };
+
+    return this.http.get<GetTermTestMarksResponse>(`${this.apiUrl}/termTestMarksForYear`, options);
   }
 }
