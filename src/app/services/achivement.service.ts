@@ -12,8 +12,8 @@ import { GetAchivementResponse } from "../models/response/getAchivementResponse"
   providedIn: "root"
 })
 export class AchivementService {
-  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/achivements";
-  apiUrl: string = "http://localhost:3000/api/achivements";
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/achivements";
+  // apiUrl: string = "http://localhost:3000/api/achivements";
 
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
