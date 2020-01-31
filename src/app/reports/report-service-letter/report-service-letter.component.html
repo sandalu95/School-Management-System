@@ -1,1 +1,90 @@
-<p>report-service-letter works!</p>
+<div class="outer-container">
+    <mat-card>
+        <div class="card-head">
+            <h3 class="card-head-heading">Employee Service Letter</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+            <div style="height: 80%;">
+                <div style="width: 30%; box-sizing: border-box; float: left; padding: 0 5% 0 2%;">
+                    <form
+                    [formGroup]="letterDetailForm"
+                    (ngSubmit)="saveDetail(letterDetailForm.value)"
+                    >
+                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>Title</mat-label>
+                            <mat-select formControlName="title" required>
+                                <mat-option value="Ms">Ms</mat-option>
+                                <mat-option value="Mrs">Mrs</mat-option>
+                                <mat-option value="Mr">Mr</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="letterDetailForm.get('title').invalid">{{getError(letterDetailForm.get('title'))}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>Full Name</mat-label>
+                            <input matInput formControlName="fullName" />
+                            <mat-error *ngIf="letterDetailForm.get('fullName').invalid">{{
+                            getError(letterDetailForm.get("fullName"))
+                            }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>Employee ID</mat-label>
+                            <input matInput formControlName="employeeId" />
+                            <mat-error *ngIf="letterDetailForm.get('employeeId').invalid">{{
+                            getError(letterDetailForm.get("employeeId"))
+                            }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>Date of school appointment</mat-label>
+                            <input matInput [matDatepicker]="scladmissionpicker" placeholder="Choose a date" formControlName="schoolAppointedDate" required>
+                            <mat-error *ngIf="letterDetailForm.get('schoolAppointedDate').invalid">{{getError(letterDetailForm.get('schoolAppointedDate'))}}</mat-error>
+                            <mat-datepicker-toggle matSuffix [for]="scladmissionpicker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #scladmissionpicker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>Name with initials</mat-label>
+                            <input matInput formControlName="nameWithInitials" />
+                            <mat-error *ngIf="letterDetailForm.get('nameWithInitials').invalid">{{
+                            getError(letterDetailForm.get("nameWithInitials"))
+                            }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>User Type</mat-label>
+                            <mat-select formControlName="userType" required>
+                                <mat-option value="Teacher">Teacher</mat-option>
+                                <mat-option value="Clerk">Clerk</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="letterDetailForm.get('userType').invalid">{{getError(letterDetailForm.get('userType'))}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="letterDetailForm.get('userType').value=='Teacher'" appearance="outline" class="letter-deatil-form-field">
+                            <mat-label>Subject</mat-label>
+                            <input matInput formControlName="subject" />
+                            <mat-error *ngIf="letterDetailForm.get('subject').invalid">{{
+                            getError(letterDetailForm.get("subject"))
+                            }}</mat-error>
+                        </mat-form-field>
+                        <button type="submit" mat-raised-button id="submitbtn">Save</button>
+                    </form>
+                </div>
+                <div style="width: 70%; box-sizing: border-box; float: left;">
+                    <h4 style="text-align: center; text-decoration: underline;">Service Letter</h4>
+                    <p matLine>To whom it may concern,</p>
+                    <p matLine>
+                        This is to certify that <span>{{titletxt}}. </span><span>{{fullNametxt}}</span> ( <span>{{employeeIdtxt}}</span> ) 
+                        is employeed at MR/Pitabeddara Secondary School since <span>{{appointmentDatetxt}}</span> onwards.
+                    </p>
+                    <p>
+                        <span>{{titletxt}}. </span><span>{{nameWithInitialstxt}}</span>'s designation at the moment is <span>{{userTypetxt}}</span><span *ngIf="letterDetailForm.get('userType').value=='Teacher'"> - {{subjecttxt}}</span>.
+                        During <span *ngIf="letterDetailForm.get('title').value==null">his/her</span><span  *ngIf="letterDetailForm.get('title').value=='Ms'||letterDetailForm.get('title').value=='Mrs'">her</span> <span  *ngIf="letterDetailForm.get('title').value=='Mr'">his</span>
+                        tenture with us we finds <span *ngIf="letterDetailForm.get('title').value==null">his/her</span> <span  *ngIf="letterDetailForm.get('title').value=='Ms'||letterDetailForm.get('title').value=='Mrs'">her</span> <span  *ngIf="letterDetailForm.get('title').value=='Mr'">his</span>
+                        sincere, honest and hardworking.
+                    </p>
+                </div>
+            </div>
+            <div style="margin:20px; margin-left: 80%; height: 10%;">
+                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+            </div>
+        </div>
+    </mat-card>
+</div>
