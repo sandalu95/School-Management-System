@@ -79,7 +79,7 @@ export class ReportCharacterCertificateComponent implements OnInit {
       error => {
         this.handleResponseError(error);
       }
-    )
+    );
   }
 
   generatePdf(action = 'open') {

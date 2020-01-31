@@ -6,6 +6,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import html2canvas from 'html2canvas';
+import { MarksService } from 'src/app/services/marks.service';
+import { TermTestTable } from 'src/app/models/term_test_table';
+import { TableMarks } from 'src/app/models/table_marks';
 
 @Component({
   selector: 'app-report-student-progress',
@@ -17,8 +20,9 @@ export class ReportStudentProgressComponent implements OnInit {
   progressForm: FormGroup;
   pdfMake: any;
   view: any[] = [700, 400];
-  data=[];
+  data: TermTestTable[] = [];
   chartData:any;
+  termtestLength: number = -1;
 
   conductLevels=['Outstanding','Satisfactory','Needs'];
   obedience:string;
@@ -41,11 +45,10 @@ export class ReportStudentProgressComponent implements OnInit {
     domain: ['#5AA454', '#C7B42C', '#AAAAAA']
   };
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private marksService: MarksService) { 
     this.progressForm = fb.group({
       year: [null, Validators.required],
       grade: [null, Validators.required],
-      class: [null, Validators.required],
       admissionNumber: [null, Validators.required],
     });
   }
@@ -67,80 +70,46 @@ export class ReportStudentProgressComponent implements OnInit {
 
   getProgress(data) {
     if (this.progressForm.invalid) return;
+    this.data = [];
+    this.termtestLength = -1;
+    this.marksService.getTermTestMarksForYear(data).subscribe(
+      data => {
+        if(data.termTestMarks.length > 0){
+          let series: TableMarks[] = []
+          for(var i=0; i < data.termTestMarks[0].marks.length; i++){
+            for(var x=0; x < data.termTestMarks.length; x++){
+              let mark = new TableMarks(x.toString(), data.termTestMarks[x].marks[i].mark)
+              series.push(mark);
+            }
+            let termTestTable = new TermTestTable(data.termTestMarks[0].marks[i].subject, series);
+            this.data.push(termTestTable)
+            series = [];
+          }
+          this.termtestLength = TermTestTable.length;
 
-    this.data=[
-      {
-        "name": "Mathmatics",
-        "series": [
-          {
-            "name": "1",
-            "value": 93
-          },
-          {
-            "name": "2",
-            "value": 79
-          },
-          {
-            "name": "3",
-            "value": 88
-          }
-        ]
-      },
-    
-      {
-        "name": "Sinhala",
-        "series": [
-          {
-            "name": "1",
-            "value": 87
-          },
-          {
-            "name": "2",
-            "value": 92
-          },
-          {
-            "name": "3",
-            "value": 97
-          }
-        ]
-      },
-  
-      {
-        "name": "English",
-        "series": [
-          {
-            "name": "1",
-            "value": 76
-          },
-          {
-            "name": "2",
-            "value": 87
-          },
-          {
-            "name": "3",
-            "value": 93
-          }
-        ]
-      }
-    ];
-
-    setTimeout(() => {
-      // Charts are now rendered
-      const chart = document.getElementById('chart-body');
-      html2canvas(chart, {
-        height: 500,
-        width: 1000,
-        scale: 3,
-        backgroundColor: null,
-        logging: false,
-        onclone: (document) => {
-          document.getElementById('chart-body').style.visibility = 'visible';
+          setTimeout(() => {
+            // Charts are now rendered
+            const chart = document.getElementById('chart-body');
+            html2canvas(chart, {
+              height: 500,
+              width: 1000,
+              scale: 3,
+              backgroundColor: null,
+              logging: false,
+              onclone: (document) => {
+                document.getElementById('chart-body').style.visibility = 'visible';
+              }
+            }).then((canvas) => {
+              // Get chart data so we can append to the pdf
+              this.chartData = canvas.toDataURL();
+            });
+          }, 1100);
         }
-      }).then((canvas) => {
-        // Get chart data so we can append to the pdf
-        this.chartData = canvas.toDataURL();
-      });
-    }, 1100);
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
   }
 
   generatePdf(action = 'open') {

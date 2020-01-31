@@ -5,6 +5,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import { Student } from 'src/app/models/student';
+import { AchivementService } from 'src/app/services/achivement.service';
+import { Competition } from 'src/app/models/competition';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -18,6 +20,9 @@ export class ReportLeaveCertificateComponent implements OnInit {
   student:Student;
   pdfMake: any;
 
+  achivementLength: number = -1;
+  studentInfoLength: number = -1;
+
   fullname:string;
   nameWithInitial:string;
   dob:string;
@@ -28,7 +33,7 @@ export class ReportLeaveCertificateComponent implements OnInit {
   dateOfLeaving:string;
   gradeOfLeaving:string;
   reasonForLeaving:string;
-  achievement:any;
+  achievement: Competition[] = [];
 
   characterLevels=['None','Outstanding','Satisfactory','Needs'];
   conduct:string='None';
@@ -37,7 +42,7 @@ export class ReportLeaveCertificateComponent implements OnInit {
   medicalInspection:string;
   matterOfInspection:string = '-';
 
-  constructor(private fb: FormBuilder, public studentService: StudentService) {
+  constructor(private fb: FormBuilder, public studentService: StudentService, private achivementService: AchivementService) {
     this.admissionNumberForm = fb.group({
       admissionNumber: [null, Validators.required],
     });
@@ -49,6 +54,40 @@ export class ReportLeaveCertificateComponent implements OnInit {
   getStudentDetails(data) {
     if (this.admissionNumberForm.invalid) return;
 
+    this.studentService.getStudentByAddmissionNUmber(data.admissionNumber).subscribe(
+      data => {
+        this.student = data.students[0];
+        this.studentInfoLength = data.students.length;
+        if(data.students.length > 0){
+          this.fullname = this.student.fullname;
+          this.nameWithInitial = this.student.nameinitials;
+          this.dob = new Date(this.student.dob).toLocaleDateString();
+          this.address = this.student.parent.address;
+          this.guardian = this.student.parent.nameinitials;
+          this.gradeOfLeaving = "13";
+          this.admissionNumber = this.student.admissionnumber;
+          this.admissionDate = new Date(this.student.admissiondate).toLocaleDateString();
+          this.dateOfLeaving = new Date().toLocaleDateString();
+        }
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
+
+    this.achivementService.getAchivementByAddmissionNumber(data.admissionNumber).subscribe(
+      data => {
+        if(data.achivement.length > 0){
+          this.achivementLength = data.achivement[0].other.length + data.achivement[0].extraCuricular.length;
+          this.achievement = data.achivement[0].extraCuricular
+          this.achievement.concat(data.achivement[0].other)
+        }
+      },
+      error => {
+        this.handleResponseError(error);
+      }
+    );
+
     // this.studentService.getStudentByAdmission(data.admissionNumber).subscribe(
     //   data => {
     //     this.student = data.student;
@@ -58,34 +97,34 @@ export class ReportLeaveCertificateComponent implements OnInit {
     //   }
     // );
 
-    this.fullname = "tharidu lakshan";
-    this.nameWithInitial = "T.M.Thake";
-    this.dob = "2018-09-18";
-    this.address = "Baththaramulla";
-    this.guardian = "Manel Sarathchandra";
-    this.admissionNumber = "345";
-    this.admissionDate = "2018-09-18";
-    let current_datetime = new Date();
-    this.dateOfLeaving = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-    this.gradeOfLeaving = "12-C";
-    this.achievement=[
-      {
-        type:'Other',
-        competition:'vfswfc',
-        event:'sdce',
-        place:'rsfvcesw',
-        year:'2019',
-        description:'dfcerfe'
-      },
-      {
-        type:'Other',
-        competition:'ertfgrf',
-        event:'rfersdgv',
-        place:'rfvbgbn',
-        year:'2019',
-        description:'uiku'
-      }
-    ];
+    // this.fullname = "tharidu lakshan";
+    // this.nameWithInitial = "T.M.Thake";
+    // this.dob = "2018-09-18";
+    // this.address = "Baththaramulla";
+    // this.guardian = "Manel Sarathchandra";
+    // this.admissionNumber = "345";
+    // this.admissionDate = "2018-09-18";
+    // let current_datetime = new Date();
+    // this.dateOfLeaving = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+    // this.gradeOfLeaving = "12-C";
+    // this.achievement=[
+    //   {
+    //     type:'Other',
+    //     competition:'vfswfc',
+    //     event:'sdce',
+    //     place:'rsfvcesw',
+    //     year:'2019',
+    //     description:'dfcerfe'
+    //   },
+    //   {
+    //     type:'Other',
+    //     competition:'ertfgrf',
+    //     event:'rfersdgv',
+    //     place:'rfvbgbn',
+    //     year:'2019',
+    //     description:'uiku'
+    //   }
+    // ];
   }
 
   onKeyReason(event) {
