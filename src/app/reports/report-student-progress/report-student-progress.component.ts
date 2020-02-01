@@ -46,6 +46,9 @@ export class ReportStudentProgressComponent implements OnInit {
     domain: ['#5AA454', '#C7B42C', '#AAAAAA']
   };
 
+  user = JSON.parse(localStorage.getItem("httpCache"));
+  userType = this.user.userType;
+
   constructor(private fb: FormBuilder, private marksService: MarksService) { 
     this.progressForm = fb.group({
       year: [null, Validators.required],
@@ -115,7 +118,7 @@ export class ReportStudentProgressComponent implements OnInit {
 
   generatePdf(action = 'open') {
     console.log(pdfMake);
-    const documentDefinition = this.getDocumentDefinition();
+    const documentDefinition = (this.userType=='Teacher')?this.getTeacherDocument():this.getOtherDocument();
 
     switch (action) {
       case 'open': pdfMake.createPdf(documentDefinition).open(); break;
@@ -126,7 +129,7 @@ export class ReportStudentProgressComponent implements OnInit {
     }
   }
 
-  getDocumentDefinition() {
+  getTeacherDocument() {
     
     return {
       content: [
@@ -216,6 +219,55 @@ export class ReportStudentProgressComponent implements OnInit {
               style: 'name'
             }
           ],
+        }
+      ],
+      info: {
+        title: this.progressForm.get('admissionNumber').value+'-Student Data',
+        author: 'admin',
+        subject: 'Student Data',
+        keywords: 'Student Data',
+      },
+        styles: {
+          name: {
+            fontSize: 12,
+            margin: [0, 20, 0, 0]
+          }
+        }
+    };
+  }
+
+  getOtherDocument() {
+    
+    return {
+      content: [
+        {
+          text: 'Student Progress Report',
+          bold: true,
+          fontSize: 15,
+          decoration: 'underline',
+          alignment: 'center',
+          margin: [0, 0, 0, 20]
+        },
+        {
+          columns: [
+            [{
+              text: "Year\t:\t"+this.progressForm.get('year').value,
+              style: 'name'
+            },
+            {
+              text: "Grade\t:\t"+this.progressForm.get('grade').value,
+              style: 'name'
+            },
+            {
+              text: "Admission Number\t:\t"+this.progressForm.get('admissionNumber').value,
+              style: 'name'
+            }
+            ]
+          ]
+        },
+        {
+          image: this.chartData, 
+          width: 700
         }
       ],
       info: {

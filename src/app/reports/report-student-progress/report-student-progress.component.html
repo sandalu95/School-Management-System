@@ -83,13 +83,13 @@
                 </ngx-charts-bar-vertical-2d>
             </div>
         </ng-container>
-
-        <mat-divider></mat-divider>
-        <div class="card-head">
-            <h4 class="card-head-heading">Conduct</h4>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="card-body">
+        <ng-container *ngIf="userType=='Teacher'">
+            <mat-divider></mat-divider>
+            <div class="card-head">
+                <h4 class="card-head-heading">Conduct</h4>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="card-body">
                 <mat-grid-list cols="5" rowHeight="50px">
                     <mat-grid-tile colspan="2" rowspan="1">
                         <div class="text-inside-grid-left" id="obedience">Obedience</div>
@@ -144,19 +144,20 @@
                         </mat-radio-group>
                     </mat-grid-tile>
                 </mat-grid-list>
-            <mat-divider></mat-divider>
-            <div class="card-head">
-                <h4 class="card-head-heading">Teacher Comments</h4>
+                <mat-divider></mat-divider>
+                <div class="card-head">
+                    <h4 class="card-head-heading">Teacher Comments</h4>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="comment-body">
+                    <textarea matInput placeholder="Teacher Comment Here" [(ngModel)]="teacherComment"></textarea>
+                </div>
             </div>
-            <mat-divider></mat-divider>
-            <div class="comment-body">
-                <textarea matInput placeholder="Teacher Comment Here" [(ngModel)]="teacherComment"></textarea>
-            </div>
-            <mat-divider></mat-divider>
-            <div style="margin:20px; margin-left: 80%;">
-                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
-                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
-            </div>
+        </ng-container>
+        <mat-divider></mat-divider>
+        <div style="margin:20px; margin-left: 80%;">
+            <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+            <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
         </div>
         </ng-container>
     </mat-card>
