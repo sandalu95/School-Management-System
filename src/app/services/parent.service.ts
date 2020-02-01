@@ -34,7 +34,7 @@ export class ParentService {
     parent: Parent
   ): Observable<CommonResponse> {
     const fd = new FormData();
-    fd.append("ful_name", parent.fullname);
+    fd.append("full_name", parent.fullname);
     fd.append("name_with_initial", parent.nameinitials);
     fd.append("relationship_to_student", parent.relationship);
     fd.append("nic", parent.nic);
