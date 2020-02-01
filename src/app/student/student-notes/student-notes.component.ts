@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Note } from "src/app/models/note";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { FileSaverService } from "ngx-filesaver";
 import { Teacher } from "src/app/models/teacher";
 import { NotesService } from "src/app/services/notes.service";
@@ -30,30 +30,6 @@ export class StudentNotesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.notes = [
-    //   {
-    //     id: "fc",
-    //     userId: "edd",
-    //     subject: "Maths",
-    //     description: "edrfcredfcrfcrwesdfdsc",
-    //     grade: "3",
-    //     class: "C",
-    //     notes:
-    //       "https://pdfs.semanticscholar.org/32be/a26f2328f8eb81b700d6ec4b7587c6d2a934.pdf",
-    //     teacher: new Teacher()
-    //   },
-    //   {
-    //     id: "sd",
-    //     userId: "sedf",
-    //     subject: "Maths",
-    //     description: "edrfcredfcrfcrwesdfdsc",
-    //     grade: "4",
-    //     class: "A",
-    //     notes:
-    //       "https://pdfs.semanticscholar.org/4493/234db4bbe69c23aba090ad5154b465008376.pdf",
-    //     teacher: new Teacher()
-    //   }
-    // ];
   }
 
   searchNotes(data) {
@@ -73,15 +49,17 @@ export class StudentNotesComponent implements OnInit {
   }
 
   download(note) {
-    const fileName = `${Date.now()}${note.subject}-${note.grade}-${note.class}`;
-    this.http
-      .get(note.notes, {
-        observe: "response",
-        responseType: "blob"
-      })
-      .subscribe(res => {
-        this._FileSaverService.save(res.body, fileName);
-      });
+    // const fileName = `${Date.now()}${note.subject}-${note.grade}-${note.class}`;
+    // const headers = new HttpHeaders({ Authorization: "Bearer ya29.AHES6ZRVmB7fkLtd1XTmq6mo0S1wqZZi3-Lh_s-6Uw7p8vtgSwg" });
+    // this.http
+    //   .get<Blob>(note.notes, {
+    //     observe: "response",
+    //     headers: headers
+    //   })
+    //   .subscribe(res => {
+    //     this._FileSaverService.save(res.body, fileName);
+    //   });
+    window.open(note.notes);
     return;
   }
 

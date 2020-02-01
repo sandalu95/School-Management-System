@@ -87,44 +87,6 @@ export class ReportLeaveCertificateComponent implements OnInit {
         this.handleResponseError(error);
       }
     );
-
-    // this.studentService.getStudentByAdmission(data.admissionNumber).subscribe(
-    //   data => {
-    //     this.student = data.student;
-    //   },
-    //   error => {
-    //     this.handleResponseError(error);
-    //   }
-    // );
-
-    // this.fullname = "tharidu lakshan";
-    // this.nameWithInitial = "T.M.Thake";
-    // this.dob = "2018-09-18";
-    // this.address = "Baththaramulla";
-    // this.guardian = "Manel Sarathchandra";
-    // this.admissionNumber = "345";
-    // this.admissionDate = "2018-09-18";
-    // let current_datetime = new Date();
-    // this.dateOfLeaving = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
-    // this.gradeOfLeaving = "12-C";
-    // this.achievement=[
-    //   {
-    //     type:'Other',
-    //     competition:'vfswfc',
-    //     event:'sdce',
-    //     place:'rsfvcesw',
-    //     year:'2019',
-    //     description:'dfcerfe'
-    //   },
-    //   {
-    //     type:'Other',
-    //     competition:'ertfgrf',
-    //     event:'rfersdgv',
-    //     place:'rfvbgbn',
-    //     year:'2019',
-    //     description:'uiku'
-    //   }
-    // ];
   }
 
   onKeyReason(event) {
@@ -260,13 +222,24 @@ export class ReportLeaveCertificateComponent implements OnInit {
               style: 'name'
             },
             {
-              text: "Principal: ..............................",
-              style: 'name'
-            },
-            {
-              text: "Date of issuing: ..............................",
-              style: 'name'
-            },
+              columns: [
+                {
+                  width: 'auto',
+                  text: "...........................\nDate of issuing",
+                  style: 'name'
+                },
+                {
+                  width: 330,
+                  text: " ",
+                  style: 'name'
+                },
+                {
+                  width: 'auto',
+                  text: "...........................\nPrincipal signature",
+                  style: 'name'
+                }
+              ],
+            }
             ]
           ]
         },

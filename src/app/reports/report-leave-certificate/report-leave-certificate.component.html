@@ -16,143 +16,151 @@
                 </mat-form-field>
                 <button type="submit" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Apply</button>
             </form>
-            <div>
-                <h4 style="text-align: center; text-decoration: underline;">Leave Certificate</h4>
-                <mat-grid-list cols="1" rowHeight="30px" style="width: 80%; margin: auto;">
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Full Name</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ fullname }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Name with Initial</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ nameWithInitial }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Date of Birth</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ dob }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Permanent Address</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ address }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Guardian's Name</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ guardian}}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">School Name</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">MR/Pitabeddara Secondary School</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Admission Number</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ admissionNumber }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Admission Date</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ admissionDate }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Date of leaving</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ dateOfLeaving }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Grade of leaving</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ gradeOfLeaving }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Reason for leaving</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">
-                            <mat-form-field>
-                                <mat-label>Reason</mat-label>
-                                <input (keyup)="onKeyReason($event)" matInput required>
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">
-                            <strong>Special Aptitudes</strong>
-                        </div>
-                        <div class="text-inside-grid-right"></div>
-                    </mat-grid-tile>
-                    <mat-grid-tile *ngFor="let achv of achievement">
-                        <div class="text-inside-grid-left-second">{{achv.competition}}</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">{{ achv.place }}</div>
-                    </mat-grid-tile>
-                    <mat-grid-tile></mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Conduct</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">
-                            <mat-form-field>
-                                <mat-select [(value)]="conduct">
-                                    <mat-option *ngFor="let level of characterLevels" [value]="level">{{level}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Leadership</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">
-                            <mat-form-field>
-                                <mat-select [(value)]="leadership">
-                                    <mat-option *ngFor="let level of characterLevels" [value]="level">{{level}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Participation of extra-curricular activities</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">
-                            <mat-form-field>
-                                <mat-select [(value)]="participateExtraCurricular">
-                                    <mat-option *ngFor="let level of characterLevels" [value]="level">{{level}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">Dedicated at medical inspection still unremedied</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">
-                            <mat-radio-group
-                            aria-labelledby="radio-group-label"
-                            class="radio-group"
-                            [(ngModel)]="medicalInspection">
-                                <mat-radio-button class="radio-button" value="Yes">Yes</mat-radio-button>
-                                <mat-radio-button class="radio-button" value="No">No</mat-radio-button>
-                            </mat-radio-group>
-                        </div>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <div class="text-inside-grid-left">If yes, Mention the matter</div>
-                        <span style="margin-right: 10%;">:</span>
-                        <div class="text-inside-grid-right">
-                            <mat-form-field>
-                                <mat-label>Mention Matter</mat-label>
-                                <input (keyup)="onKeyMatter($event)" matInput>
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </div>
-            <div style="margin:20px; margin-left: 80%;">
-                <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
-                <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
-            </div>
+            <ng-container *ngIf="studentInfoLength == 0">
+                <div style="width: 300px;">
+                    <h1>No Data Found</h1>
+                </div>
+                <div class="text-inside-grid-right"></div>
+            </ng-container>
+            <ng-container *ngIf="studentInfoLength > 0">
+                <div>
+                    <h4 style="text-align: center; text-decoration: underline;">Leave Certificate</h4>
+                    <mat-grid-list cols="1" rowHeight="30px" style="width: 80%; margin: auto;">
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Full Name</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ fullname }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Name with Initial</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ nameWithInitial }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Date of Birth</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ dob }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Permanent Address</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ address }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Guardian's Name</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ guardian}}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">School Name</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">MR/Pitabeddara Secondary School</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Admission Number</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ admissionNumber }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Admission Date</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ admissionDate }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Date of leaving</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ dateOfLeaving }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Grade of leaving</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ gradeOfLeaving }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Reason for leaving</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">
+                                <mat-form-field>
+                                    <mat-label>Reason</mat-label>
+                                    <input (keyup)="onKeyReason($event)" matInput required>
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">
+                                <strong>Special Aptitudes</strong>
+                            </div>
+                            <div class="text-inside-grid-right"></div>
+                        </mat-grid-tile>
+                        <mat-grid-tile *ngFor="let achv of achievement">
+                            <div class="text-inside-grid-left-second">{{achv.competition}}</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">{{ achv.place }}</div>
+                        </mat-grid-tile>
+                        <mat-grid-tile></mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Conduct</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">
+                                <mat-form-field>
+                                    <mat-select [(value)]="conduct">
+                                        <mat-option *ngFor="let level of characterLevels" [value]="level">{{level}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Leadership</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">
+                                <mat-form-field>
+                                    <mat-select [(value)]="leadership">
+                                        <mat-option *ngFor="let level of characterLevels" [value]="level">{{level}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Participation of extra-curricular activities</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">
+                                <mat-form-field>
+                                    <mat-select [(value)]="participateExtraCurricular">
+                                        <mat-option *ngFor="let level of characterLevels" [value]="level">{{level}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">Dedicated at medical inspection still unremedied</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">
+                                <mat-radio-group
+                                aria-labelledby="radio-group-label"
+                                class="radio-group"
+                                [(ngModel)]="medicalInspection">
+                                    <mat-radio-button class="radio-button" value="Yes">Yes</mat-radio-button>
+                                    <mat-radio-button class="radio-button" value="No">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <div class="text-inside-grid-left">If yes, Mention the matter</div>
+                            <span style="margin-right: 10%;">:</span>
+                            <div class="text-inside-grid-right">
+                                <mat-form-field>
+                                    <mat-label>Mention Matter</mat-label>
+                                    <input (keyup)="onKeyMatter($event)" matInput>
+                                </mat-form-field>
+                            </div>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+                <div style="margin:20px; margin-left: 80%;">
+                    <button (click)="generatePdf('download')" mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Download</button>
+                    <button (click)="generatePdf('print')"mat-raised-button style="margin-left: 20px; background: #ffd740; color: white;">Print</button>
+                </div>
+            </ng-container>
         </div>
     </mat-card>
 </div>
