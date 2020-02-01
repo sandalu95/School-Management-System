@@ -11,8 +11,6 @@ import { CommonResponse } from "../models/response/commonResponse";
 export class StudentService {
   // apiURL: string = "http://localhost:3000/api/user/student";
   apiURL: string = "https://sms-web-service.herokuapp.com/api/user/student";
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   private studentSource = new BehaviorSubject<Student>(null);
   currentStudent = this.studentSource.asObservable();
@@ -24,8 +22,11 @@ export class StudentService {
   }
 
   public getAllStudents(): Observable<GetStudentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetStudentResponse>(this.apiURL, {
-      headers: this.headers
+      headers: headers
     });
   }
 
@@ -52,6 +53,9 @@ export class StudentService {
     studentId: string,
     student: any
   ): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     if (student.file) {
       fd.append("profileImage", student.file, student.file.name);
@@ -68,22 +72,28 @@ export class StudentService {
     fd.append("parentId", student.parent);
 
     return this.http.patch<CommonResponse>(this.apiURL + `/${studentId}`, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public deleteStudent(studentId: string): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.delete<CommonResponse>(this.apiURL + `/${studentId}`, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getStudentsByParentId(
     parentId: string
   ): Observable<GetStudentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
       params: new HttpParams().set("parentId", parentId),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.get<GetStudentResponse>(
@@ -96,13 +106,16 @@ export class StudentService {
     grade: string,
     _class: string
   ): Observable<GetStudentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     let params = new HttpParams();
     params = params.append("grade", grade);
     params = params.append("class", _class);
 
     const options = {
       params: params,
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.get<GetStudentResponse>(
@@ -112,10 +125,13 @@ export class StudentService {
   }
 
   public getStudentByUserId(): Observable<GetStudentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetStudentResponse>(
-      `${this.apiURL}/${this.user.userId}`,
+      `${this.apiURL}/${user.userId}`,
       {
-        headers: this.headers
+        headers: headers
       }
     );
   }
@@ -123,9 +139,12 @@ export class StudentService {
   public getStudentByAddmissionNUmber(
     addmissionNumber: string
   ): Observable<GetStudentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
       params: new HttpParams().set("addmissionNumber", addmissionNumber),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.get<GetStudentResponse>(
