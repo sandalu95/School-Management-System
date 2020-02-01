@@ -10,8 +10,8 @@ import { GetLeaveCountResponse } from "../models/response/getLeavesCountResponse
   providedIn: "root"
 })
 export class LeaveService {
-  apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
-  // apiUrl: string = "http://localhost:3000/api/leaves";
+  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
+  apiUrl: string = "http://localhost:3000/api/leaves";
 
 
   user = JSON.parse(localStorage.getItem("httpCache"));
@@ -77,5 +77,32 @@ export class LeaveService {
       `${this.apiUrl}/count`,
       options
     );
+  }
+
+  public getPendingLeaves(): Observable<GetLeavesResponse> {
+    const options = {
+      headers: this.headers
+    };
+    return this.http.get<GetLeavesResponse>(
+      `${this.apiUrl}/pending`,
+      options
+    );
+  }
+
+  public approveLeave(leaveId: string): Observable<CommonResponse> {
+    const fd = new FormData();
+    fd.append("leaveId", leaveId);
+    return this.http.patch<CommonResponse>(`${this.apiUrl}/approve`, fd, {
+      headers: this.headers
+    });
+  }
+
+  public rejectLeave(leaveId: string): Observable<CommonResponse> {
+    const fd = new FormData();
+    fd.append("leaveId", leaveId);
+
+    return this.http.patch<CommonResponse>(`${this.apiUrl}/reject`, fd, {
+      headers: this.headers
+    });
   }
 }

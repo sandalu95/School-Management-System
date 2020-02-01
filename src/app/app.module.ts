@@ -55,6 +55,7 @@ import { ReportServiceLetterComponent } from './reports/report-service-letter/re
 import { ReportCharacterCertificateComponent } from './reports/report-character-certificate/report-character-certificate.component';
 import { ReportLeaveCertificateComponent } from './reports/report-leave-certificate/report-leave-certificate.component';
 import { ReportAssignmentMarksComponent } from './reports/report-assignment-marks/report-assignment-marks.component';
+import { LeavesComponent } from './admin/leaves/leaves.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ReportAssignmentMarksComponent } from './reports/report-assignment-mark
     ReportServiceLetterComponent,
     ReportCharacterCertificateComponent,
     ReportLeaveCertificateComponent,
-    ReportAssignmentMarksComponent
+    ReportAssignmentMarksComponent,
+    LeavesComponent
   ],
   imports: [
     BrowserModule,

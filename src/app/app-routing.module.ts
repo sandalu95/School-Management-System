@@ -44,6 +44,7 @@ import { ReportCharacterCertificateComponent } from './reports/report-character-
 import { ReportServiceLetterComponent } from './reports/report-service-letter/report-service-letter.component';
 import { ReportLeaveCertificateComponent } from './reports/report-leave-certificate/report-leave-certificate.component';
 import { ReportAssignmentMarksComponent } from './reports/report-assignment-marks/report-assignment-marks.component';
+import { LeavesComponent } from './admin/leaves/leaves.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -64,6 +65,7 @@ const routes: Routes = [
         component: ViewTeachersComponent
       },
       { path: "admin/clerks", component: ClerksComponent },
+      { path: "admin/leaves", component: LeavesComponent },
       { path: "admin/clerks/add-clerks", component: AddClerksComponent },
       { path: "admin/clerks/edit-clerks", component: EditClerksComponent },
       { path: "admin/clerks/view-clerks", component: ViewClerksComponent },
