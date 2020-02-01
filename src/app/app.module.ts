@@ -54,6 +54,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ReportServiceLetterComponent } from './reports/report-service-letter/report-service-letter.component';
 import { ReportCharacterCertificateComponent } from './reports/report-character-certificate/report-character-certificate.component';
 import { ReportLeaveCertificateComponent } from './reports/report-leave-certificate/report-leave-certificate.component';
+import { ReportAssignmentMarksComponent } from './reports/report-assignment-marks/report-assignment-marks.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { ReportLeaveCertificateComponent } from './reports/report-leave-certific
     ReportStudentProgressComponent,
     ReportServiceLetterComponent,
     ReportCharacterCertificateComponent,
-    ReportLeaveCertificateComponent
+    ReportLeaveCertificateComponent,
+    ReportAssignmentMarksComponent
   ],
   imports: [
     BrowserModule,
