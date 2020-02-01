@@ -48,7 +48,7 @@ export class ClerkLeavesComponent implements OnInit {
     if (this.leaveForm.invalid) return;
 
     Swal.showLoading();
-    this.leaveService.requestLeaves(data).subscribe(
+    this.leaveService.requestLeavesClerk(data).subscribe(
       data => {
         Swal.hideLoading();
         Swal.fire({
@@ -56,7 +56,15 @@ export class ClerkLeavesComponent implements OnInit {
           title: "Great!",
           text: data.message
         }).then(res => {
-          this.leaveForm.reset();
+          this.leaveService.getLeavesByUserId().subscribe(
+            data => {
+              console.log(data);
+              this.leaves = data.leaves;
+            },
+            error => {
+              this.handleResponseError(error);
+            }
+          );
         });
       },
       error => {

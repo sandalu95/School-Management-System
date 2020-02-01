@@ -45,7 +45,14 @@ export class TeacherNoticeComponent implements OnInit {
           title: "Great!",
           text: data.message
         }).then(res => {
-          this.noticeForm.reset();
+          this.noticeService.getAllNotices().subscribe(
+            data => {
+              this.notices = data.notices;
+            },
+            error => {
+              this.handleResponseError(error);
+            }
+          );
         });
       },
       error => {

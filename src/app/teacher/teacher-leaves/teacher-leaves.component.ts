@@ -60,7 +60,14 @@ export class TeacherLeavesComponent implements OnInit {
           title: "Great!",
           text: data.message
         }).then(res => {
-          this.leaveForm.reset();
+          this.leaveService.getLeavesByUserId().subscribe(
+            data => {
+              this.leaves = data.leaves;
+            },
+            error => {
+              this.handleResponseError(error);
+            }
+          );
         });
       },
       error => {

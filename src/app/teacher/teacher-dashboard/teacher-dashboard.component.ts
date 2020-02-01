@@ -3,6 +3,7 @@ import { Notice } from "src/app/models/notice";
 import { NoticeService } from "src/app/services/notice.service";
 import { TeacherService } from "src/app/services/teacher.service";
 import Swal from "sweetalert2";
+import { LeaveService } from 'src/app/services/leave.service';
 
 @Component({
   selector: "app-teacher-dashboard",
@@ -10,9 +11,9 @@ import Swal from "sweetalert2";
   styleUrls: ["./teacher-dashboard.component.css"]
 })
 export class TeacherDashboardComponent implements OnInit {
-  casualLeaves = 2;
-  sickLeaves = 12;
-  dutyLeaves = 9;
+  casualLeaves = 0;
+  sickLeaves = 0;
+  dutyLeaves = 0;
   notices: Notice[];
 
   fullname: string;
@@ -32,18 +33,19 @@ export class TeacherDashboardComponent implements OnInit {
 
   constructor(
     private noticeService: NoticeService,
-    public teacherService: TeacherService
+    public teacherService: TeacherService,
+    private leaveService: LeaveService
   ) {}
 
   ngOnInit() {
     this.getAllNotices();
     this.getTeacherDetails();
+    this.getLeavesCount();
   }
 
   getTeacherDetails() {
     this.teacherService.getTeacherById().subscribe(
       data => {
-        console.log(data.teachers[0]);
         this.fullname = data.teachers[0].fullname;
         this.nameWithInitial = data.teachers[0].nameinitials;
         this.position = data.teachers[0].position;
@@ -57,7 +59,7 @@ export class TeacherDashboardComponent implements OnInit {
         this.contactNumber = data.teachers[0].contact;
         this.email = data.teachers[0].email;
         this.subject = data.teachers[0].subject;
-        this.teacherId = data.teachers[0].id;
+        this.teacherId = data.teachers[0].teacherid;
       },
       error => {
         handleResponseError(error);
@@ -72,6 +74,19 @@ export class TeacherDashboardComponent implements OnInit {
     this.noticeService.getAllNotices().subscribe(
       data => {
         this.notices = data.notices;
+      },
+      error => {
+        handleResponseError(error);
+      }
+    );
+  }
+
+  getLeavesCount() {
+    this.leaveService.getLeavesCount().subscribe(
+      data => {
+        this.sickLeaves = data.sickLeave;
+        this.casualLeaves = data.casualLeave;
+        this.dutyLeaves = data.dutyLeave;
       },
       error => {
         handleResponseError(error);

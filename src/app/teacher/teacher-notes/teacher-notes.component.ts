@@ -64,7 +64,14 @@ export class TeacherNotesComponent implements OnInit {
           title: "Great!",
           text: data.message
         }).then(result => {
-          this.router.navigate(["./home/teacher/notes"], {});
+          this.notesService.getNotesByTeacherId().subscribe(
+            data => {
+              this.notes = data.notes;
+            },
+            error => {
+              this.handleRespnseError(error);
+            }
+          );
         });
       },
       error => {
@@ -105,6 +112,15 @@ export class TeacherNotesComponent implements OnInit {
               icon: "success",
               title: "Deleted!",
               text: data.message
+            }).then(result => {
+              this.notesService.getNotesByTeacherId().subscribe(
+                data => {
+                  this.notes = data.notes;
+                },
+                error => {
+                  this.handleRespnseError(error);
+                }
+              );
             });
           },
           error => {

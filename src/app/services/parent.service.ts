@@ -33,13 +33,18 @@ export class ParentService {
     parentId: string,
     parent: Parent
   ): Observable<CommonResponse> {
-    return this.http.patch<CommonResponse>(
-      this.apiURL + `/${parentId}`,
-      parent,
-      {
-        headers: this.headers
-      }
-    );
+    const fd = new FormData();
+    fd.append("ful_name", parent.fullname);
+    fd.append("name_with_initial", parent.nameinitials);
+    fd.append("relationship_to_student", parent.relationship);
+    fd.append("nic", parent.nic);
+    fd.append("address", parent.address);
+    fd.append("email", parent.email);
+    fd.append("contact_number", parent.contact);
+
+    return this.http.patch<CommonResponse>(this.apiURL + `/${parentId}`, fd, {
+      headers: this.headers
+    });
   }
 
   public registerParent(parent: Parent): Observable<CommonResponse> {
