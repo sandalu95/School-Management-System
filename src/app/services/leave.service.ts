@@ -10,8 +10,8 @@ import { GetLeaveCountResponse } from "../models/response/getLeavesCountResponse
   providedIn: "root"
 })
 export class LeaveService {
-  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
-  apiUrl: string = "http://localhost:3000/api/leaves";
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
+  // apiUrl: string = "http://localhost:3000/api/leaves";
 
 
   user = JSON.parse(localStorage.getItem("httpCache"));

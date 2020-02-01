@@ -11,8 +11,8 @@ import { GetAssignmentMarksResponse } from '../models/response/getAssignmentMark
   providedIn: "root"
 })
 export class MarksService {
-  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/marks";
-  apiUrl: string = "http://localhost:3000/api/marks";
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/marks";
+  // apiUrl: string = "http://localhost:3000/api/marks";
 
   constructor(private http: HttpClient) {}
 
