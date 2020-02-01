@@ -22,7 +22,7 @@ export class MarksService {
     assignment: Assignment
   ): Observable<CommonResponse> {
     return this.http.post<CommonResponse>(
-      `${this.apiUrl}/assignCment`,
+      `${this.apiUrl}/assignment`,
       assignment,
       {
         headers: this.headers
