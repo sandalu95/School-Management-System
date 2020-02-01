@@ -1,0 +1,104 @@
+.outer-container {
+    height: 100vh;
+  }
+  
+  .add-btn-container {
+    height: 10vh;
+  }
+  
+  .add-btn {
+    padding: 5px;
+    background: #81de76;
+    color: white;
+    margin-top:10px;
+    margin-left: 4%;
+  }
+  
+  .add-icon {
+    font-size: 40px;
+  }
+  
+  .card-container {
+    height: 90vh;
+  }
+  
+  .card {
+    margin: 0 auto; 
+    width:90%;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  
+  tr.clerk-detail-row {
+    height: 0;
+  }
+  
+  tr.clerk-table-row:not(.clerk-expanded-row):hover {
+    background: #777;
+  }
+  
+  tr.clerk-table-row:not(.clerk-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .clerk-table-row td {
+    border-bottom-width: 0;
+  }
+  
+  .clerk-table-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .clerk-detail-button-group {
+    width: 10%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-bottom: 5px;
+  }
+  
+  .clerk-detail-description {
+    padding: 16px;
+    margin: 10px;
+    width: 90%;
+  }
+  
+  .clerk-detail-description-attribution {
+    opacity: 0.5;
+  }
+  
+  .fab-button {
+    color: white;
+    margin: 5px;
+    min-width:40px;
+    height: 40px;
+    padding: 0;
+  }
+  
+  #edit-btn {
+    background:#ffd740;
+  }
+  
+  #delete-btn {
+    background: red;
+  }
+  
+  #info-btn {
+    background: lightgrey;
+  }
+  
+  .fab-icon {
+    margin-bottom:10px;
+  }

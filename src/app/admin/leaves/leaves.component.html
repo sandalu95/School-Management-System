@@ -1,0 +1,63 @@
+<div class="outer-container">
+    <div class="card-container">
+      <mat-card class="card">
+        <mat-form-field>
+          <input
+            matInput
+            (keyup)="applyFilter($event.target.value)"
+            placeholder="Filter"
+          />
+        </mat-form-field>
+        <div class="mat-elevation-z8">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            multiTemplateDataRows
+          >
+            <ng-container matColumnDef="userId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+              <td mat-cell *matCellDef="let row">{{ row.userId.username }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="reason">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
+              <td mat-cell *matCellDef="let row">{{ row.reason }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="commencedDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Date
+              </th>
+              <td mat-cell *matCellDef="let row">{{ row.commencedDate | date }}</td>
+            </ng-container>
+  
+            <ng-container matColumnDef="reject">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let row"><button (click)="reject(row.id)" mat-raised-button>Reject</button></td>
+            </ng-container>
+
+            <ng-container matColumnDef="approve">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let row"><button (click)="approve(row.id)" mat-raised-button>Approve</button></td>
+              </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              class="clerk-table-row"
+              [class.clerk-expanded-row]="expandedClerk === row"
+              (click)="expandedClerk = expandedClerk === row ? null : row"
+            ></tr>
+          </table>
+  
+          <mat-paginator
+            pageSize="8"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+          ></mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  
