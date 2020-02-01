@@ -10,7 +10,10 @@ import { GetLeaveCountResponse } from "../models/response/getLeavesCountResponse
   providedIn: "root"
 })
 export class LeaveService {
-  apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
+  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
+  apiUrl: string = "http://localhost:3000/api/leaves";
+
+
   user = JSON.parse(localStorage.getItem("httpCache"));
   headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
@@ -29,6 +32,20 @@ export class LeaveService {
     fd.append("reason", leave.reason);
 
     return this.http.post<CommonResponse>(this.apiUrl, fd, {
+      headers: this.headers
+    });
+  }
+
+  public requestLeavesClerk(leave: Leave): Observable<CommonResponse> {
+    const fd = new FormData();
+    fd.append("commencedDate", leave.commencedDate.toString());
+    fd.append("assumedDate", leave.assumedDate.toString());
+    fd.append("appliedDate", leave.appliedDate.toString());
+    fd.append("noOfDays", leave.noOfDays.toString());
+    fd.append("leaveType", leave.leaveType);
+    fd.append("reason", leave.reason);
+
+    return this.http.post<CommonResponse>(`${this.apiUrl}/clerk`, fd, {
       headers: this.headers
     });
   }

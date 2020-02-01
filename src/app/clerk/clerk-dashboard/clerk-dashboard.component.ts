@@ -46,6 +46,7 @@ export class ClerkDashboardComponent implements OnInit {
   getClerkDetails() {
     this.clerkService.getClerkByUserId().subscribe(
       data => {
+        console.log(data)
         this.fullname = data.clerks[0].fullname;
         this.nameWithInitial = data.clerks[0].nameinitials;
         this.position = data.clerks[0].position;
@@ -58,7 +59,7 @@ export class ClerkDashboardComponent implements OnInit {
         this.profileImage = data.clerks[0].file;
         this.contactNumber = data.clerks[0].contact;
         this.email = data.clerks[0].email;
-        this.clerkId = data.clerks[0].clerkId;
+        this.clerkId = data.clerks[0].id;
       },
       error => {
         handleResponseError(error);

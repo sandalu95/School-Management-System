@@ -26,22 +26,22 @@
   </div>
   <ng-container *ngIf="salary != null">
     <div class="data-container">
-      <mat-grid-list cols="1" rowHeight="30:1">
-        <mat-grid-tile>
+      <mat-grid-list cols="2" rowHeight="30:1">
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left">Name</div>
           <div class="text-inside-grid-right">{{ name }}</div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left">Designation</div>
           <div class="text-inside-grid-right">{{ designation }}</div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left">Date of first appontment</div>
           <div class="text-inside-grid-right">
             {{ firstAppointmentDate | date }}
           </div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left">
             Date of appointment to this school
           </div>
@@ -49,15 +49,16 @@
             {{ schoolAppointmentDate | date }}
           </div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left">Basic Salary</div>
           <div class="text-inside-grid-right">{{ basicSalary }}</div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left"><strong>Earnings</strong></div>
           <div class="text-inside-grid-right"></div>
         </mat-grid-tile>
-        <mat-grid-tile *ngFor="let earning of earnings">
+        <mat-grid-tile *ngFor="let earning of earnings" colspan="1">
           <div class="text-inside-grid-left" style="margin-left: 20px">
             {{ earning.name }}
           </div>
@@ -65,11 +66,12 @@
             {{ earning.value }}
           </div>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile colspan="2">
           <div class="text-inside-grid-left"><strong>Deductions</strong></div>
           <div class="text-inside-grid-right"></div>
         </mat-grid-tile>
-        <mat-grid-tile *ngFor="let deduction of deductions">
+        <mat-grid-tile *ngFor="let deduction of deductions" colspan="1">
           <div class="text-inside-grid-left" style="margin-left: 20px">
             {{ deduction.name }}
           </div>

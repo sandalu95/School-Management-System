@@ -201,11 +201,11 @@ export class TeacherSalaryComponent implements OnInit {
               style: 'name'
             },
             {
-              text: "Date of first appointment\t:\t"+this.firstAppointmentDate,
+              text: "Date of first appointment\t:\t"+ new Date(this.firstAppointmentDate).toLocaleDateString(),
               style: 'name'
             },
             {
-              text: "Date of appointment to the school\t:\t"+this.schoolAppointmentDate,
+              text: "Date of appointment to the school\t:\t"+new Date(this.schoolAppointmentDate).toLocaleDateString(),
               style: 'name'
             },
             {
@@ -213,15 +213,44 @@ export class TeacherSalaryComponent implements OnInit {
               style: 'name'
             },
             {
-              text: 'Earnings',
-              style: 'header'
+              table: {
+                widths: [200, 'auto'],
+                headerRows: 2,
+                // keepWithHeaderRows: 1,
+                body: [
+                  [{text: 'Earnings', style: 'tableHeader', colSpan: 2, alignment: 'center'}, {}],
+                  ...this.earnings.map(earning => {
+                    return [earning.name, earning.value];
+                  }),
+                  [{text: 'Gross Pay', style: 'tableHeader'}, this.getEarnings()],
+                  [{text: 'Deductions', style: 'tableHeader', colSpan: 2, alignment: 'center'}, {}],
+                  ...this.deductions.map(earning => {
+                    return [earning.name, earning.value];
+                  }),
+                  [{text: 'Total Deductions', style: 'tableHeader'}, this.getDeductions()],
+                  [{text: 'Net Pay', style: 'tableHeader'}, this.getEarnings() - this.getDeductions()]
+                ]
+              }
             },
-            this.getEarnings(),
+            { 
+              text: "I do hereby certify that the foregoing is true and correct according to the pay sheet of school.",
+              style: 'name'
+              
+            },
             {
-              text: 'Deductions',
-              style: 'header'
-            },
-            this.getDeductions(),
+              columns: [
+                {
+                  width: 340,
+                  text: "",
+                  style: 'name'
+                },
+                {
+                  width: 'auto',
+                  text: "..................................\nPrincipal signature",
+                  style: 'name'
+                }
+              ]
+            }
             ]
           ]
         },
@@ -235,48 +264,34 @@ export class TeacherSalaryComponent implements OnInit {
         styles: {
           name: {
             fontSize: 12,
-            margin: [0, 20, 0, 0]
+            margin: [0, 10, 0, 0]
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'black'
           }
         }
     };
   }
 
   getEarnings(){
-    const earnlist=[]
+    let totalEarnings = 0;
 
     this.earnings.forEach(earning => {
-      var x = {
-        ul: [
-          `${earning.name}    ${earning.value}`
-        ]
-      }
-      earnlist.push(x)
+      totalEarnings += parseInt(earning.value)
     })
 
-    return {
-      columns : [
-        earnlist
-      ]
-    }
+    return totalEarnings;
   }
 
   getDeductions(){
-    const deductlist=[]
-
+    let totalDeductions = 0;
     this.deductions.forEach(deduction => {
-      var x = {
-        ul: [
-          `${deduction.name}    ${deduction.value}`
-        ]
-      }
-      deductlist.push(x)
+      totalDeductions += parseInt(deduction.value); 
     })
 
-    return {
-      columns : [
-        deductlist
-      ]
-    }
+    return totalDeductions;
   }
 
   getError(texttype) {
