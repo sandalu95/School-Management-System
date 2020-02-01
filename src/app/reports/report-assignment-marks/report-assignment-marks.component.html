@@ -1,0 +1,100 @@
+<div class="outer-container">
+    <mat-card>
+        <div class="card-head">
+            <h3 class="card-head-heading">View Assignment Marks</h3>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="card-body">
+            <mat-grid-list cols="15" rowHeight="90px">
+                <form
+                    [formGroup]="assignmentForm"
+                    (ngSubmit)="viewAssignment(assignmentForm.value)"
+                >
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-form-field
+                            appearance="outline"
+                            class="assignment-form-field"
+                        >
+                            <mat-label>Assignment Name</mat-label>
+                            <input matInput formControlName="assignmentName" required />
+                            <mat-error
+                            *ngIf="assignmentForm.get('assignmentName').invalid"
+                            >{{
+                                getError(assignmentForm.get("assignmentName"))
+                            }}</mat-error
+                            >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-form-field
+                            appearance="outline"
+                            class="assignment-form-field"
+                        >
+                            <mat-label>Subject</mat-label>
+                            <input matInput formControlName="subject" required />
+                            <mat-error *ngIf="assignmentForm.get('subject').invalid">{{
+                            getError(assignmentForm.get("subject"))
+                            }}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-form-field
+                            appearance="outline"
+                            class="assignment-form-field"
+                        >
+                            <mat-label>Grade</mat-label>
+                            <input matInput formControlName="grade" required />
+                            <mat-error *ngIf="assignmentForm.get('grade').invalid">{{
+                            getError(assignmentForm.get("grade"))
+                            }}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <mat-form-field
+                            appearance="outline"
+                            class="assignment-form-field"
+                        >
+                            <mat-label>Class</mat-label>
+                            <mat-select formControlName="class" required>
+                            <mat-option *ngFor="let class of classList" [value]="class">{{
+                                class
+                            }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="assignmentForm.get('class').invalid">{{
+                            getError(assignmentForm.get("class"))
+                            }}</mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3" rowspan="1">
+                        <button
+                            mat-raised-button
+                            class="button"
+                            type="submit"
+                        >
+                            Apply
+                        </button>
+                    </mat-grid-tile>
+                </form>
+                <mat-grid-tile colspan="15" rowspan="3">
+                    <div class="student-list">
+                        <div class="scrollbar" id="style-3">
+                            <div class="force-overflow">
+                                <div
+                                style="display: flex; justify-content: space-between; height: 25px; margin-bottom: 10px;"
+                                *ngFor="let studentMark of studentMarksList"
+                                >
+                                    <h4 style="height: 100%; margin: 0;">
+                                        {{ studentMark.nameinitials }}
+                                    </h4>
+                                    <h4 class="mark"
+                                        style="margin-right: 10%; height: 100%;">
+                                        {{ studentMark.marks }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </mat-card>

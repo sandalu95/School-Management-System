@@ -43,6 +43,7 @@ import { ReportStudentProgressComponent } from './reports/report-student-progres
 import { ReportCharacterCertificateComponent } from './reports/report-character-certificate/report-character-certificate.component';
 import { ReportServiceLetterComponent } from './reports/report-service-letter/report-service-letter.component';
 import { ReportLeaveCertificateComponent } from './reports/report-leave-certificate/report-leave-certificate.component';
+import { ReportAssignmentMarksComponent } from './reports/report-assignment-marks/report-assignment-marks.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -84,6 +85,7 @@ const routes: Routes = [
       { path: "teacher/marks", component: TeacherMarksComponent },
       { path: "teacher/reports/term-test-result", component: ReportTermtestResultComponent },
       { path: "teacher/reports/student-progress", component: ReportStudentProgressComponent },
+      { path: "teacher/view-assignment-marks", component: ReportAssignmentMarksComponent },
       { path: "teacher/parents", component: TeacherParentsComponent },
       {
         path: "teacher/parents/add-parents",
