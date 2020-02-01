@@ -11,7 +11,7 @@
                     [formGroup]="letterDetailForm"
                     (ngSubmit)="saveDetail(letterDetailForm.value)"
                     >
-                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                        <!-- <mat-form-field appearance="outline" class="letter-deatil-form-field">
                             <mat-label>Title</mat-label>
                             <mat-select formControlName="title" required>
                                 <mat-option value="Ms">Ms</mat-option>
@@ -26,7 +26,7 @@
                             <mat-error *ngIf="letterDetailForm.get('fullName').invalid">{{
                             getError(letterDetailForm.get("fullName"))
                             }}</mat-error>
-                        </mat-form-field>
+                        </mat-form-field> -->
                         <mat-form-field appearance="outline" class="letter-deatil-form-field">
                             <mat-label>Employee ID</mat-label>
                             <input matInput formControlName="employeeId" />
@@ -34,7 +34,7 @@
                             getError(letterDetailForm.get("employeeId"))
                             }}</mat-error>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" class="letter-deatil-form-field">
+                        <!-- <mat-form-field appearance="outline" class="letter-deatil-form-field">
                             <mat-label>Date of school appointment</mat-label>
                             <input matInput [matDatepicker]="scladmissionpicker" placeholder="Choose a date" formControlName="schoolAppointedDate" required>
                             <mat-error *ngIf="letterDetailForm.get('schoolAppointedDate').invalid">{{getError(letterDetailForm.get('schoolAppointedDate'))}}</mat-error>
@@ -62,7 +62,7 @@
                             <mat-error *ngIf="letterDetailForm.get('subject').invalid">{{
                             getError(letterDetailForm.get("subject"))
                             }}</mat-error>
-                        </mat-form-field>
+                        </mat-form-field> -->
                         <button type="submit" mat-raised-button id="submitbtn">Save</button>
                     </form>
                 </div>
@@ -74,9 +74,9 @@
                         is employeed at MR/Pitabeddara Secondary School since <span>{{appointmentDatetxt}}</span> onwards.
                     </p>
                     <p>
-                        <span>{{titletxt}}. </span><span>{{nameWithInitialstxt}}</span>'s designation at the moment is <span>{{userTypetxt}}</span><span *ngIf="letterDetailForm.get('userType').value=='Teacher'"> - {{subjecttxt}}</span>.
-                        During <span *ngIf="letterDetailForm.get('title').value==null">his/her</span><span  *ngIf="letterDetailForm.get('title').value=='Ms'||letterDetailForm.get('title').value=='Mrs'">her</span> <span  *ngIf="letterDetailForm.get('title').value=='Mr'">his</span>
-                        tenture with us we finds <span *ngIf="letterDetailForm.get('title').value==null">his/her</span> <span  *ngIf="letterDetailForm.get('title').value=='Ms'||letterDetailForm.get('title').value=='Mrs'">her</span> <span  *ngIf="letterDetailForm.get('title').value=='Mr'">his</span>
+                        <span>{{titletxt}}. </span><span>{{nameWithInitialstxt}}</span>'s designation at the moment is <span>{{userTypetxt}}</span><span *ngIf="userTypetxt=='Teacher'"> - {{subjecttxt}}</span>.
+                        During <span *ngIf="gender==null">his/her</span><span  *ngIf="gender=='Female'">her</span> <span  *ngIf="gender=='Male'">his</span>
+                        tenture with us we finds <span *ngIf="gender==null">his/her</span> <span  *ngIf="gender=='Female'">her</span> <span  *ngIf="gender=='Male'">his</span>
                         sincere, honest and hardworking.
                     </p>
                 </div>
