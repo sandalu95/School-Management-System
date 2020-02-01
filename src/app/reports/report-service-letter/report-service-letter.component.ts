@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { TeacherService } from 'src/app/services/teacher.service';
+import { ClerkService } from 'src/app/services/clerk.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -21,16 +23,12 @@ export class ReportServiceLetterComponent implements OnInit {
   nameWithInitialstxt = '_____';
   userTypetxt = '_____';
   subjecttxt = '_____';
+  gender = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private teacherService: TeacherService, private clerkService: ClerkService) {
     this.letterDetailForm = fb.group({
-      employeeId: [null, Validators.required],
-      fullName: [null, Validators.required],
-      title: [null, Validators.required],
-      schoolAppointedDate: [null, Validators.required],
-      nameWithInitials: [null, Validators.required],
-      userType: [null, Validators.required],
-      subject: [null],
+      employeeId: [null, Validators.required]
+      
     });
    }
 
@@ -78,17 +76,24 @@ export class ReportServiceLetterComponent implements OnInit {
               style: 'name'
             },
             {
-              text: "..............................",
-              style: 'name'
-            },
-            {
-              text: "Principal",
-              style: 'name'
-            },
-            {
-              text: "Date : ..............................",
-              style: 'name'
-            },
+              columns: [
+                {
+                  width: 'auto',
+                  text: "...........................\nDate",
+                  style: 'name'
+                },
+                {
+                  width: 330,
+                  text: " ",
+                  style: 'name'
+                },
+                {
+                  width: 'auto',
+                  text: "................................\nPrincipal signature",
+                  style: 'name'
+                }
+              ],
+            }
             ]
           ]
         },
@@ -120,21 +125,53 @@ export class ReportServiceLetterComponent implements OnInit {
 
   saveDetail(data){
     if (this.letterDetailForm.invalid) return;
-    this.fullNametxt = data.fullName;
-    this.titletxt = data.title;
+
+    // console.log(data.employeeId.charAt(0) == 'T');
     this.employeeIdtxt = data.employeeId;
-    this.appointmentDatetxt = data.schoolAppointedDate.getFullYear() + "-" + (data.schoolAppointedDate.getMonth() + 1) + "-" + data.schoolAppointedDate.getDate();
-    this.nameWithInitialstxt = data.nameWithInitials;
-    this.userTypetxt = data.userType;
-    this.subjecttxt = data.subject;
+    if(data.employeeId.charAt(0) == 'T'){
+      this.teacherService.getTeacherByTeacherId(data.employeeId).subscribe(
+        data => {
+          this.fullNametxt = data.teachers[0].fullname;
+          this.appointmentDatetxt = new Date(data.teachers[0].scladmission).toLocaleDateString();
+          this.subjecttxt = data.teachers[0].subject;
+          this.gender = data.teachers[0].gender;
+          this.nameWithInitialstxt = data.teachers[0].nameinitials;
+          if(this.gender == 'Male'){
+            this.titletxt = 'Mr'
+          }else {
+            this.titletxt = 'Mrs'
+          }
+          this.userTypetxt = "Teacher"
+        },
+        error => {
+          this.handleResponseError(error);
+        }
+      );
+    } else if(data.employeeId.charAt(0) == 'C'){
+      this.clerkService.getClerkByClerkId(data.employeeId).subscribe(
+        data => {
+          this.fullNametxt = data.clerks[0].fullname;
+          this.appointmentDatetxt = new Date(data.clerks[0].scladmission).toLocaleDateString();
+          this.gender = data.clerks[0].gender;
+          this.nameWithInitialstxt = data.clerks[0].nameinitials;
+          if(this.gender == 'Male'){
+            this.titletxt = 'Mr'
+          }else {
+            this.titletxt = 'Mrs'
+          }
+          this.userTypetxt = "Clerk"
+        },
+        error => {
+          this.handleResponseError(error);
+        }
+      );
+    }
   }
 
   getError(texttype) {
     return texttype.hasError("required")
       ? "You must enter a value"
       : texttype.hasError("email")
-      ? "Not a valid email"
-      : "";
   }
 
   handleResponseError(error) {

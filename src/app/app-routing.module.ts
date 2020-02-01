@@ -72,8 +72,6 @@ const routes: Routes = [
       { path: "admin/reports/clerk-data", component: ReportClerkDataComponent },
       { path: "admin/reports/contact-info", component: ReportContactInfoComponent },
       { path: "admin/reports/term-test-result", component: ReportTermtestResultComponent },
-      { path: "admin/reports/student-progress", component: ReportStudentProgressComponent },
-      { path: "admin/reports/character-certificate", component: ReportCharacterCertificateComponent },
       { path: "admin/reports/service-letter", component: ReportServiceLetterComponent },
       { path: "admin/reports/leave-certificate", component: ReportLeaveCertificateComponent },
       { path: "admin/notice", component: NoticeComponent },
@@ -87,6 +85,7 @@ const routes: Routes = [
       { path: "teacher/reports/student-progress", component: ReportStudentProgressComponent },
       { path: "teacher/view-assignment-marks", component: ReportAssignmentMarksComponent },
       { path: "teacher/parents", component: TeacherParentsComponent },
+      { path: "teacher/reports/character-certificate", component: ReportCharacterCertificateComponent },
       {
         path: "teacher/parents/add-parents",
         component: TeacherAddParentsComponent
