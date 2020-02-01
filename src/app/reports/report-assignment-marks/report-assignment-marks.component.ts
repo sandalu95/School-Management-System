@@ -37,16 +37,11 @@ export class ReportAssignmentMarksComponent implements OnInit {
   }
 
   viewAssignment(data) {
-    this.studentMarksList=[
-      {
-        nameinitials:'S.Kalpanee',
-        marks:'A'
-      },
-      {
-        nameinitials:'I.Rathnayake',
-        marks:'A'
-      },
-  ]
+    this.markService.getAssignmentMarks(data.assignmentName, data.subject, data.class, data.grade).subscribe(
+      data => {
+        this.studentMarksList = data.assignmentMarks.marks;
+      }
+    )
   }
 
   getError(texttype) {

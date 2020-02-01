@@ -51,9 +51,12 @@ export class LeaveService {
   }
 
   public getLeavesByUserId(): Observable<GetLeavesResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    console.log(user);
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
     const options = {
-      params: new HttpParams().set("userId", this.user.userId),
-      headers: this.headers
+      params: new HttpParams().set("userId", user.userId),
+      headers: headers
     };
 
     return this.http.get<GetLeavesResponse>(`${this.apiUrl}/byuserid`, options);
