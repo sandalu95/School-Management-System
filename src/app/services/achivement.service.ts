@@ -15,14 +15,14 @@ export class AchivementService {
   apiUrl: string = "https://sms-web-service.herokuapp.com/api/achivements";
   // apiUrl: string = "http://localhost:3000/api/achivements";
 
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
-
   constructor(private http: HttpClient) {}
 
   public addAchivements(
     achivement: AddAchivementRequest
   ): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const addAchivement = new AddAchivementRequest();
     addAchivement.studentId = achivement.studentId;
     if (achivement.extraCuricular != null) {
@@ -48,20 +48,26 @@ export class AchivementService {
     }
 
     return this.http.post<CommonResponse>(this.apiUrl, addAchivement, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getAchivementByUserId(): Observable<GetAchivementResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetAchivementResponse>(`${this.apiUrl}/byuserid`, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getAchivementByAddmissionNumber(addmissionNumber: string): Observable<GetAchivementResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
       params: new HttpParams().set("addmissionNumber", addmissionNumber),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.get<GetAchivementResponse>(`${this.apiUrl}/byaddmissionnumber`, options);

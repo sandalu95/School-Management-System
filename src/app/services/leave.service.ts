@@ -10,16 +10,15 @@ import { GetLeaveCountResponse } from "../models/response/getLeavesCountResponse
   providedIn: "root"
 })
 export class LeaveService {
-  // apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
-  apiUrl: string = "http://localhost:3000/api/leaves";
-
-
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
+  apiUrl: string = "https://sms-web-service.herokuapp.com/api/leaves";
+  // apiUrl: string = "http://localhost:3000/api/leaves";
 
   constructor(private http: HttpClient) {}
 
   public requestLeaves(leave: Leave): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     if (leave.assignedWork) {
       fd.append("notes", leave.assignedWork, leave.assignedWork.name);
@@ -32,11 +31,14 @@ export class LeaveService {
     fd.append("reason", leave.reason);
 
     return this.http.post<CommonResponse>(this.apiUrl, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public requestLeavesClerk(leave: Leave): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     fd.append("commencedDate", leave.commencedDate.toString());
     fd.append("assumedDate", leave.assumedDate.toString());
@@ -46,32 +48,41 @@ export class LeaveService {
     fd.append("reason", leave.reason);
 
     return this.http.post<CommonResponse>(`${this.apiUrl}/clerk`, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getLeavesByUserId(): Observable<GetLeavesResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
-      params: new HttpParams().set("userId", this.user.userId),
-      headers: this.headers
+      params: new HttpParams().set("userId", user.userId),
+      headers: headers
     };
 
     return this.http.get<GetLeavesResponse>(`${this.apiUrl}/byuserid`, options);
   }
 
   public deleteLeave(leaveId: string): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
       params: new HttpParams().set("leaveId", leaveId),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.delete<CommonResponse>(this.apiUrl, options);
   }
 
   public getLeavesCount(): Observable<GetLeaveCountResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
-      params: new HttpParams().set("userId", this.user.userId),
-      headers: this.headers
+      params: new HttpParams().set("userId", user.userId),
+      headers: headers
     };
     return this.http.get<GetLeaveCountResponse>(
       `${this.apiUrl}/count`,
@@ -80,8 +91,11 @@ export class LeaveService {
   }
 
   public getPendingLeaves(): Observable<GetLeavesResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
-      headers: this.headers
+      headers: headers
     };
     return this.http.get<GetLeavesResponse>(
       `${this.apiUrl}/pending`,
@@ -90,19 +104,25 @@ export class LeaveService {
   }
 
   public approveLeave(leaveId: string): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     fd.append("leaveId", leaveId);
     return this.http.patch<CommonResponse>(`${this.apiUrl}/approve`, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public rejectLeave(leaveId: string): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     fd.append("leaveId", leaveId);
 
     return this.http.patch<CommonResponse>(`${this.apiUrl}/reject`, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 }

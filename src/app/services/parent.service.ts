@@ -11,8 +11,6 @@ import { CommonResponse } from "../models/response/commonResponse";
 export class ParentService {
   apiURL: string = "https://sms-web-service.herokuapp.com/api/user/parent";
   // apiURL: string = "http://localhost:3000/api/user/parent";
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   private parentSource = new BehaviorSubject<Parent>(null);
   currentParent = this.parentSource.asObservable();
@@ -24,8 +22,11 @@ export class ParentService {
   }
 
   public getAllParents(): Observable<GetParentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetParentResponse>(this.apiURL, {
-      headers: this.headers
+      headers: headers
     });
   }
 
@@ -33,6 +34,9 @@ export class ParentService {
     parentId: string,
     parent: Parent
   ): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     fd.append("full_name", parent.fullname);
     fd.append("name_with_initial", parent.nameinitials);
@@ -43,7 +47,7 @@ export class ParentService {
     fd.append("contact_number", parent.contact);
 
     return this.http.patch<CommonResponse>(this.apiURL + `/${parentId}`, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 
@@ -52,14 +56,20 @@ export class ParentService {
   }
 
   public deleteParent(parentId: string): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.delete<CommonResponse>(this.apiURL + `/${parentId}`, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getParentByUserId(): Observable<GetParentResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetParentResponse>(`${this.apiURL}/get/byuserid`, {
-      headers: this.headers
+      headers: headers
     });
   }
 }

@@ -12,8 +12,6 @@ import { CommonResponse } from "../models/response/commonResponse";
 export class ClerkService {
   apiURL: string = "https://sms-web-service.herokuapp.com/api/user/clerk";
   // apiURL: string = "http://localhost:3000/api/user/clerk";
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   private clerkSource = new BehaviorSubject<Clerk>(null);
   currentClerk = this.clerkSource.asObservable();
@@ -88,18 +86,24 @@ export class ClerkService {
   }
 
   public getClerkByUserId(): Observable<GetClerkResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetClerkResponse>(
-      `${this.apiURL}/${this.user.userId}`,
+      `${this.apiURL}/${user.userId}`,
       {
-        headers: this.headers
+        headers: headers
       }
     );
   }
 
   public getClerkByClerkId(clerkId: string): Observable<GetClerkResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
       params: new HttpParams().set("clerkId", clerkId),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.get<GetClerkResponse>(`${this.apiURL}/byclerkid/byclerkid`, options);

@@ -13,20 +13,24 @@ export class SalaryService {
   apiURL: string = "https://sms-web-service.herokuapp.com/api/salary";
   apiURLGetUsers: string =
     "https://sms-web-service.herokuapp.com/api/user/user";
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   constructor(private http: HttpClient) {}
 
   public addSalary(salary: Salary): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.post<CommonResponse>(this.apiURL, salary, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getUsers(): Observable<GetUsersResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetUsersResponse>(this.apiURLGetUsers, {
-      headers: this.headers
+      headers: headers
     });
   }
 
@@ -34,13 +38,16 @@ export class SalaryService {
     year: string,
     month: string
   ): Observable<GetSalaryResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     let params = new HttpParams();
     params = params.append("year", year);
     params = params.append("month", month);
 
     const options = {
       params: params,
-      headers: this.headers
+      headers: headers
     };
     return this.http.get<GetSalaryResponse>(`${this.apiURL}/byuser`, options);
   }

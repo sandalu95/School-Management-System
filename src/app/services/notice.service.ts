@@ -12,9 +12,6 @@ export class NoticeService {
   apiUrl: string = "https://sms-web-service.herokuapp.com/api/notice";
   // apiUrl: string = "http://localhost:3000/api/notice";
 
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
-
   private noticeSource = new BehaviorSubject<Notice>(null);
   currentNotice = this.noticeSource.asObservable();
 
@@ -25,14 +22,20 @@ export class NoticeService {
   }
 
   public createNotice(notice: Notice): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+    
     return this.http.post<CommonResponse>(this.apiUrl, notice, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getAllNotices(): Observable<GetNoticesResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     return this.http.get<GetNoticesResponse>(this.apiUrl, {
-      headers: this.headers
+      headers: headers
     });
   }
 }

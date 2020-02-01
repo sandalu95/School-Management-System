@@ -14,9 +14,6 @@ export class TeacherService {
   apiURL: string = "https://sms-web-service.herokuapp.com/api/user/teacher";
   // apiURL: string = "http://localhost:3000/api/user/teacher";
 
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
-
   private teacherSource = new BehaviorSubject<Teacher>(null);
   currentTeacher = this.teacherSource.asObservable();
 
@@ -108,9 +105,11 @@ export class TeacherService {
   }
 
   public getTeacherByTeacherId(teacherId: string): Observable<GetTeacherResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
     const options = {
       params: new HttpParams().set("teacherid", teacherId),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.get<GetTeacherResponse>(`${this.apiURL}/byteacherId/byteacherId`, options);

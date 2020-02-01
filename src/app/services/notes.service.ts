@@ -11,12 +11,13 @@ import { GetNotesResponse } from "../models/response/getNotesResponse";
 })
 export class NotesService {
   apiUrl: string = "https://sms-web-service.herokuapp.com/api/notes";
-  user = JSON.parse(localStorage.getItem("httpCache"));
-  headers = new HttpHeaders({ Authorization: `Bearer ${this.user.token}` });
 
   constructor(private http: HttpClient) {}
 
   public addNotes(note: Note): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const fd = new FormData();
     if (note.notes) {
       fd.append("notes", note.notes, note.notes.name);
@@ -28,14 +29,17 @@ export class NotesService {
     fd.append("userId", note.userId);
 
     return this.http.post<CommonResponse>(this.apiUrl, fd, {
-      headers: this.headers
+      headers: headers
     });
   }
 
   public getNotesByTeacherId(): Observable<GetNotesResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
-      params: new HttpParams().set("teacherId", this.user.userId),
-      headers: this.headers
+      params: new HttpParams().set("teacherId", user.userId),
+      headers: headers
     };
 
     return this.http.get<GetNotesResponse>(
@@ -45,15 +49,21 @@ export class NotesService {
   }
 
   public deleteNotes(noteId: string): Observable<CommonResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     const options = {
       params: new HttpParams().set("noteId", noteId),
-      headers: this.headers
+      headers: headers
     };
 
     return this.http.delete<CommonResponse>(this.apiUrl, options);
   }
 
   public getNotes(data): Observable<GetNotesResponse> {
+    const user = JSON.parse(localStorage.getItem("httpCache"));
+    const headers = new HttpHeaders({ Authorization: `Bearer ${user.token}` });
+
     let params = new HttpParams();
     params = params.append("grade", data.grade);
     params = params.append("class", data.class);
@@ -61,7 +71,7 @@ export class NotesService {
 
     const options = {
       params: params,
-      headers: this.headers
+      headers: headers
     };
     return this.http.get<GetNotesResponse>(`${this.apiUrl}/bygrade`, options);
   }

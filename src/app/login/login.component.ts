@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
           title: "Great!",
           text: data.message
         }).then(result => {
-          localStorage[CACHE_KEY] = JSON.stringify(data);
+          // localStorage[CACHE_KEY] = JSON.stringify(data);
+          localStorage.setItem(CACHE_KEY, JSON.stringify(data));
           const user = JSON.parse(localStorage.getItem("httpCache"));
           if(user.userType=='Admin'){
             this.router.navigate(["./home/admin"], {});
