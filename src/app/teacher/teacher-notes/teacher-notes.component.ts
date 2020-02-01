@@ -57,7 +57,6 @@ export class TeacherNotesComponent implements OnInit {
 
     this.notesService.addNotes(note).subscribe(
       data => {
-        this.notesForm.reset();
         Swal.hideLoading();
         Swal.fire({
           icon: "success",
@@ -81,15 +80,16 @@ export class TeacherNotesComponent implements OnInit {
   }
 
   download(note) {
-    const fileName = `${Date.now()}${note.subject}-${note.grade}-${note.class}`;
-    this.http
-      .get(note.notes, {
-        observe: "response",
-        responseType: "blob"
-      })
-      .subscribe(res => {
-        this._FileSaverService.save(res.body, fileName);
-      });
+    // const fileName = `${Date.now()}${note.subject}-${note.grade}-${note.class}`;
+    // this.http
+    //   .get(note.notes, {
+    //     observe: "response",
+    //     responseType: "blob"
+    //   })
+    //   .subscribe(res => {
+    //     this._FileSaverService.save(res.body, fileName);
+    //   });
+    window.open(note.notes);
     return;
   }
 
